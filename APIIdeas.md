@@ -4,7 +4,6 @@
 
 - addContact#username
 - removeContact#username
-- openChat#username 
 
 ## Receive
 

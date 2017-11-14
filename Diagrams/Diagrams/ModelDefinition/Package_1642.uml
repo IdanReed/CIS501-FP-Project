@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="6c4cc850-38d5-416a-885e-98a804635eba"
+  name="Core" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="e6d0a599-70d3-4eec-b3ab-b311310d4a80">
+      <body>I was thinking what we would have an interface that both the client and server accounts inherited so we made sure we had the same data</body>
+      <annotatedElements>
+        <interfaceMoniker
+          Id="04b0ac2f-115c-488c-a3fb-22ed9b4a1cdd"
+          LastKnownName="IAccount"
+          LastKnownLocation="Package_1642.uml" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="bb8571f8-89a7-4a42-9809-0af258e30a86"
+        name="string" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="adca4fed-d891-461b-9698-cc2ed18c2629"
+        name="bool" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="25943c1f-9cd9-48cf-a1e9-83b518cf4f9f"
+        LastKnownName="Events"
+        LastKnownLocation="Package_1659.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="04b0ac2f-115c-488c-a3fb-22ed9b4a1cdd"
+        name="IAccount"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="9eb0fa8e-c35b-4c59-a256-c3699a4de689"
+            name="GetContacts"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="039db1d0-74cb-44b7-a3b1-75f152f795ea"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="44c84b19-f4cb-4cc4-a578-7ba877eee01b"
+                      LastKnownName="List&lt;IAccount&gt;"
+                      LastKnownLocation="Package_1642.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4d88baae-1e4c-4e10-bd15-df2a1ded8795"
+            name="GetUsername"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="bfaf389d-ee3c-49db-9fa1-27cec7f3d343"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="bb8571f8-89a7-4a42-9809-0af258e30a86"
+                      LastKnownName="string"
+                      LastKnownLocation="Package_1642.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="994e288e-da7f-49fc-96c2-492a4f8d7093"
+            name="GetOnlineContacts"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3a180aad-253f-44e5-b977-38a4bfe0e499"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="44c84b19-f4cb-4cc4-a578-7ba877eee01b"
+                      LastKnownName="List&lt;IAccount&gt;"
+                      LastKnownLocation="Package_1642.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="44c84b19-f4cb-4cc4-a578-7ba877eee01b"
+        name="List&lt;IAccount&gt;" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="25943c1f-9cd9-48cf-a1e9-83b518cf4f9f"
+  name="Events" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="14e36665-45eb-4306-8b29-dc4bc4231b3a">
+      <body>All the events in the SentFromClient and SentFromServer packages implement IEvent. This just made it cleaner
+</body>
+      <annotatedElements>
+        <interfaceMoniker
+          Id="676e1a63-9a3a-4c59-8c78-7b541e93319c"
+          LastKnownName="IEvent"
+          LastKnownLocation="Package_1659.uml" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="676e1a63-9a3a-4c59-8c78-7b541e93319c"
+        name="IEvent"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="7abd0da5-6470-459f-87df-52dd7f8465bb"
+        LastKnownName="SentFromClient"
+        LastKnownLocation="Package_1738.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="d72e3d2a-fd56-494f-8879-4f64e12a0428"
+        LastKnownName="SentFromServer"
+        LastKnownLocation="Package_1741.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="52118b86-5f65-41bf-8388-877326ae2895"
+        name="Message"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="7d4dccd3-85a2-4b48-9dbf-5f7733470ecf"
+            name="text"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="bb8571f8-89a7-4a42-9809-0af258e30a86"
+                LastKnownName="string"
+                LastKnownLocation="Package_1642.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="5ba6816c-8b79-4ac1-885b-24bd825e9eb5"
+            name="roomID"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="77d08638-6875-45ee-b1e9-0316ef7dd5d8"
+                LastKnownName="int"
+                LastKnownLocation="Package1_1642.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="3fe6d8c7-cb32-4e08-997a-b1b5e4f014ef"
+            name="timestamp"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="bb8571f8-89a7-4a42-9809-0af258e30a86"
+                LastKnownName="string"
+                LastKnownLocation="Package_1642.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="5e81b7d2-a7ed-4bd1-8f0a-639b81209a97"
+            name="username"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="bb8571f8-89a7-4a42-9809-0af258e30a86"
+                LastKnownName="string"
+                LastKnownLocation="Package_1642.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
