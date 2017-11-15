@@ -309,5 +309,105 @@
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="e23f89f0-a3bd-44ea-ad60-846e2b7f12cb"
+        name="ClientViewForm"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="cb89555f-38ab-4275-b09f-6b3433553cc4"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a889399b-aa25-4a24-96c1-987095aa2d7d"
+              LastKnownName="ClientController"
+              LastKnownLocation="Package2_1642.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="51c50c5e-3caa-4f0d-8cd5-0fc0ead46709"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9462ae26-a294-43e0-8bab-b4a57241e00c"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="57c4462f-6a49-4caf-8c9e-e76e2e41cde9"
+            name="_controller"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <classMoniker
+                Id="a889399b-aa25-4a24-96c1-987095aa2d7d"
+                LastKnownName="ClientController"
+                LastKnownLocation="Package2_1642.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="aa900cb0-a396-4c67-8e97-89f6f6db626e"
+            name="Update"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b3cdca0f-021a-4ac0-aaee-2e668d9df502"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="e6a02e2c-602c-4865-b58e-7dcb44428826"
+                      LastKnownName="void"
+                      LastKnownLocation="Package2_1642.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="e6a02e2c-602c-4865-b58e-7dcb44428826"
+        name="void" />
+    </packageHasNamedElement>
   </packagedElements>
 </package>

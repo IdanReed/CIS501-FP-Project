@@ -8,14 +8,6 @@
         <interfaceMoniker Id="bb0d117c-9a21-44dc-8d54-8420c5fc2685" LastKnownName="IAccount" />
       </annotatedElements>
     </comment>
-    <comment Id="5c228199-a3f0-4268-88bb-1825f2427a5b">
-      <elementDefinition Id="14e36665-45eb-4306-8b29-dc4bc4231b3a" />
-      <body>All the events in the SentFromClient and SentFromServer packages implement IEvent. This just made it cleaner
-</body>
-      <annotatedElements>
-        <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
-      </annotatedElements>
-    </comment>
   </ownedCommentsInternal>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
@@ -24,6 +16,16 @@
         <packagedElements>
           <packageHasNamedElement>
             <package Id="5206f3a6-4120-4da8-a89d-c558b3aa6899" name="Events">
+              <ownedCommentsInternal>
+                <comment Id="5c228199-a3f0-4268-88bb-1825f2427a5b">
+                  <elementDefinition Id="14e36665-45eb-4306-8b29-dc4bc4231b3a" />
+                  <body>All the events in the SentFromClient and SentFromServer packages implement IEvent. This just made it cleaner
+</body>
+                  <annotatedElements>
+                    <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
+                  </annotatedElements>
+                </comment>
+              </ownedCommentsInternal>
               <elementDefinition Id="25943c1f-9cd9-48cf-a1e9-83b518cf4f9f" />
               <packagedElements>
                 <packageHasNamedElement>
@@ -725,6 +727,52 @@
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="f5223715-a5a1-4004-9f73-364bbb49f310" name="ClientViewForm" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="e23f89f0-a3bd-44ea-ad60-846e2b7f12cb" />
+              <targetEnds>
+                <association Id="5b288f54-3a8f-406a-a8cc-1fd042d5cc62" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="2aac4097-dc75-479a-92f2-61f522ed86c4" LastKnownName="ClientController" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="fbc61648-ddd1-4267-92c0-19e1fc5d34e5" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="51c50c5e-3caa-4f0d-8cd5-0fc0ead46709" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e76b66b9-e469-40f5-8e8a-c488d25e409f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="9462ae26-a294-43e0-8bab-b4a57241e00c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="cb89555f-38ab-4275-b09f-6b3433553cc4" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="409cbf4a-0fb8-4320-831b-cf9dcc9dbbcc" name="_controller" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="57c4462f-6a49-4caf-8c9e-e76e2e41cde9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="76f15f64-d4a6-4ea7-9e0f-5f131d6bd6c6" LastKnownName="ClientController" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+              <ownedOperationsInternal>
+                <operation Id="03a385d2-c807-4b8e-a8c1-fa95c0e372fc" name="Update" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="aa900cb0-a396-4c67-8e97-89f6f6db626e" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="fc20f897-f49e-47aa-ae1e-2c8e60db924f" direction="Return" isUnique="false">
+                        <elementDefinition Id="b3cdca0f-021a-4ac0-aaee-2e668d9df502" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="6fb7523a-c256-4646-ac12-fed7207fa73b" LastKnownName="void" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
@@ -776,6 +824,16 @@
     <packageHasNamedElement>
       <referencedType Id="d0b3c156-33c2-4d1c-a671-4f5ecad70de5" name="ClientAccount" isAbstract="false" isLeaf="false" cachedFullName="Diagrams::Client::ClientAccount">
         <elementDefinition Id="ea93674d-4556-443b-938d-7e46438b2afe" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="76f15f64-d4a6-4ea7-9e0f-5f131d6bd6c6" name="ClientController" isAbstract="false" isLeaf="false" cachedFullName="Diagrams::Client::ClientController">
+        <elementDefinition Id="a889399b-aa25-4a24-96c1-987095aa2d7d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6fb7523a-c256-4646-ac12-fed7207fa73b" name="void" isAbstract="false" isLeaf="false" cachedFullName="void">
+        <elementDefinition Id="e6a02e2c-602c-4865-b58e-7dcb44428826" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
