@@ -78,6 +78,25 @@
                 LastKnownLocation="Package1_1642.uml" />
             </type_NamedElement>
           </property>
+          <property
+            Id="0256766f-55f6-4c3c-8c29-8c4ba5a9a54e"
+            name="_isOnline"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="adca4fed-d891-461b-9698-cc2ed18c2629"
+                LastKnownName="bool"
+                LastKnownLocation="Package_1642.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
