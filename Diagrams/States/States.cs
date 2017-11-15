@@ -15,7 +15,7 @@ namespace States
 
         public enum ServerStates
         {
-            idle, createChatroom, removeChatroom, handleLogin, handleAddAccount, handleAddContact
+            idle, createChatroom, removeChatroom, handleLogin, handleAddAccount, handleAddContact, sendData, receiveData
         };
     }
 }
