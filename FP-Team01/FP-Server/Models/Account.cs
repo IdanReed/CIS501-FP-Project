@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FP_Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FP_Server.Models
 {
-    class Account
+    class Account: IAccount
     {
-        private List<Account> _contacts;
+        private List<IAccount> _contacts;
         private bool _isOnline;
         private string _userName;
         private string _password;
@@ -18,9 +19,14 @@ namespace FP_Server.Models
             _userName = username;
             _password = password;
         }
-        public List<Account> Contacts
+        public List<IAccount> Contacts
         {
             get { return _contacts; }
+        }
+
+        public List<IAccount> OnlineContacts
+        {
+            get { return _contacts.FindAll(a => a.IsOnline); }
         }
 
         public bool IsOnline
@@ -28,7 +34,7 @@ namespace FP_Server.Models
             get { return _isOnline; }
         }
 
-        public string UserName
+        public string Username
         {
             get { return _userName; }
         }

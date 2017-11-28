@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FP_Core
+namespace FP_Core.Events
 {
-    public class Class1
+    interface IEvent
     {
     }
 }

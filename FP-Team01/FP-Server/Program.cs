@@ -29,6 +29,7 @@ namespace FP_Server
 
             wss.Start();
 
+
             serverView.LogServerEvent("Server has started", LoggerMessageTypes.Success);
 
             Application.Run(serverView);
