@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FP_Server.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WebSocketSharp.Server;
 
 namespace FP_Server
 {
@@ -16,7 +18,22 @@ namespace FP_Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            var wss = new WebSocketServer(8000);
+
+            ServerView serverView = new ServerView();
+
+            wss.AddWebSocketService("/chatApp", () =>
+            {
+                return new ServerController(serverView.LogServerEvent);
+            });
+
+            wss.Start();
+
+            serverView.LogServerEvent("Server has started", LoggerMessageTypes.Success);
+
+            Application.Run(serverView);
+
+            wss.Stop();
         }
     }
 }

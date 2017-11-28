@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP-Client", "FP-Team01\FP-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP-Server", "FP-Server\FP-Server.csproj", "{0D8EFB9E-FAC5-4C01-A36A-A20F1FF190BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FP-Core", "FP-Core\FP-Core.csproj", "{0657B98E-E08F-430F-ABD2-362A39FC446E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0D8EFB9E-FAC5-4C01-A36A-A20F1FF190BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D8EFB9E-FAC5-4C01-A36A-A20F1FF190BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D8EFB9E-FAC5-4C01-A36A-A20F1FF190BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0657B98E-E08F-430F-ABD2-362A39FC446E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0657B98E-E08F-430F-ABD2-362A39FC446E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0657B98E-E08F-430F-ABD2-362A39FC446E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0657B98E-E08F-430F-ABD2-362A39FC446E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
