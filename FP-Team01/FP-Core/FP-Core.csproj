@@ -47,6 +47,7 @@
     <Compile Include="Events\ServerResponseEventData.cs" />
     <Compile Include="Events\CreateAccountEventData.cs" />
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\SendMessageEventData.cs" />
     <Compile Include="IAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
