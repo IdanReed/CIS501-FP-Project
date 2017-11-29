@@ -8,9 +8,9 @@ namespace FP_Core.Events
 {
     public class LoginLogoutEventData
     {
-        public readonly string Username;
-        public readonly string Password;
-        public readonly EventTypes createEvent;
+        public string Username;
+        public string Password;
+        public EventTypes createEvent;
 
         public LoginLogoutEventData(string u, string p)
         {

@@ -8,9 +8,9 @@ namespace FP_Core.Events
 {
     public class CreateAccountEventData
     {
-        public readonly string Username;
-        public readonly string Password;
-        public readonly EventTypes createEvent;
+        public string Username;
+        public string Password;
+        public EventTypes createEvent;
 
         public CreateAccountEventData(string u, string p)
         {
