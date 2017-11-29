@@ -37,7 +37,6 @@ namespace FP_Team01
                 var mainMenu = new MainMenu();
                 mainMenu.FormClosed += (s, args) => this.Close();
                 mainMenu.Show();
-                
             }
         }
 
@@ -53,7 +52,12 @@ namespace FP_Team01
                 Program.USERNAME = Username;
                 Program.PASSWORD = Password;
                 //Open main menu GUI
-                Application.Run(new MainMenu());
+
+                //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
+                this.Hide();
+                var mainMenu = new MainMenu();
+                mainMenu.FormClosed += (s, args) => this.Close();
+                mainMenu.Show();
             }
         }
     }
