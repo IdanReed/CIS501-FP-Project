@@ -1,4 +1,5 @@
 ﻿using FP_Core.Events;
+using FP_Server.Controller;
 using FP_Server.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,7 +14,7 @@ using WebSocketSharp.Server;
 namespace FP_Server.Controller
 {
     public delegate void Logger(string message, LoggerMessageTypes type);
-    class ServerController: WebSocketBehavior
+    class ServerController 
     {
         private Logger _logger;
 
@@ -26,12 +27,12 @@ namespace FP_Server.Controller
             _logger = logger;
         }
 
-        protected override void OnOpen()
+        public void OnOpen(ServerSocketBehavior sender)
         {
             _logger("A client has connected to the server", LoggerMessageTypes.None);
         }
 
-        protected override void OnMessage(MessageEventArgs e)
+        public void OnMessage(ServerSocketBehavior sender, MessageEventArgs e)
         {
             Event evt = JsonConvert.DeserializeObject<Event>(e.Data);
 
@@ -55,16 +56,13 @@ namespace FP_Server.Controller
 
                             _logger("Client attempted to create an account and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
                         }
-
-                        
-
-                        Sessions.SendTo(ID, JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
             }
         }
 
-        protected override void OnClose(CloseEventArgs e)
+        public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)
         {
             _logger("A client has left the server", LoggerMessageTypes.None);
         }
@@ -75,7 +73,7 @@ namespace FP_Server.Controller
         {
             if (_accounts.Exists(a => a.Username == username)) throw new ArgumentException("That username is already taken");
 
-            _accounts.Add(new Account(username, password)); 
+            _accounts.Add(new Account(username, password));
         } 
         #endregion
 

@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LoggerMessageTypes.cs" />
+    <Compile Include="Controller\ServerSocketBehavior.cs" />
     <Compile Include="Controller\ServerStates.cs" />
     <Compile Include="Controller\ServerController.cs" />
     <Compile Include="ServerView.cs">

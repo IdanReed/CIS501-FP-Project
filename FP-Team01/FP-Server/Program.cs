@@ -25,10 +25,16 @@ namespace FP_Server
             var wss = new WebSocketServer(8001);
 
             ServerView serverView = new ServerView();
+            ServerController controller = new ServerController(serverView.LogServerEvent);
 
             wss.AddWebSocketService("/chatApp", () =>
             {
-                return new ServerController(serverView.LogServerEvent);
+                ServerSocketBehavior behavior = new ServerSocketBehavior();
+                behavior.OnCloseEvent += controller.OnClose;
+                behavior.OnOpenEvent += controller.OnOpen;
+                behavior.OnMessageEvent += controller.OnMessage;
+
+                return behavior;
             });
 
             wss.Start();

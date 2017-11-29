@@ -40,10 +40,12 @@ namespace FP_Server
                     {
                         uxServerLogBox.SelectionColor = Color.Green;
                         uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
-                        uxServerLogBox.AppendText("SUCESS! "); 
+                        uxServerLogBox.AppendText("SUCCESS! "); 
                         uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
                         uxServerLogBox.SelectionColor = Color.Black;
                         uxServerLogBox.AppendText(message + "\n");
+                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
+                        uxServerLogBox.ScrollToCaret();
                         break;
                     }
                 case LoggerMessageTypes.Error:
@@ -54,6 +56,8 @@ namespace FP_Server
                         uxServerLogBox.SelectionColor = Color.Black;
                         uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
                         uxServerLogBox.AppendText(message + "\n");
+                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
+                        uxServerLogBox.ScrollToCaret();
                         break;
                     }
                 case LoggerMessageTypes.UserJoined:
@@ -64,6 +68,8 @@ namespace FP_Server
                         uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
                         uxServerLogBox.SelectionColor = Color.Black;
                         uxServerLogBox.AppendText(" has come online\n");
+                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
+                        uxServerLogBox.ScrollToCaret();
                         break;
                     }
                 default:
