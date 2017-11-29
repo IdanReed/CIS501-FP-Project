@@ -1,6 +1,10 @@
-﻿using FP_Server.Controller;
+﻿using FP_Core.Events;
+using FP_Server.Controller;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,7 +22,7 @@ namespace FP_Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var wss = new WebSocketServer(8000);
+            var wss = new WebSocketServer(8001);
 
             ServerView serverView = new ServerView();
 
@@ -28,8 +32,7 @@ namespace FP_Server
             });
 
             wss.Start();
-
-
+            
             serverView.LogServerEvent("Server has started", LoggerMessageTypes.Success);
 
             Application.Run(serverView);

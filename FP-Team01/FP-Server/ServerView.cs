@@ -20,21 +20,35 @@ namespace FP_Server
 
         public void LogServerEvent(string message, LoggerMessageTypes type)
         {
+
+            //This was required because of an error I was getting where I was trying
+            //to use the ui elements from a different thread.
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => _Logger(message, type)));
+            }
+            else
+            {
+                _Logger(message, type);
+            }
+        }
+        private void _Logger(string message, LoggerMessageTypes type)
+        {
             switch (type)
             {
-                case LoggerMessageTypes.Success: 
+                case LoggerMessageTypes.Success:
                     {
                         uxServerLogBox.ForeColor = Color.Green;
-                        uxServerLogBox.AppendText("SUCESS! "+message+"\n");
+                        uxServerLogBox.AppendText("SUCESS! " + message + "\n");
                         break;
                     }
-                case LoggerMessageTypes.Error: 
+                case LoggerMessageTypes.Error:
                     {
                         uxServerLogBox.ForeColor = Color.Red;
-                        uxServerLogBox.AppendText("ERROR! "+message+"\n");
+                        uxServerLogBox.AppendText("ERROR! " + message + "\n");
                         break;
                     }
-                case LoggerMessageTypes.UserJoined: 
+                case LoggerMessageTypes.UserJoined:
                     {
                         uxServerLogBox.ForeColor = Color.Blue;
                         uxServerLogBox.AppendText(message);
