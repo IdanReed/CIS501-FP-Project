@@ -10,6 +10,7 @@ namespace FP_Server.Controller
     {
         Error,
         Success,
-        UserJoined
+        UserJoined,
+        None
     }
 }

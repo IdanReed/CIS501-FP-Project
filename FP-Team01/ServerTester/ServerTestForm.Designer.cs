@@ -29,27 +29,108 @@
         private void InitializeComponent()
         {
             this.uxCreateAccountButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.uxPassword = new System.Windows.Forms.TextBox();
+            this.uxUsername = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.uxLoginButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // uxCreateAccountButton
             // 
-            this.uxCreateAccountButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.uxCreateAccountButton.Location = new System.Drawing.Point(0, 0);
+            this.uxCreateAccountButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uxCreateAccountButton.Location = new System.Drawing.Point(3, 27);
             this.uxCreateAccountButton.Name = "uxCreateAccountButton";
-            this.uxCreateAccountButton.Size = new System.Drawing.Size(284, 23);
-            this.uxCreateAccountButton.TabIndex = 0;
-            this.uxCreateAccountButton.Text = "Create Account";
+            this.uxCreateAccountButton.Size = new System.Drawing.Size(128, 19);
+            this.uxCreateAccountButton.TabIndex = 3;
+            this.uxCreateAccountButton.Text = "Create";
             this.uxCreateAccountButton.UseVisualStyleBackColor = true;
             this.uxCreateAccountButton.Click += new System.EventHandler(this.uxCreateAccountButton_Click);
             // 
-            // Form1
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 24);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Account";
+            // 
+            // uxPassword
+            // 
+            this.uxPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxPassword.Location = new System.Drawing.Point(137, 27);
+            this.uxPassword.Name = "uxPassword";
+            this.uxPassword.Size = new System.Drawing.Size(128, 20);
+            this.uxPassword.TabIndex = 1;
+            // 
+            // uxUsername
+            // 
+            this.uxUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxUsername.Location = new System.Drawing.Point(137, 3);
+            this.uxUsername.Name = "uxUsername";
+            this.uxUsername.Size = new System.Drawing.Size(128, 20);
+            this.uxUsername.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.uxUsername, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.uxPassword, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.uxCreateAccountButton, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(268, 49);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // uxLoginButton
+            // 
+            this.uxLoginButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.uxLoginButton.Location = new System.Drawing.Point(0, 0);
+            this.uxLoginButton.Name = "uxLoginButton";
+            this.uxLoginButton.Size = new System.Drawing.Size(268, 23);
+            this.uxLoginButton.TabIndex = 3;
+            this.uxLoginButton.Text = "Login";
+            this.uxLoginButton.UseVisualStyleBackColor = true;
+            this.uxLoginButton.Click += new System.EventHandler(this.uxLoginButton_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.uxLoginButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(268, 419);
+            this.panel1.TabIndex = 4;
+            // 
+            // ServerTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 468);
-            this.Controls.Add(this.uxCreateAccountButton);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(268, 468);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Name = "ServerTestForm";
             this.Text = "Form1";
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -57,6 +138,12 @@
         #endregion
 
         private System.Windows.Forms.Button uxCreateAccountButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox uxPassword;
+        private System.Windows.Forms.TextBox uxUsername;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button uxLoginButton;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

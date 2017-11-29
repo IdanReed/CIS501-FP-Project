@@ -8,8 +8,8 @@ namespace FP_Core.Events
 {
     public class ServerResponseEventData
     {
-        public readonly string ErrorMessage;
-        public readonly bool WasSuccessful;
+        public string ErrorMessage;
+        public bool WasSuccessful;
         
         public ServerResponseEventData(string errorMessage)
         {

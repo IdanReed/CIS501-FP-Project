@@ -38,21 +38,31 @@ namespace FP_Server
             {
                 case LoggerMessageTypes.Success:
                     {
-                        uxServerLogBox.ForeColor = Color.Green;
-                        uxServerLogBox.AppendText("SUCESS! " + message + "\n");
+                        uxServerLogBox.SelectionColor = Color.Green;
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
+                        uxServerLogBox.AppendText("SUCESS! "); 
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
+                        uxServerLogBox.SelectionColor = Color.Black;
+                        uxServerLogBox.AppendText(message + "\n");
                         break;
                     }
                 case LoggerMessageTypes.Error:
                     {
-                        uxServerLogBox.ForeColor = Color.Red;
-                        uxServerLogBox.AppendText("ERROR! " + message + "\n");
+                        uxServerLogBox.SelectionColor = Color.Red;
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
+                        uxServerLogBox.AppendText("ERROR! ");
+                        uxServerLogBox.SelectionColor = Color.Black;
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
+                        uxServerLogBox.AppendText(message + "\n");
                         break;
                     }
                 case LoggerMessageTypes.UserJoined:
                     {
-                        uxServerLogBox.ForeColor = Color.Blue;
+                        uxServerLogBox.SelectionColor = Color.Blue;
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
                         uxServerLogBox.AppendText(message);
-                        uxServerLogBox.ForeColor = Color.Black;
+                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
+                        uxServerLogBox.SelectionColor = Color.Black;
                         uxServerLogBox.AppendText(" has come online\n");
                         break;
                     }
