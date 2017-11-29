@@ -34,6 +34,7 @@
             this.uxBtnSend = new System.Windows.Forms.Button();
             this.uxBtnSeeMembers = new System.Windows.Forms.Button();
             this.uxBtnAddContact = new System.Windows.Forms.Button();
+            this.uxBtnSignOut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxLBChatHistory
@@ -91,11 +92,22 @@
             this.uxBtnAddContact.UseVisualStyleBackColor = true;
             this.uxBtnAddContact.Click += new System.EventHandler(this.BtnAddContact_Click);
             // 
+            // uxBtnSignOut
+            // 
+            this.uxBtnSignOut.Location = new System.Drawing.Point(503, 273);
+            this.uxBtnSignOut.Name = "uxBtnSignOut";
+            this.uxBtnSignOut.Size = new System.Drawing.Size(105, 30);
+            this.uxBtnSignOut.TabIndex = 6;
+            this.uxBtnSignOut.Text = "Sign Out";
+            this.uxBtnSignOut.UseVisualStyleBackColor = true;
+            this.uxBtnSignOut.Click += new System.EventHandler(this.BtnSignOut_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 315);
+            this.Controls.Add(this.uxBtnSignOut);
             this.Controls.Add(this.uxBtnAddContact);
             this.Controls.Add(this.uxBtnSeeMembers);
             this.Controls.Add(this.uxBtnSend);
@@ -103,7 +115,7 @@
             this.Controls.Add(this.uxLabelMessage);
             this.Controls.Add(this.uxLBChatHistory);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChatForm";
             this.Text = "Chat Form";
             this.ResumeLayout(false);
@@ -119,5 +131,6 @@
         private System.Windows.Forms.Button uxBtnSend;
         private System.Windows.Forms.Button uxBtnSeeMembers;
         private System.Windows.Forms.Button uxBtnAddContact;
+        private System.Windows.Forms.Button uxBtnSignOut;
     }
 }

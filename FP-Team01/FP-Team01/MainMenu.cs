@@ -39,7 +39,14 @@ namespace FP_Team01
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
+            string contactName = uxLBContacts.SelectedItem.ToString();
+            //Send friend name to server and start chat form
 
+            //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
+            this.Hide();
+            var chat = new ChatForm();
+            chat.FormClosed += (s, args) => this.Close();
+            chat.Show();
         }
     }
 }
