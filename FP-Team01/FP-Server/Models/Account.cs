@@ -32,6 +32,7 @@ namespace FP_Server.Models
         public bool IsOnline
         {
             get { return _isOnline; }
+            set { _isOnline = value;}
         }
 
         public string Username

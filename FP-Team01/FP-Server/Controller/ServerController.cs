@@ -59,6 +59,29 @@ namespace FP_Server.Controller
                         sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
+                case EventTypes.LoginLogoutEvent:
+                    {
+                        LoginLogoutEventData data = evt.GetData<LoginLogoutEventData>();
+
+                        ServerResponseEventData response;
+
+                        try
+                        {
+                            _TryLogin(data.Username, data.Password);
+                            response = new ServerResponseEventData();
+
+                            _logger("Account with username '" + data.Username + "' has successfully logged in", LoggerMessageTypes.None);
+                        }
+                        catch(ArgumentException err)
+                        {
+                            response = new ServerResponseEventData(err.Message);
+
+                            _logger("Client attempted to login with username '"+ data.Username+"' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                        }
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+
+                        break;
+                    }
             }
         }
 
@@ -75,6 +98,18 @@ namespace FP_Server.Controller
 
             _accounts.Add(new Account(username, password));
         } 
+
+        private void _TryLogin(string username, string password)
+        {
+            Account acct = _accounts.Find(a => a.Username == username);
+            if(acct == null) throw new ArgumentException("No account with that username exists. Please create an account before logging in");           
+            if (acct.IsOnline) throw new ArgumentException("User is already logged in");
+            else
+            {
+                acct.IsOnline = true;
+            }
+
+        }
         #endregion
 
     }

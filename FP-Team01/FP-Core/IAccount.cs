@@ -9,7 +9,6 @@ namespace FP_Core
     public interface IAccount
     {
         List<IAccount> Contacts { get; }
-        List<IAccount> OnlineContacts { get; }
         string Username { get; }
 
         bool IsOnline { get; }
