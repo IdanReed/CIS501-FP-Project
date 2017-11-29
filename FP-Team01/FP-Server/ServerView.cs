@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FP_Core.Extensions;
 
 namespace FP_Server
 {
@@ -38,38 +39,23 @@ namespace FP_Server
             {
                 case LoggerMessageTypes.Success:
                     {
-                        uxServerLogBox.SelectionColor = Color.Green;
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
-                        uxServerLogBox.AppendText("SUCCESS! "); 
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
-                        uxServerLogBox.SelectionColor = Color.Black;
-                        uxServerLogBox.AppendText(message + "\n");
-                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
-                        uxServerLogBox.ScrollToCaret();
+                        uxServerLogBox.AppendTextFormatted("SUCCESS! ", FontStyle.Bold, Color.Green)
+                                      .AppendTextFormatted(message, FontStyle.Regular, Color.Black)
+                                      .EndLine();
                         break;
                     }
                 case LoggerMessageTypes.Error:
                     {
-                        uxServerLogBox.SelectionColor = Color.Red;
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
-                        uxServerLogBox.AppendText("ERROR! ");
-                        uxServerLogBox.SelectionColor = Color.Black;
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
-                        uxServerLogBox.AppendText(message + "\n");
-                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
-                        uxServerLogBox.ScrollToCaret();
+                        uxServerLogBox.AppendTextFormatted("ERROR! ", FontStyle.Bold, Color.Red)
+                                      .AppendTextFormatted(message, FontStyle.Regular, Color.Black)
+                                      .EndLine();
                         break;
                     }
                 case LoggerMessageTypes.UserJoined:
                     {
-                        uxServerLogBox.SelectionColor = Color.Blue;
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Bold);
-                        uxServerLogBox.AppendText(message);
-                        uxServerLogBox.SelectionFont = new Font(uxServerLogBox.Font, FontStyle.Regular);
-                        uxServerLogBox.SelectionColor = Color.Black;
-                        uxServerLogBox.AppendText(" has come online\n");
-                        uxServerLogBox.SelectionStart = uxServerLogBox.Text.Length;
-                        uxServerLogBox.ScrollToCaret();
+                        uxServerLogBox.AppendTextFormatted(message, FontStyle.Bold, Color.Blue)
+                                      .AppendTextFormatted(" has come online", FontStyle.Regular, Color.Black)
+                                      .EndLine();
                         break;
                     }
                 default:
@@ -80,4 +66,5 @@ namespace FP_Server
             }
         }
     }
+
 }

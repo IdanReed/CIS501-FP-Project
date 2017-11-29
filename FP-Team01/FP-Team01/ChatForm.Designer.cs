@@ -28,43 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.uxLBChatHistory = new System.Windows.Forms.ListBox();
-            this.uxLabelMessage = new System.Windows.Forms.Label();
             this.uxTBMessage = new System.Windows.Forms.TextBox();
             this.uxBtnSend = new System.Windows.Forms.Button();
             this.uxBtnSeeMembers = new System.Windows.Forms.Button();
             this.uxBtnAddContact = new System.Windows.Forms.Button();
             this.uxBtnSignOut = new System.Windows.Forms.Button();
+            this.uxtxtChat = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // uxLBChatHistory
-            // 
-            this.uxLBChatHistory.FormattingEnabled = true;
-            this.uxLBChatHistory.ItemHeight = 18;
-            this.uxLBChatHistory.Location = new System.Drawing.Point(13, 13);
-            this.uxLBChatHistory.Name = "uxLBChatHistory";
-            this.uxLBChatHistory.Size = new System.Drawing.Size(673, 202);
-            this.uxLBChatHistory.TabIndex = 0;
-            // 
-            // uxLabelMessage
-            // 
-            this.uxLabelMessage.AutoSize = true;
-            this.uxLabelMessage.Location = new System.Drawing.Point(13, 245);
-            this.uxLabelMessage.Name = "uxLabelMessage";
-            this.uxLabelMessage.Size = new System.Drawing.Size(108, 18);
-            this.uxLabelMessage.TabIndex = 1;
-            this.uxLabelMessage.Text = "Your Message:";
             // 
             // uxTBMessage
             // 
-            this.uxTBMessage.Location = new System.Drawing.Point(128, 242);
+            this.uxTBMessage.Location = new System.Drawing.Point(13, 218);
             this.uxTBMessage.Name = "uxTBMessage";
-            this.uxTBMessage.Size = new System.Drawing.Size(461, 24);
+            this.uxTBMessage.Size = new System.Drawing.Size(576, 24);
             this.uxTBMessage.TabIndex = 2;
+            this.uxTBMessage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.uxTBMessage_KeyPress);
             // 
             // uxBtnSend
             // 
-            this.uxBtnSend.Location = new System.Drawing.Point(595, 240);
+            this.uxBtnSend.Location = new System.Drawing.Point(595, 217);
             this.uxBtnSend.Name = "uxBtnSend";
             this.uxBtnSend.Size = new System.Drawing.Size(91, 26);
             this.uxBtnSend.TabIndex = 3;
@@ -102,35 +84,41 @@
             this.uxBtnSignOut.UseVisualStyleBackColor = true;
             this.uxBtnSignOut.Click += new System.EventHandler(this.BtnSignOut_Click);
             // 
+            // uxtxtChat
+            // 
+            this.uxtxtChat.Location = new System.Drawing.Point(13, 12);
+            this.uxtxtChat.Name = "uxtxtChat";
+            this.uxtxtChat.Size = new System.Drawing.Size(673, 199);
+            this.uxtxtChat.TabIndex = 7;
+            this.uxtxtChat.Text = "";
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 315);
+            this.Controls.Add(this.uxtxtChat);
             this.Controls.Add(this.uxBtnSignOut);
             this.Controls.Add(this.uxBtnAddContact);
             this.Controls.Add(this.uxBtnSeeMembers);
             this.Controls.Add(this.uxBtnSend);
             this.Controls.Add(this.uxTBMessage);
-            this.Controls.Add(this.uxLabelMessage);
-            this.Controls.Add(this.uxLBChatHistory);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChatForm";
             this.Text = "Chat Form";
+            this.Load += new System.EventHandler(this.ChatForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox uxLBChatHistory;
-        private System.Windows.Forms.Label uxLabelMessage;
         private System.Windows.Forms.TextBox uxTBMessage;
         private System.Windows.Forms.Button uxBtnSend;
         private System.Windows.Forms.Button uxBtnSeeMembers;
         private System.Windows.Forms.Button uxBtnAddContact;
         private System.Windows.Forms.Button uxBtnSignOut;
+        private System.Windows.Forms.RichTextBox uxtxtChat;
     }
 }
