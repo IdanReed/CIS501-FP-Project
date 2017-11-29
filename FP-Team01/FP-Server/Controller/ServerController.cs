@@ -38,6 +38,7 @@ namespace FP_Server.Controller
 
             switch (evt.Type)
             {
+                #region Account Handlers
                 case EventTypes.CreateAccountEvent:
                     {
                         CreateAccountEventData data = evt.GetData<CreateAccountEventData>();
@@ -82,6 +83,7 @@ namespace FP_Server.Controller
 
                         break;
                     }
+                    #endregion
             }
         }
 
@@ -102,13 +104,11 @@ namespace FP_Server.Controller
         private void _TryLogin(string username, string password)
         {
             Account acct = _accounts.Find(a => a.Username == username);
-            if(acct == null) throw new ArgumentException("No account with that username exists. Please create an account before logging in");           
+            if(acct == null) throw new ArgumentException("No account with that username exists. Please create an account before logging in");
             if (acct.IsOnline) throw new ArgumentException("User is already logged in");
-            else
-            {
-                acct.IsOnline = true;
-            }
+            else if (acct.Password != password) throw new ArgumentException("Username or password is incorrect");
 
+            acct.IsOnline = true;
         }
         #endregion
 

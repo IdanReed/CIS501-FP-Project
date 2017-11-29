@@ -62,7 +62,14 @@ namespace ServerTester
 
         private void uxLoginButton_Click(object sender, EventArgs e)
         {
+            string username = uxUsername.Text;
+            string password = uxPassword.Text;
 
+            LoginLogoutEventData data = new LoginLogoutEventData(username, password);
+
+            Event evt = new Event(data, EventTypes.LoginLogoutEvent);
+
+            _ws.Send(JsonConvert.SerializeObject(evt)); 
         }
     }
 }

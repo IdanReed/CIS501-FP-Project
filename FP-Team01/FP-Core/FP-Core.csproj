@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\LoginLogoutEventData.cs" />
+    <Compile Include="Events\SendMessageEventData.cs" />
     <Compile Include="Events\ServerResponseEventData.cs" />
     <Compile Include="Events\CreateAccountEventData.cs" />
     <Compile Include="Events\Event.cs" />
