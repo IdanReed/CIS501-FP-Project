@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FP_Core.Events;
+using FP_Core.Extensions;
 
 namespace FP_Team01
 {
@@ -69,6 +70,11 @@ namespace FP_Team01
             SendMessageEventData newMessage = new SendMessageEventData(name, msg, localDate, ChatroomIndex);
             Event newEvent = new Event(newMessage, EventTypes.SendMessageEvent);
             Program.networkHandler.SendToServer(newEvent);
+        }
+
+        public void ReceiveMessage(SendMessageEventData messageData)
+        {
+
         }
     }
 }
