@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,23 @@ namespace FP_Core.Events
         SendMessageEvent,
         AddContactEvent,
         RemoveContactEvent,
+        ServerResponse,
     }
     public class Event
     {
         public EventTypes Type { get; set; }
         public object Data { get; set; }
+
+        public Event(object data, EventTypes type)
+        {
+            Data = data;
+            Type = type;
+        }
+
+        public T GetData<T>()
+        {
+            return ((JObject)Data).ToObject<T>();
+        }
     }
 
-    public interface IEventData
-    {
-
-    }
 }
