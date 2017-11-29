@@ -10,7 +10,7 @@ namespace FP_Core.Events
     {
         public string Username;
         public string Password;
-        public EventTypes createEvent;
+        
 
         public CreateAccountEventData(string u, string p)
         {

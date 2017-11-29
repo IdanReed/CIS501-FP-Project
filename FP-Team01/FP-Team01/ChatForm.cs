@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FP_Core.Events;
 
 namespace FP_Team01
 {
     public partial class ChatForm : Form
     {
+        int ChatroomIndex;
         public ChatForm()
         {
             InitializeComponent();
@@ -41,6 +43,32 @@ namespace FP_Team01
             var mainMenu = new MainMenu();
             mainMenu.FormClosed += (s, args) => this.Close();
             mainMenu.Show();
+        }
+
+        private void ChatForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
+        {
+            if (e.KeyChar.Equals(Keys.Enter))
+            {
+                //enter key is down
+                //Activate send event
+                SendMessage(uxTBMessage.Text);
+            }
+        }
+
+
+        private void SendMessage(string msg)
+        {
+            DateTime localDate = DateTime.Now;
+            string name = Program.USERNAME;
+
+            SendMessageEventData newMessage = new SendMessageEventData(name, msg, localDate, ChatroomIndex);
+            Event newEvent = new Event(newMessage, EventTypes.SendMessageEvent);
+            Program.networkHandler.SendToServer(newEvent);
         }
     }
 }
