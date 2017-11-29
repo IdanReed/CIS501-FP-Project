@@ -16,7 +16,7 @@ namespace FP_Core.Events
         {
             Username = u;
             Password = p;
-            createEvent = EventTypes.CreateAccountEvent;
+            //createEvent = EventTypes.CreateAccountEvent;
         }
     }
 }
