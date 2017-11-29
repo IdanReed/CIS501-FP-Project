@@ -87,6 +87,7 @@
             this.uxTBPassword.Name = "uxTBPassword";
             this.uxTBPassword.Size = new System.Drawing.Size(157, 24);
             this.uxTBPassword.TabIndex = 5;
+            this.uxTBPassword.UseSystemPasswordChar = true;
             // 
             // uxBtnCreateAcct
             // 

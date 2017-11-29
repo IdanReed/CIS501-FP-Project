@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FP_Core.Events
 {
-    public class LoginLogoutEventData: IEventData
+    public class LoginLogoutEventData
     {
         public readonly string Username;
         public readonly string Password;
