@@ -23,6 +23,7 @@ namespace FP_Team01
         private void BtnSend_Click(object sender, EventArgs e)
         {
             //Send message to group
+            SendMessage(uxTBMessage.Text);
         }
 
         private void BtnSeeMembers_Click(object sender, EventArgs e)
@@ -74,7 +75,12 @@ namespace FP_Team01
 
         public void ReceiveMessage(SendMessageEventData messageData)
         {
-
+            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, Color.Red)
+                     .AppendTextFormatted(" ", FontStyle.Regular, Color.Black)
+                     .AppendTextFormatted(messageData.Time.ToString(), FontStyle.Italic, Color.Black)
+                     .AppendTextFormatted(" : ", FontStyle.Regular, Color.Black)
+                     .AppendTextFormatted(messageData.Message, FontStyle.Regular, Color.Black)
+                     .EndLine();
         }
     }
 }
