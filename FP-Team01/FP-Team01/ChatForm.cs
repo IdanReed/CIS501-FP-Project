@@ -75,7 +75,7 @@ namespace FP_Team01
 
         public void ReceiveMessage(SendMessageEventData messageData)
         {
-            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, Color.Red)
+            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, GetNameColor(messageData.Username))
                      .AppendTextFormatted(" ", FontStyle.Regular, Color.Black)
                      .AppendTextFormatted(messageData.Time.ToString(), FontStyle.Italic, Color.Black)
                      .AppendTextFormatted(" : ", FontStyle.Regular, Color.Black)
