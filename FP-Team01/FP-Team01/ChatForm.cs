@@ -18,6 +18,15 @@ namespace FP_Team01
         public ChatForm()
         {
             InitializeComponent();
+            NetworkHandler.eObs += ReceiveErrorMessage;
+        }
+
+        private void ReceiveErrorMessage(string GUI, string errMessage)
+        {
+            if (GUI == "Chat")
+            {
+                MessageBox.Show(errMessage);
+            }
         }
 
         private void BtnSend_Click(object sender, EventArgs e)
