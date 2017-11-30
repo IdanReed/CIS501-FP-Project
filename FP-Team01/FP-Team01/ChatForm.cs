@@ -82,5 +82,19 @@ namespace FP_Team01
                      .AppendTextFormatted(messageData.Message, FontStyle.Regular, Color.Black)
                      .EndLine();
         }
+
+        public Color GetNameColor(string name)
+        {
+            int red = (name.Length * 123 + 43 / 3) % 200;
+            int blue = 0;
+            for (int i = 0; i < name.Length; i++)
+            {
+                blue += (int)name[i] * 57;
+            }
+            blue %= 200;
+            int green = (red * 3 + blue * 4 / 3) % 200;
+            Color newColor = Color.FromArgb(red, blue, green);
+            return newColor;
+        }
     }
 }
