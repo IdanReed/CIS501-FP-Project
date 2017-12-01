@@ -17,6 +17,15 @@ namespace FP_Team01
         public LoginForm()
         {
             InitializeComponent();
+            NetworkHandler.eObs += ReceiveErrorMessage;
+        }
+
+        private void ReceiveErrorMessage(string GUI, string errMessage)
+        {
+            if (GUI == "Login")
+            {
+                MessageBox.Show(errMessage);
+            }
         }
 
         private void BtnCreateAcct_Click(object sender, EventArgs e)

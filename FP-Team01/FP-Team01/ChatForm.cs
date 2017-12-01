@@ -18,6 +18,15 @@ namespace FP_Team01
         public ChatForm()
         {
             InitializeComponent();
+            NetworkHandler.eObs += ReceiveErrorMessage;
+        }
+
+        private void ReceiveErrorMessage(string GUI, string errMessage)
+        {
+            if (GUI == "Chat")
+            {
+                MessageBox.Show(errMessage);
+            }
         }
 
         private void BtnSend_Click(object sender, EventArgs e)
@@ -31,14 +40,9 @@ namespace FP_Team01
             //Show message box with current members in the chatroom
         }
 
-        private void BtnAddContact_Click(object sender, EventArgs e)//This really should be an invite friends thing
+        private void BtnAddContact_Click(object sender, EventArgs e)
         {
             //Show message box with place to put name of contact to add and make sure it is a mutual friend
-            
-            Event invitedContact = (Event)uxLbContacts.SelectedItem;
-            //Send request to the server
-            Program.networkHandler.SendToServer(invitedContact);
-
         }
 
         private void BtnSignOut_Click(object sender, EventArgs e)
@@ -54,7 +58,7 @@ namespace FP_Team01
 
         private void ChatForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
@@ -80,7 +84,7 @@ namespace FP_Team01
 
         public void ReceiveMessage(SendMessageEventData messageData)
         {
-            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, Color.Red)
+            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, GetNameColor(messageData.Username))
                      .AppendTextFormatted(" ", FontStyle.Regular, Color.Black)
                      .AppendTextFormatted(messageData.Time.ToString(), FontStyle.Italic, Color.Black)
                      .AppendTextFormatted(" : ", FontStyle.Regular, Color.Black)
@@ -88,9 +92,18 @@ namespace FP_Team01
                      .EndLine();
         }
 
-        public void ReceiveOnlineContacts(List<string> onlineContacts)//Change string to Contact Data type
+        public Color GetNameColor(string name)
         {
-            uxLbContacts.DataSource = onlineContacts;
+            int red = (name.Length * 123 + 43 / 3) % 200;
+            int blue = 0;
+            for (int i = 0; i < name.Length; i++)
+            {
+                blue += (int)name[i] * 57;
+            }
+            blue %= 200;
+            int green = (red * 3 + blue * 4 / 3) % 200;
+            Color newColor = Color.FromArgb(red, blue, green);
+            return newColor;
         }
     }
 }

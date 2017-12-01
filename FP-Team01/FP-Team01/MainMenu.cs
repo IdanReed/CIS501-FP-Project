@@ -18,6 +18,15 @@ namespace FP_Team01
             Username = Program.USERNAME;
             InitializeComponent();
             uxLabelName.Text = "Welcome, " + Username + ".";
+            NetworkHandler.eObs += ReceiveErrorMessage;
+        }
+
+        private void ReceiveErrorMessage(string GUI, string errMessage)
+        {
+            if (GUI == "Main")
+            {
+                MessageBox.Show(errMessage);
+            }
         }
 
         private void BtnAddContact_Click(object sender, EventArgs e)

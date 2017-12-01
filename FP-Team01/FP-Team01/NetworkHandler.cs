@@ -14,7 +14,7 @@ namespace FP_Team01
         public delegate void ErrorObserver(string GUI, string errorMessage);
         private WebSocket ws;
         private EventTypes sentEventType;
-        public event ErrorObserver eObs;
+        public static event ErrorObserver eObs;
         public NetworkHandler()
         {
             //eObs = Broadcast;
@@ -25,7 +25,7 @@ namespace FP_Team01
 
         private void Broadcast(string GUI, string errorMessage)
         {
-            eObs?.Invoke("", "");
+            eObs?.Invoke(GUI, errorMessage);
             //others do eObs += Broadcast;
             //where Broadcast is their method to handle stuff
         }
@@ -48,7 +48,7 @@ namespace FP_Team01
                         {
                             case EventTypes.CreateAccountEvent:
                             {
-                                
+                                Broadcast("login", errMessage);
                                 break;
                             }
                         }
