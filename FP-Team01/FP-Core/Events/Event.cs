@@ -17,6 +17,7 @@ namespace FP_Core.Events
         AddContactEvent,
         RemoveContactEvent,
         ServerResponse,
+        SendContact,
     }
     public class Event
     {

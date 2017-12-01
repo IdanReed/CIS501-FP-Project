@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\JoinChatroomEventData.cs" />
+    <Compile Include="Events\LeaveChatroomEventData.cs" />
     <Compile Include="Events\LoginLogoutEventData.cs" />
+    <Compile Include="Events\SendContactEventData.cs" />
+    <Compile Include="Events\SendMessageEventData.cs" />
     <Compile Include="Events\ServerResponseEventData.cs" />
     <Compile Include="Events\CreateAccountEventData.cs" />
     <Compile Include="Events\Event.cs" />

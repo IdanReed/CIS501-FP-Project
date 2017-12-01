@@ -31,9 +31,14 @@ namespace FP_Team01
             //Show message box with current members in the chatroom
         }
 
-        private void BtnAddContact_Click(object sender, EventArgs e)
+        private void BtnAddContact_Click(object sender, EventArgs e)//This really should be an invite friends thing
         {
             //Show message box with place to put name of contact to add and make sure it is a mutual friend
+            
+            Event invitedContact = (Event)uxLbContacts.SelectedItem;
+            //Send request to the server
+            Program.networkHandler.SendToServer(invitedContact);
+
         }
 
         private void BtnSignOut_Click(object sender, EventArgs e)
@@ -49,7 +54,7 @@ namespace FP_Team01
 
         private void ChatForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
@@ -81,6 +86,11 @@ namespace FP_Team01
                      .AppendTextFormatted(" : ", FontStyle.Regular, Color.Black)
                      .AppendTextFormatted(messageData.Message, FontStyle.Regular, Color.Black)
                      .EndLine();
+        }
+
+        public void ReceiveOnlineContacts(List<string> onlineContacts)//Change string to Contact Data type
+        {
+            uxLbContacts.DataSource = onlineContacts;
         }
     }
 }

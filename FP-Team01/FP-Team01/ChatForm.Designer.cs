@@ -34,6 +34,7 @@
             this.uxBtnAddContact = new System.Windows.Forms.Button();
             this.uxBtnSignOut = new System.Windows.Forms.Button();
             this.uxtxtChat = new System.Windows.Forms.RichTextBox();
+            this.uxLbContacts = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // uxTBMessage
@@ -56,7 +57,7 @@
             // 
             // uxBtnSeeMembers
             // 
-            this.uxBtnSeeMembers.Location = new System.Drawing.Point(128, 273);
+            this.uxBtnSeeMembers.Location = new System.Drawing.Point(13, 248);
             this.uxBtnSeeMembers.Name = "uxBtnSeeMembers";
             this.uxBtnSeeMembers.Size = new System.Drawing.Size(159, 30);
             this.uxBtnSeeMembers.TabIndex = 4;
@@ -66,9 +67,9 @@
             // 
             // uxBtnAddContact
             // 
-            this.uxBtnAddContact.Location = new System.Drawing.Point(323, 273);
+            this.uxBtnAddContact.Location = new System.Drawing.Point(13, 284);
             this.uxBtnAddContact.Name = "uxBtnAddContact";
-            this.uxBtnAddContact.Size = new System.Drawing.Size(146, 30);
+            this.uxBtnAddContact.Size = new System.Drawing.Size(159, 30);
             this.uxBtnAddContact.TabIndex = 5;
             this.uxBtnAddContact.Text = "Add New Contact";
             this.uxBtnAddContact.UseVisualStyleBackColor = true;
@@ -76,9 +77,9 @@
             // 
             // uxBtnSignOut
             // 
-            this.uxBtnSignOut.Location = new System.Drawing.Point(503, 273);
+            this.uxBtnSignOut.Location = new System.Drawing.Point(13, 320);
             this.uxBtnSignOut.Name = "uxBtnSignOut";
-            this.uxBtnSignOut.Size = new System.Drawing.Size(105, 30);
+            this.uxBtnSignOut.Size = new System.Drawing.Size(159, 30);
             this.uxBtnSignOut.TabIndex = 6;
             this.uxBtnSignOut.Text = "Sign Out";
             this.uxBtnSignOut.UseVisualStyleBackColor = true;
@@ -92,11 +93,21 @@
             this.uxtxtChat.TabIndex = 7;
             this.uxtxtChat.Text = "";
             // 
+            // uxLbContacts
+            // 
+            this.uxLbContacts.FormattingEnabled = true;
+            this.uxLbContacts.ItemHeight = 18;
+            this.uxLbContacts.Location = new System.Drawing.Point(453, 248);
+            this.uxLbContacts.Name = "uxLbContacts";
+            this.uxLbContacts.Size = new System.Drawing.Size(233, 112);
+            this.uxLbContacts.TabIndex = 8;
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 315);
+            this.ClientSize = new System.Drawing.Size(698, 376);
+            this.Controls.Add(this.uxLbContacts);
             this.Controls.Add(this.uxtxtChat);
             this.Controls.Add(this.uxBtnSignOut);
             this.Controls.Add(this.uxBtnAddContact);
@@ -120,5 +131,6 @@
         private System.Windows.Forms.Button uxBtnAddContact;
         private System.Windows.Forms.Button uxBtnSignOut;
         private System.Windows.Forms.RichTextBox uxtxtChat;
+        private System.Windows.Forms.ListBox uxLbContacts;
     }
 }
