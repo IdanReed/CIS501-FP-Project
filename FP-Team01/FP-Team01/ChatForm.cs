@@ -19,6 +19,7 @@ namespace FP_Team01
         {
             InitializeComponent();
             NetworkHandler.eObs += ReceiveErrorMessage;
+            NetworkHandler.mObs += ReceiveFromServer;
         }
 
         private void ReceiveErrorMessage(string GUI, string errMessage)
@@ -104,6 +105,11 @@ namespace FP_Team01
             int green = (red * 3 + blue * 4 / 3) % 200;
             Color newColor = Color.FromArgb(red, blue, green);
             return newColor;
+        }
+
+        public void ReceiveFromServer(Event evt)
+        {
+
         }
     }
 }

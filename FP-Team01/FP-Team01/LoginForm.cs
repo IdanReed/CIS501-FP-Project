@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FP_Core.Events;
 
 namespace FP_Team01
 {
@@ -18,6 +19,7 @@ namespace FP_Team01
         {
             InitializeComponent();
             NetworkHandler.eObs += ReceiveErrorMessage;
+            NetworkHandler.mObs += ReceiveFromServer;
         }
 
         private void ReceiveErrorMessage(string GUI, string errMessage)
@@ -68,6 +70,11 @@ namespace FP_Team01
                 mainMenu.FormClosed += (s, args) => this.Close();
                 mainMenu.Show();
             }
+        }
+
+        public void ReceiveFromServer(Event evt)
+        {
+
         }
     }
 }

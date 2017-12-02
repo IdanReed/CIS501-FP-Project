@@ -12,9 +12,13 @@ namespace FP_Team01
     class NetworkHandler
     {
         public delegate void ErrorObserver(string GUI, string errorMessage);
+        public delegate void MessageObserver(Event messageData);
+
         private WebSocket ws;
         private EventTypes sentEventType;
+
         public static event ErrorObserver eObs;
+        public static event MessageObserver mObs;
         public NetworkHandler()
         {
             //eObs = Broadcast;
@@ -23,7 +27,7 @@ namespace FP_Team01
             ws.Connect();
         }
 
-        private void Broadcast(string GUI, string errorMessage)
+        private void BroadcastError(string GUI, string errorMessage)
         {
             eObs?.Invoke(GUI, errorMessage);
             //others do eObs += Broadcast;
@@ -32,6 +36,7 @@ namespace FP_Team01
 
         private void ReceiveFromServer(object sender, MessageEventArgs e)
         {
+            bool sentError = false;
             Event evt = JsonConvert.DeserializeObject<Event>(e.Data);
 
             switch (evt.Type)
@@ -42,19 +47,23 @@ namespace FP_Team01
 
                     if (!response.WasSuccessful)
                     {
-                        //MessageBox.Show(response.ErrorMessage);
+                        sentError = true;
                         string errMessage = response.ErrorMessage;
                         switch (sentEventType)
                         {
                             case EventTypes.CreateAccountEvent:
                             {
-                                Broadcast("login", errMessage);
+                                BroadcastError("login", errMessage);
                                 break;
                             }
                         }
                     }
                     break;
                 }
+            }
+            if (!sentError)
+            {
+                mObs?.Invoke(evt);
             }
         }
 
