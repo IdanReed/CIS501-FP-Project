@@ -10,7 +10,8 @@ namespace FP_Core.Events
     public enum EventTypes
     {
         CreateAccountEvent,
-        LoginLogoutEvent, //Might want to make these 2 separate events so we don't have to send password on logout
+        LoginEvent, //Might want to make these 2 separate events so we don't have to send password on logout
+        LogoutEvent,
         CreateChatEvent,
         LeaveChatEvent,
         SendMessageEvent,

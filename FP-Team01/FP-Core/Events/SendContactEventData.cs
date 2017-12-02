@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FP_Core.Events
 {
-    class SendContactEventData
+    public class SendContactEventData
     {
-        string Username;
+        public string Username;
         
         public SendContactEventData(string name)
         {

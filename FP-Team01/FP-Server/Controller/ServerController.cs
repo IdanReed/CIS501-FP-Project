@@ -1,4 +1,5 @@
-﻿using FP_Core.Events;
+﻿using FP_Core;
+using FP_Core.Events;
 using FP_Server.Controller;
 using FP_Server.Models;
 using Newtonsoft.Json;
@@ -60,15 +61,15 @@ namespace FP_Server.Controller
                         sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
-                case EventTypes.LoginLogoutEvent:
+                case EventTypes.LoginEvent:
                     {
-                        LoginLogoutEventData data = evt.GetData<LoginLogoutEventData>();
+                        LoginEventData data = evt.GetData<LoginEventData>();
 
                         ServerResponseEventData response;
 
                         try
                         {
-                            _TryLogin(data.Username, data.Password);
+                            _TryLogin(data.Username, data.Password, sender);
                             response = new ServerResponseEventData();
 
                             _logger("Account with username '" + data.Username + "' has successfully logged in", LoggerMessageTypes.None);
@@ -81,6 +82,45 @@ namespace FP_Server.Controller
                         }
                         sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
 
+                        break;
+                    }
+                case EventTypes.AddContactEvent:
+                    {
+                        SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                        ServerResponseEventData response;
+
+                        try
+                        {
+                            _AddContact(sender, data.Username);
+
+                            response = new ServerResponseEventData();
+                            _logger("Account has added a contact with username '" + data.Username + "' to their contact list", LoggerMessageTypes.None);
+                        }
+                        catch(ArgumentException err)
+                        {
+                            response = new ServerResponseEventData(err.Message);
+
+                            _logger("Account attempted to add account with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                        }
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+
+                        break;
+                    }
+                case EventTypes.LogoutEvent:
+                    {
+                        LogoutEventData data = evt.GetData<LogoutEventData>();
+
+                        ServerResponseEventData response;
+
+                        try
+                        {
+
+                        }
+                        catch(ArgumentException err)
+                        {
+
+                        }
                         break;
                     }
                     #endregion
@@ -101,7 +141,7 @@ namespace FP_Server.Controller
             _accounts.Add(new Account(username, password));
         } 
 
-        private void _TryLogin(string username, string password)
+        private void _TryLogin(string username, string password, ServerSocketBehavior socket)
         {
             Account acct = _accounts.Find(a => a.Username == username);
             if(acct == null) throw new ArgumentException("No account with that username exists. Please create an account before logging in");
@@ -109,6 +149,50 @@ namespace FP_Server.Controller
             else if (acct.Password != password) throw new ArgumentException("Username or password is incorrect");
 
             acct.IsOnline = true;
+            acct.Socket = socket;
+            _UpdateOnlineContacts(acct);
+        }
+        private void _TryLogout(string username)
+        {
+            Account acct = _accounts.Find(a => a.Username == username);
+
+            if (acct == null) throw new ArgumentException("No account with that username exists. Cannot logout");
+            if (!acct.IsOnline) throw new ArgumentException("User is not logged in, so cannot logout");
+
+            acct.IsOnline = false;
+            
+        }
+
+        private void _UpdateOnlineContacts(Account acct)
+        {
+            List<IAccount> onlineContacts = acct.Contacts.FindAll(a => a.IsOnline);
+
+            SendContactEventData data = new FP_Core.Events.SendContactEventData(acct.Username);
+            Event e = new Event(data, EventTypes.SendContact);
+            string eventString = JsonConvert.SerializeObject(e);
+            foreach(Account onAcct in onlineContacts)
+            {
+                onAcct.Socket.Send(eventString);
+            }
+        }
+
+        private void _AddContact(ServerSocketBehavior sender, string username)
+        {
+            Account senderAcct = _accounts.Find(a => a.Socket == sender);
+
+            if (senderAcct == null) throw new ArgumentException("Could not determine sender! Please try again");
+
+            Account addContact = _accounts.Find(a => a.Username == username);
+
+            if (addContact == null) throw new ArgumentException("No account with username '" + username + "' exists.");
+            if (addContact == senderAcct) throw new ArgumentException("Cannot add yourself as a contact");
+            if (addContact.Contacts.Contains(senderAcct) || senderAcct.Contacts.Contains(addContact)) throw new ArgumentException("User is already a contact");
+
+            senderAcct.Contacts.Add(addContact);
+            addContact.Contacts.Add(senderAcct);
+
+            _UpdateOnlineContacts(senderAcct);
+            _UpdateOnlineContacts(addContact);
         }
         #endregion
 

@@ -43,6 +43,14 @@ namespace ServerTester
                         }
                         break;
                     }
+                case EventTypes.SendContact:
+                    {
+                        SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                        MessageBox.Show(data.Username + " has come online");
+
+                        break;
+                    }
             } 
         }
 
@@ -65,11 +73,30 @@ namespace ServerTester
             string username = uxUsername.Text;
             string password = uxPassword.Text;
 
-            LoginLogoutEventData data = new LoginLogoutEventData(username, password);
+            LoginEventData data = new LoginEventData(username, password);
 
-            Event evt = new Event(data, EventTypes.LoginLogoutEvent);
+            Event evt = new Event(data, EventTypes.LoginEvent);
 
             _ws.Send(JsonConvert.SerializeObject(evt)); 
+        }
+
+        private void uxAddContactButton_Click(object sender, EventArgs e)
+        {
+            string username = uxUsername.Text;
+
+            SendContactEventData data = new SendContactEventData(username);
+
+            Event evt = new Event(data, EventTypes.AddContactEvent);
+
+            _ws.Send(JsonConvert.SerializeObject(evt));
+        }
+
+        private void uxLogoutButton_Click(object sender, EventArgs e)
+        {
+            string username = uxUsername.Text;
+            string password = "";
+
+            LoginEventData data = 
         }
     }
 }

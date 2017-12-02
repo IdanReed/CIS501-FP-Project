@@ -55,7 +55,7 @@ namespace FP_Team01
         {
             Username = uxTBUsername.Text;
             Password = uxTBPassword.Text;
-            FP_Core.Events.LoginLogoutEventData loginEvent = new FP_Core.Events.LoginLogoutEventData(Username, Password);
+            FP_Core.Events.LoginEventData loginEvent = new FP_Core.Events.LoginEventData(Username, Password);
             //Send this to the server?
             bool wasSuccessful = true; //need to get this from the server
             if (wasSuccessful)

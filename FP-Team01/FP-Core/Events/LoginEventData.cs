@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace FP_Core.Events
 {
-    public class LoginLogoutEventData
+    public class LoginEventData
     {
         public string Username;
         public string Password;
-        public EventTypes createEvent;
 
-        public LoginLogoutEventData(string u, string p)
+        public LoginEventData(string u, string p)
         {
             Username = u;
             Password = p;
-            createEvent = EventTypes.LoginLogoutEvent;
         }
     }
 }
