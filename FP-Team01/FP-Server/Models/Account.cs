@@ -33,11 +33,6 @@ namespace FP_Server.Models
             get { return _contacts; }
         }
 
-        public List<IAccount> OnlineContacts
-        {
-            get { return _contacts.FindAll(a => a.IsOnline); }
-        }
-
         public bool IsOnline
         {
             get { return _isOnline; }

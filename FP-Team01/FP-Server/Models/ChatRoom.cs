@@ -14,6 +14,7 @@ namespace FP_Server.Models
         public ChatRoom(int roomID)
         {
             _roomID = roomID;
+            _participants = new List<Account>();
         }
 
         public int RoomID
