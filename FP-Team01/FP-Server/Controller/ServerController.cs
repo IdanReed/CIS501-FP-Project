@@ -115,12 +115,18 @@ namespace FP_Server.Controller
 
                         try
                         {
+                            _TryLogout(data.Username, sender);
 
+                            response = new ServerResponseEventData();
+                            _logger("Account with username '" + data.Username + "' has logged out", LoggerMessageTypes.None);
                         }
                         catch(ArgumentException err)
                         {
+                            response = new ServerResponseEventData(err.Message);
 
+                            _logger("Client attempted to logout with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
                     #endregion
@@ -152,14 +158,26 @@ namespace FP_Server.Controller
             acct.Socket = socket;
             _UpdateOnlineContacts(acct);
         }
-        private void _TryLogout(string username)
+        private void _TryLogout(string username, ServerSocketBehavior socket)
         {
             Account acct = _accounts.Find(a => a.Username == username);
 
             if (acct == null) throw new ArgumentException("No account with that username exists. Cannot logout");
             if (!acct.IsOnline) throw new ArgumentException("User is not logged in, so cannot logout");
+            if (acct.Socket != socket) throw new ArgumentException("User not logging out through the same client they logged in with. No Bueno");
 
             acct.IsOnline = false;
+
+            SendContactEventData offlineData = new SendContactEventData(username);
+            Event e = new Event(offlineData, EventTypes.ContactWentOffline);
+            string eventString = JsonConvert.SerializeObject(e);
+
+            foreach(Account contact in acct.Contacts)
+            {
+                if (contact.IsOnline) {
+                    contact.Socket.Send(eventString);
+                }
+            }
             
         }
 

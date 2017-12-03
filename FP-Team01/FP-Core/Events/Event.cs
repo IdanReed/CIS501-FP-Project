@@ -19,6 +19,7 @@ namespace FP_Core.Events
         RemoveContactEvent,
         ServerResponse,
         SendContact,
+        ContactWentOffline,
     }
     public class Event
     {

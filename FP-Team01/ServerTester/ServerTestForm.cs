@@ -51,6 +51,14 @@ namespace ServerTester
 
                         break;
                     }
+                case EventTypes.ContactWentOffline:
+                    {
+                        SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                        MessageBox.Show(data.Username + " has gone offline");
+
+                        break;
+                    }
             } 
         }
 
@@ -94,9 +102,12 @@ namespace ServerTester
         private void uxLogoutButton_Click(object sender, EventArgs e)
         {
             string username = uxUsername.Text;
-            string password = "";
 
-            LoginEventData data = 
+            LogoutEventData data = new LogoutEventData(username);
+
+            Event evt = new Event(data, EventTypes.LogoutEvent);
+
+            _ws.Send(JsonConvert.SerializeObject(evt));
         }
     }
 }
