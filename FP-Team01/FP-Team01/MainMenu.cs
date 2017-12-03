@@ -55,10 +55,11 @@ namespace FP_Team01
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
-            this.Hide();
+            /*this.Hide();
             var chat = new ChatForm();
             chat.FormClosed += (s, args) => this.Close();
-            chat.Show();
+            chat.Show();*/
+            Program.clientState = Program.ClientStates.inChatroom;
         }
 
         public void ReceiveFromServer(Event evt)
