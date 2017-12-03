@@ -111,6 +111,27 @@ namespace FP_Server.Controller
 
                         break;
                     }
+                case EventTypes.RemoveContactEvent:
+                    {
+                        SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                        ServerResponseEventData response;
+
+                        try
+                        {
+                            _RemoveContact(sender, data.Username);
+
+                            response = new ServerResponseEventData();
+                        }
+                        catch(ArgumentException err)
+                        {
+                            response = new ServerResponseEventData(err.Message);
+
+                            _logger("Client attempted to remove contact with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                        }
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        break;
+                    }
                 case EventTypes.LogoutEvent:
                     {
                         LogoutEventData data = evt.GetData<LogoutEventData>();
@@ -161,8 +182,30 @@ namespace FP_Server.Controller
                         
                         break;
                     }
+
+                case EventTypes.LeaveChatEvent:
+                    {
+
+                        break;
+                    }
+                case EventTypes.SendMessageEvent:
+                    {
+                        SendMessageEventData data = evt.GetData<SendMessageEventData>();
+
+                        try
+                        {
+                            _SendMessageToChatroom(data);
+                        }
+                        catch(ArgumentException err)
+                        {
+                            _logger("Client attempted to send a message to chat room '"+data.ChatRoomIndex+"' and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
+                        }
+
+                        break;
+                    }
+
+                #endregion
             }
-            #endregion
 
             _updater?.Invoke();
         }
@@ -246,6 +289,27 @@ namespace FP_Server.Controller
             _UpdateOnlineContacts(senderAcct);
             _UpdateOnlineContacts(addContact);
         }
+
+        private void _RemoveContact(ServerSocketBehavior sender, string username)
+        {
+            Account senderAcct = _accounts.Find(a => a.Socket == sender);
+
+            if (senderAcct == null) throw new ArgumentException("Could not determine sender! Please login and try again");
+
+            Account removeCont = _accounts.Find(a => a.Username == username);
+
+            if (removeCont == null) throw new ArgumentException("No account with username '" + username + "' exists.");
+            if (removeCont == senderAcct) throw new ArgumentException("Cannot remove yourself as a contact");
+            if (!removeCont.Contacts.Contains(senderAcct) || !senderAcct.Contacts.Contains(removeCont)) throw new ArgumentException("User is not a contact of yours");
+
+            senderAcct.Contacts.Remove(removeCont);
+            removeCont.Contacts.Remove(senderAcct);
+
+            _UpdateOnlineContacts(senderAcct);
+            _UpdateOnlineContacts(removeCont);
+        }
+
+
         #endregion
 
         #region Chat Room Handling
@@ -267,6 +331,22 @@ namespace FP_Server.Controller
 
             room.Participants.Add(acct);
             room.Participants.Add(contact);
+        }
+
+        private void _SendMessageToChatroom(SendMessageEventData data)
+        {
+            ChatRoom room = _rooms.Find(r => r.RoomID == data.ChatRoomIndex);
+            if (room == null) throw new ArgumentException("No chatroom with ID '" + data.ChatRoomIndex + "' exists");
+
+            if (!room.Participants.Exists(a => a.Username == data.Username)) throw new ArgumentException("User with username '" + data.Username + "' is not a part of chatroom '" + data.ChatRoomIndex + "'");
+
+            Event e = new Event(data, EventTypes.SendMessageEvent);
+            string eventString = JsonConvert.SerializeObject(e);
+
+            foreach(Account participant in room.Participants)
+            {
+                participant.Socket.Send(eventString);
+            }
         }
 
 
