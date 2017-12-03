@@ -42,7 +42,6 @@ namespace FP_Team01
             switch (evt.Type)
             {
                 case EventTypes.ServerResponse:
-                {
                     ServerResponseEventData response = evt.GetData<ServerResponseEventData>();
 
                     if (!response.WasSuccessful)
@@ -52,14 +51,27 @@ namespace FP_Team01
                         switch (sentEventType)
                         {
                             case EventTypes.CreateAccountEvent:
-                            {
                                 BroadcastError("login", errMessage);
                                 break;
-                            }
+
+                            case EventTypes.LoginEvent:
+                                BroadcastError("login", errMessage);
+                                break;
+
+                            case EventTypes.AddContactEvent:
+                                BroadcastError("Main", errMessage);
+                                break;
+
+                            case EventTypes.RemoveContactEvent:
+                                BroadcastError("Main", errMessage);
+                                break;
+
+                            case EventTypes.CreateChatEvent:
+                                BroadcastError("Main", errMessage);
+                                break;
                         }
                     }
-                    break;
-                }
+                break;
             }
             if (!sentError)
             {
