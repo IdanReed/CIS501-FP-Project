@@ -46,6 +46,11 @@ namespace FP_Team01
 
                     if (!response.WasSuccessful)
                     {
+                        /*
+                         * I think right here would be the place that we want to be using a state machine.
+                         * You already kinda are by using the sentEventType, but maybe we should make it a more
+                         * explicit type a state variable that can be something like loggingInWait, idle, addContactWait. Stuff like that
+                         */
                         sentError = true;
                         string errMessage = response.ErrorMessage;
                         switch (sentEventType)

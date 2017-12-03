@@ -14,6 +14,7 @@ using WebSocketSharp.Server;
 
 namespace FP_Server.Controller
 {
+    public delegate void Update();
     public delegate void Logger(string message, LoggerMessageTypes type);
     class ServerController 
     {
@@ -21,6 +22,8 @@ namespace FP_Server.Controller
 
         private List<Account> _accounts;
         private List<ChatRoom> _rooms;
+
+        public event Update _updater;
         
         public ServerController(Logger logger)
         {
@@ -40,6 +43,7 @@ namespace FP_Server.Controller
             switch (evt.Type)
             {
                 #region Account Handlers
+
                 case EventTypes.CreateAccountEvent:
                     {
                         CreateAccountEventData data = evt.GetData<CreateAccountEventData>();
@@ -129,8 +133,38 @@ namespace FP_Server.Controller
                         sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
-                    #endregion
+
+                #endregion
+
+                #region Chatroom Handlers
+
+                case EventTypes.CreateChatEvent:
+                    {
+                        JoinChatroomEventData data = evt.GetData<JoinChatroomEventData>();
+
+                        ServerResponseEventData response;
+
+                        try
+                        {
+                            _CreateChatroom(data.Username, sender);
+
+                            response = new ServerResponseEventData();
+                            _logger("Two users have created a chatroom with eachother", LoggerMessageTypes.None);
+                        }
+                        catch(ArgumentException err)
+                        {
+                            response = new ServerResponseEventData(err.Message);
+
+                            _logger("Client attempted to create a chatroom with a contact whose username is '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                        }
+                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        
+                        break;
+                    }
             }
+            #endregion
+
+            _updater?.Invoke();
         }
 
         public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)
@@ -214,5 +248,28 @@ namespace FP_Server.Controller
         }
         #endregion
 
+        #region Chat Room Handling
+
+        private void _CreateChatroom(string username, ServerSocketBehavior sender)
+        {
+            int chatRoomId = _rooms.Count;
+
+            Account acct = _accounts.Find(a => a.Socket == sender);
+            if (acct == null) throw new ArgumentException("Cannot determine sender, please login and try again");
+            if (acct.Username == username) throw new ArgumentException("Cannot create a chatroom with yourself");
+
+            Account contact = _accounts.Find(a => a.Username == username);
+            if (contact == null) throw new ArgumentException("Cannot find account with username '" + username + "' to create a chatroom with");
+            if (!contact.IsOnline) throw new ArgumentException("Contact is not online, cannot create a chat with them unless they're online");
+
+            ChatRoom room = new ChatRoom(chatRoomId);
+            _rooms.Add(room);
+
+            room.Participants.Add(acct);
+            room.Participants.Add(contact);
+        }
+
+
+        #endregion
     }
 }

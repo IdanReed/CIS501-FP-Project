@@ -8,7 +8,7 @@ namespace FP_Core.Events
 {
     public class JoinChatroomEventData
     {
-        string Username;
+        public string Username;
         public JoinChatroomEventData(string name)
         {
             Username = name;
