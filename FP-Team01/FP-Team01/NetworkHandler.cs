@@ -11,6 +11,24 @@ namespace FP_Team01
 {
     class NetworkHandler
     {
+        public enum StateForClientNetwork
+        {
+            Idle,
+            LoginWait, LoginSuccessful, LoginError,
+            CreateAccountWait, CreateAccountSuccessful, CreateAccountError,
+            CreateChatroomWait, CreateChatroomSuccessful, CreateChatroomError,
+            JoinChatroomWait, JoinChatroomSuccessful,
+            AddContactWait, AddContactSuccessful, AddContactError,
+            RemoveContactWait, RemoveContactSuccessful, RemoveContactError,
+            LeaveChatromWait, LeaveChatroomSuccessful,
+            LogoutWait, LogoutSuccessful,
+            SendMessageSend, SendMessageReceive, 
+                //SendMessageSend is send message to server, Receive is get message from server since we use the
+                //same event data for these two operations
+            SendContactReceive, SendContactSend, //Don't know if we actually have a use for SendContactSend
+            ServerResponseReceive,
+        }
+
         public delegate void ErrorObserver(string GUI, string errorMessage);
         public delegate void MessageObserver(Event messageData);
 
