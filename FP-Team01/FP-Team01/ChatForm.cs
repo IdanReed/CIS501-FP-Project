@@ -51,10 +51,11 @@ namespace FP_Team01
             //Send event to server saying logged off and close ChatForm and open MainMenu form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
-            this.Hide();
+            /*this.Hide();
             var mainMenu = new MainMenu();
             mainMenu.FormClosed += (s, args) => this.Close();
-            mainMenu.Show();
+            mainMenu.Show();*/
+            Program.clientState = Program.ClientStates.Idle;
         }
 
         private void ChatForm_Load(object sender, EventArgs e)
