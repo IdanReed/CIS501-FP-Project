@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FP_Server.Models
 {
-    class ChatRoom
+    public class ChatRoom
     {
         private int _roomID;
         private List<Account> _participants;

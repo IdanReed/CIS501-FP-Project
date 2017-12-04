@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FP_Core.Extensions;
+using FP_Server.Models;
 
 namespace FP_Server
 {
@@ -65,6 +66,58 @@ namespace FP_Server
                     }
             }
         }
+        List<Account> accountList = null;
+        List<ChatRoom> roomsList = null;
+        public void Update(List<Account> accountListIn, List<ChatRoom> roomsListIn)
+        {
+            accountList = accountListIn;
+            roomsList = roomsListIn;
+        }
+
+        ServerController controller = null;
+        #region viewUpdate
+        public void userListUpdate()
+        {
+            List<String> nameList = new List<string>();
+            foreach (Account account in accountList)
+            {
+                nameList.Add(account.Username);
+            }
+            uxUsersListbox.DataSource = nameList;
+        }
+        public void userInfoUpdate()
+        {
+            Account selectedAccount = (Account) uxUsersListbox.SelectedItem;
+            //StringBuilder userInfo = new StringBuilder();
+            string isOnline = "no";
+            if (selectedAccount.IsOnline)
+            {
+                isOnline = "yes";
+            }
+            string userInfo = 
+                "User Name: " + selectedAccount.Username + "/n" + 
+                "Password: " + selectedAccount.Password + "/n"
+            ;
+        }
+        public void chatRoomUpdate()
+        {
+            StringBuilder roomBuilder = new StringBuilder();
+
+            foreach(ChatRoom room in roomsList)
+            {
+                StringBuilder participants = new StringBuilder();
+                foreach(Account part in room.Participants)
+                {
+                    participants.Append(part.Username + "/n");
+                }
+                roomBuilder.Append(
+                    "Room ID: " + room.RoomID + "/n" +
+                    "Participants: " + participants.ToString() + "/n"
+
+                );
+            }
+        }
+        #endregion viewUpdate
     }
 
 }

@@ -14,7 +14,7 @@ using WebSocketSharp.Server;
 
 namespace FP_Server.Controller
 {
-    public delegate void Update();
+    public delegate void Update(List<Account> sgf, List<ChatRoom> adf);
     public delegate void Logger(string message, LoggerMessageTypes type);
     class ServerController 
     {

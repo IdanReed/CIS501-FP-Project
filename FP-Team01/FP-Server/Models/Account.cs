@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FP_Server.Models
 {
-    class Account : IAccount
+    public class Account : IAccount
     {
         private List<IAccount> _contacts;
         private bool _isOnline;
