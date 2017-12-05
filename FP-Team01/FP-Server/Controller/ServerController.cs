@@ -53,8 +53,9 @@ namespace FP_Server.Controller
                         try
                         {
                             _CreateAccount(data.Username, data.Password);
-                            response = new ServerResponseEventData();
+                            _TryLogin(data.Username, data.Password, sender);
 
+                            response = new ServerResponseEventData();                         
                             _logger("Account with username '" + data.Username+"' was created", LoggerMessageTypes.Success);
                         }
                         catch(ArgumentException err)
@@ -227,6 +228,7 @@ namespace FP_Server.Controller
             if (_accounts.Exists(a => a.Username == username)) throw new ArgumentException("That username is already taken");
 
             _accounts.Add(new Account(username, password));
+            
         } 
 
         private void _TryLogin(string username, string password, ServerSocketBehavior socket)
