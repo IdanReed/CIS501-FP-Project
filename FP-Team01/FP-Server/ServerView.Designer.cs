@@ -190,6 +190,7 @@
             this.uxUsersListbox.Name = "uxUsersListbox";
             this.uxUsersListbox.Size = new System.Drawing.Size(281, 368);
             this.uxUsersListbox.TabIndex = 1;
+            this.uxUsersListbox.SelectedIndexChanged += new System.EventHandler(this.userInfoUpdate);
             // 
             // ServerView
             // 

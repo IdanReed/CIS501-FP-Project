@@ -48,5 +48,10 @@ namespace FP_Server.Models
         {
             get { return _password; }
         }
+
+        public override string ToString()
+        {
+            return _userName ;
+        }
     }
 }

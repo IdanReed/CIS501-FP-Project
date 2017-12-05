@@ -28,6 +28,7 @@ namespace FP_Server.Controller
         public ServerController(Logger logger)
         {
             _accounts = new List<Account>();
+            _rooms = new List<ChatRoom>();
             _logger = logger;
         }
 
@@ -195,8 +196,10 @@ namespace FP_Server.Controller
                         try
                         {
                             _SendMessageToChatroom(data);
+
+                            _logger("A message was sent to "+data.Username+" at time "+data.Time, LoggerMessageTypes.None);
                         }
-                        catch(ArgumentException err)
+                        catch (ArgumentException err)
                         {
                             _logger("Client attempted to send a message to chat room '"+data.ChatRoomIndex+"' and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
                         }
@@ -208,6 +211,8 @@ namespace FP_Server.Controller
             }
 
             Updater?.Invoke(_accounts, _rooms);
+
+
         }
 
         public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)

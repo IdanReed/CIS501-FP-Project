@@ -36,7 +36,9 @@
             this.uxLoginButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.uxAddContactButton = new System.Windows.Forms.Button();
-            this.uxLogoutButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -114,7 +116,9 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.uxLogoutButton);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.uxAddContactButton);
             this.panel1.Controls.Add(this.uxLoginButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -134,16 +138,37 @@
             this.uxAddContactButton.UseVisualStyleBackColor = true;
             this.uxAddContactButton.Click += new System.EventHandler(this.uxAddContactButton_Click);
             // 
-            // uxLogoutButton
+            // button1
             // 
-            this.uxLogoutButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.uxLogoutButton.Location = new System.Drawing.Point(0, 46);
-            this.uxLogoutButton.Name = "uxLogoutButton";
-            this.uxLogoutButton.Size = new System.Drawing.Size(268, 23);
-            this.uxLogoutButton.TabIndex = 5;
-            this.uxLogoutButton.Text = "Logout";
-            this.uxLogoutButton.UseVisualStyleBackColor = true;
-            this.uxLogoutButton.Click += new System.EventHandler(this.uxLogoutButton_Click);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.Location = new System.Drawing.Point(0, 46);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(268, 26);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Logout";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.Location = new System.Drawing.Point(0, 72);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(268, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Add chat";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.Location = new System.Drawing.Point(0, 95);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(268, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Send Message";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // ServerTestForm
             // 
@@ -171,7 +196,9 @@
         private System.Windows.Forms.Button uxLoginButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button uxAddContactButton;
-        private System.Windows.Forms.Button uxLogoutButton;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
     }
 }
 

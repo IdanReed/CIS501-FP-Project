@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FP_Core.Extensions;
 using FP_Server.Models;
+using FP_Core;
 
 namespace FP_Server
 {
@@ -61,7 +62,11 @@ namespace FP_Server
                     }
                 default:
                     {
-                        uxServerLogBox.AppendText(message + "\n");
+                        if (!uxServerLogBox.IsDisposed)
+                        {
+                            uxServerLogBox.AppendText(message + "\n");
+                        }
+               
                         break;
                     }
             }
@@ -70,54 +75,85 @@ namespace FP_Server
         List<ChatRoom> roomsList = null;
         public void Update(List<Account> accountListIn, List<ChatRoom> roomsListIn)
         {
+            Action a = new Action(() =>
+            {
+                //userInfoUpdate();
+                userListUpdate();
+                chatRoomUpdate();
+            });
             accountList = accountListIn;
             roomsList = roomsListIn;
+
+            if (InvokeRequired)
+            {
+                Invoke(a);
+            }
+            else
+            {
+                a();
+            }
         }
 
         ServerController controller = null;
         #region viewUpdate
         public void userListUpdate()
-        {
-            List<String> nameList = new List<string>();
-            foreach (Account account in accountList)
-            {
-                nameList.Add(account.Username);
-            }
-            uxUsersListbox.DataSource = nameList;
-        }
-        public void userInfoUpdate()
-        {
-            Account selectedAccount = (Account) uxUsersListbox.SelectedItem;
-            //StringBuilder userInfo = new StringBuilder();
-            string isOnline = "no";
-            if (selectedAccount.IsOnline)
-            {
-                isOnline = "yes";
-            }
-            string userInfo = 
-                "User Name: " + selectedAccount.Username + "/n" + 
-                "Password: " + selectedAccount.Password + "/n"
-            ;
+        {         
+            uxUsersListbox.DataSource = accountList.ToList();
         }
         public void chatRoomUpdate()
         {
             StringBuilder roomBuilder = new StringBuilder();
-
-            foreach(ChatRoom room in roomsList)
-            {
-                StringBuilder participants = new StringBuilder();
-                foreach(Account part in room.Participants)
+            if (roomsList != null) { 
+                foreach (ChatRoom room in roomsList)
                 {
-                    participants.Append(part.Username + "/n");
-                }
-                roomBuilder.Append(
-                    "Room ID: " + room.RoomID + "/n" +
-                    "Participants: " + participants.ToString() + "/n"
+                    StringBuilder participants = new StringBuilder();
+                    foreach (Account part in room.Participants)
+                    {
+                        participants.Append(part.Username + "\n");
+                    }
+                    roomBuilder.Append(
+                        "Room ID: " + room.RoomID + "\n" +
+                        "Participants: \n" + participants.ToString() + "\n\n"
 
-                );
+                    );
+
+                }
             }
+            uxChatroomBox.Text = roomBuilder.ToString();
         }
         #endregion viewUpdate
+
+        private void userInfoUpdate(object sender, EventArgs e)
+        {
+            Account selectedAccount = (Account)uxUsersListbox.SelectedItem;
+            if (selectedAccount != null)
+            {
+                //StringBuilder userInfo = new StringBuilder();
+                string isOnline = "no";
+                if (selectedAccount.IsOnline)
+                {
+                    isOnline = "yes";
+                }
+                StringBuilder userInfo = new StringBuilder();
+                userInfo.Append(
+                    "User Name: " + selectedAccount.Username + "\n" +
+                    "Password: " + selectedAccount.Password + "\n" +
+                    "Is online: " + isOnline + "\n" +
+                    "Contacts: " + "\n"
+                );
+
+                foreach(IAccount contact in selectedAccount.Contacts)
+                {
+                    userInfo.Append("\tUser: " + contact.Username + " - Online: " + contact.IsOnline + "\n" );
+                }
+
+                uxUserInfoBox.Text = userInfo.ToString();
+            }
+            else
+            {
+                uxUserInfoBox.Text = "";
+            }
+        }
     }
 
 }
