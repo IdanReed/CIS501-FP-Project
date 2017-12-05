@@ -55,7 +55,7 @@ namespace FP_Team01
             var mainMenu = new MainMenu();
             mainMenu.FormClosed += (s, args) => this.Close();
             mainMenu.Show();*/
-            Program.clientState = Program.ClientStates.Idle;
+            Form_Closing(sender, null);
         }
 
         private void ChatForm_Load(object sender, EventArgs e)
@@ -110,7 +110,13 @@ namespace FP_Team01
 
         public void ReceiveFromServer(Event evt)
         {
+            
+        }
 
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            Program.clientState = Program.ClientStates.Idle;
+            Program.SwitchForm(this);
         }
     }
 }
