@@ -93,7 +93,8 @@ namespace FP_Team01
             LogoutEventData data = new LogoutEventData(Program.USERNAME);
             Event evt = new Event(data, EventTypes.LogoutEvent);
             Program.networkHandler.SendToServer(evt);
-            Program.clientState = Program.ClientStates.notLoggedIn;
+            Program.clientState = Program.ClientStates.exitProgram;
+            MessageBox.Show("Thank you. You are now signed out.");
             Program.SwitchForm(this);
         }
     }
