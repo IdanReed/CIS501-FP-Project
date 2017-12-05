@@ -22,12 +22,9 @@ namespace FP_Team01
             NetworkHandler.mObs += ReceiveFromServer;
         }
 
-        private void ReceiveErrorMessage(string GUI, string errMessage)
+        private void ReceiveErrorMessage(string errMessage)
         {
-            if (GUI == "Chat")
-            {
-                MessageBox.Show(errMessage);
-            }
+            MessageBox.Show(errMessage);
         }
 
         private void BtnSend_Click(object sender, EventArgs e)

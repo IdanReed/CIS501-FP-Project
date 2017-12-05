@@ -23,12 +23,9 @@ namespace FP_Team01
             NetworkHandler.mObs += ReceiveFromServer;
         }
 
-        private void ReceiveErrorMessage(string GUI, string errMessage)
+        private void ReceiveErrorMessage(string errMessage)
         {
-            if (GUI == "Main")
-            {
-                MessageBox.Show(errMessage);
-            }
+            MessageBox.Show(errMessage);
         }
 
         private void BtnAddContact_Click(object sender, EventArgs e)
@@ -46,6 +43,9 @@ namespace FP_Team01
             //Send signout event to server and return to login window, where you can safely close program
             /*this.Close();
             Environment.Exit(0);*/
+            LogoutEventData data = new LogoutEventData(Program.USERNAME);
+            Event evt = new Event(data, EventTypes.LogoutEvent);
+            Program.networkHandler.SendToServer(evt);
             Program.clientState = Program.ClientStates.notLoggedIn;
             Program.SwitchForm(this);
         }

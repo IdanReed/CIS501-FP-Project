@@ -19,6 +19,7 @@ namespace FP_Team01
         public static ClientStates clientState;
         public static Form formToClose;
         public static Form formToOpen;
+        //public static string serverIP;
 
         /// <summary>
         /// The main entry point for the application.
@@ -29,9 +30,8 @@ namespace FP_Team01
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            clientState = ClientStates.Idle;
-            networkHandler = new NetworkHandler();
-            Application.Run(new LoginForm());     
+            clientState = ClientStates.notLoggedIn;
+            Application.Run(new LoginForm());
         }//Wow this is a cool comment
         //man Jarod you right. This is a cool comment.
 
@@ -42,22 +42,25 @@ namespace FP_Team01
             switch (clientState)
             {
                 case ClientStates.inChatroom:
-                    formToClose.Hide();
+                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                    else formToClose.Hide();
                     formToOpen = new ChatForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.Show();
+                    formToOpen.ShowDialog();
                     break;
                 case ClientStates.notLoggedIn:
-                    formToClose.Hide();
+                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                    else formToClose.Hide();
                     formToOpen = new LoginForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.Show();
+                    formToOpen.ShowDialog();
                     break;
                 case ClientStates.Idle:
-                    formToClose.Hide();
+                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                    else formToClose.Hide();
                     formToOpen = new MainMenu();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.Show();
+                    formToOpen.ShowDialog();
                     break;
                 case ClientStates.exitProgram:
                     Environment.Exit(0);
@@ -67,6 +70,11 @@ namespace FP_Team01
             //var mainMenu = new MainMenu();
             //mainMenu.FormClosed += (s, args) => this.Close();
             //mainMenu.Show();
+        }
+
+        public static void CreateNetwork(string IP)
+        {
+            networkHandler = new NetworkHandler(IP);
         }
     }
 }
