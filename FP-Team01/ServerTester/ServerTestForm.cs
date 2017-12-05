@@ -59,6 +59,15 @@ namespace ServerTester
 
                         break;
                     }
+                case EventTypes.SendMessageEvent:
+                    {
+                        SendMessageEventData data = evt.GetData<SendMessageEventData>();
+
+                        MessageBox.Show("You've recieved a message!");
+                        MessageBox.Show(data.Message);
+
+                        break;
+                    }
             } 
         }
 
@@ -106,6 +115,24 @@ namespace ServerTester
             LogoutEventData data = new LogoutEventData(username);
 
             Event evt = new Event(data, EventTypes.LogoutEvent);
+
+            _ws.Send(JsonConvert.SerializeObject(evt));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            JoinChatroomEventData data = new JoinChatroomEventData(uxUsername.Text);
+
+            Event evt = new Event(data, EventTypes.CreateChatEvent);
+
+            _ws.Send(JsonConvert.SerializeObject(evt));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SendMessageEventData data = new SendMessageEventData(uxUsername.Text, "MessageText", DateTime.Now, Convert.ToInt32(uxPassword.Text));
+
+            Event evt = new Event(data, EventTypes.SendMessageEvent);
 
             _ws.Send(JsonConvert.SerializeObject(evt));
         }
