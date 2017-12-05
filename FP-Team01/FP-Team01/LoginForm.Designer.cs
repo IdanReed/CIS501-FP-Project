@@ -35,6 +35,8 @@
             this.uxTBPassword = new System.Windows.Forms.TextBox();
             this.uxBtnCreateAcct = new System.Windows.Forms.Button();
             this.uxBtnLogin = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.uxTxtIp = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // uxLabelUsername
@@ -66,7 +68,7 @@
             // uxLabelPassword
             // 
             this.uxLabelPassword.AutoSize = true;
-            this.uxLabelPassword.Location = new System.Drawing.Point(12, 84);
+            this.uxLabelPassword.Location = new System.Drawing.Point(12, 85);
             this.uxLabelPassword.Name = "uxLabelPassword";
             this.uxLabelPassword.Size = new System.Drawing.Size(79, 18);
             this.uxLabelPassword.TabIndex = 4;
@@ -74,7 +76,7 @@
             // 
             // uxTBPassword
             // 
-            this.uxTBPassword.Location = new System.Drawing.Point(97, 84);
+            this.uxTBPassword.Location = new System.Drawing.Point(97, 85);
             this.uxTBPassword.Name = "uxTBPassword";
             this.uxTBPassword.Size = new System.Drawing.Size(157, 24);
             this.uxTBPassword.TabIndex = 5;
@@ -82,7 +84,7 @@
             // 
             // uxBtnCreateAcct
             // 
-            this.uxBtnCreateAcct.Location = new System.Drawing.Point(12, 192);
+            this.uxBtnCreateAcct.Location = new System.Drawing.Point(12, 177);
             this.uxBtnCreateAcct.Name = "uxBtnCreateAcct";
             this.uxBtnCreateAcct.Size = new System.Drawing.Size(143, 30);
             this.uxBtnCreateAcct.TabIndex = 6;
@@ -92,7 +94,7 @@
             // 
             // uxBtnLogin
             // 
-            this.uxBtnLogin.Location = new System.Drawing.Point(161, 192);
+            this.uxBtnLogin.Location = new System.Drawing.Point(161, 177);
             this.uxBtnLogin.Name = "uxBtnLogin";
             this.uxBtnLogin.Size = new System.Drawing.Size(93, 30);
             this.uxBtnLogin.TabIndex = 7;
@@ -100,11 +102,29 @@
             this.uxBtnLogin.UseVisualStyleBackColor = true;
             this.uxBtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 133);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 18);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Server IP:";
+            // 
+            // uxTxtIp
+            // 
+            this.uxTxtIp.Location = new System.Drawing.Point(97, 133);
+            this.uxTxtIp.Name = "uxTxtIp";
+            this.uxTxtIp.Size = new System.Drawing.Size(157, 24);
+            this.uxTxtIp.TabIndex = 9;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(272, 234);
+            this.ClientSize = new System.Drawing.Size(272, 216);
+            this.Controls.Add(this.uxTxtIp);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.uxBtnLogin);
             this.Controls.Add(this.uxBtnCreateAcct);
             this.Controls.Add(this.uxTBPassword);
@@ -131,6 +151,8 @@
         private System.Windows.Forms.TextBox uxTBPassword;
         private System.Windows.Forms.Button uxBtnCreateAcct;
         private System.Windows.Forms.Button uxBtnLogin;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox uxTxtIp;
     }
 }
 
