@@ -37,6 +37,8 @@ namespace FP_Team01
 
         public static void SwitchForm(Form ToClose)
         {
+            formToClose = null;
+            formToOpen = null;
             formToClose = ToClose;
 
             switch (clientState)

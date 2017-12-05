@@ -44,7 +44,6 @@ namespace FP_Team01
             Username = uxTBUsername.Text;
             Password = uxTBPassword.Text;
             IP = uxTxtIp.Text;
-            //Program.serverIP = IP;
             Program.CreateNetwork(IP);
             FP_Core.Events.LoginEventData loginEvent = new FP_Core.Events.LoginEventData(Username, Password);
             Event toSend = new Event(loginEvent, EventTypes.LoginEvent);
@@ -85,6 +84,11 @@ namespace FP_Team01
             }
             Program.SwitchForm(this);
             // Then assume that X has been clicked and act accordingly.
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

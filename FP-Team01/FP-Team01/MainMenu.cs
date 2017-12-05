@@ -43,11 +43,7 @@ namespace FP_Team01
             //Send signout event to server and return to login window, where you can safely close program
             /*this.Close();
             Environment.Exit(0);*/
-            LogoutEventData data = new LogoutEventData(Program.USERNAME);
-            Event evt = new Event(data, EventTypes.LogoutEvent);
-            Program.networkHandler.SendToServer(evt);
-            Program.clientState = Program.ClientStates.notLoggedIn;
-            Program.SwitchForm(this);
+            Form_Closing(sender, null);
         }
 
         private void BtnStartChat_Click(object sender, EventArgs e)
@@ -94,6 +90,9 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
+            LogoutEventData data = new LogoutEventData(Program.USERNAME);
+            Event evt = new Event(data, EventTypes.LogoutEvent);
+            Program.networkHandler.SendToServer(evt);
             Program.clientState = Program.ClientStates.notLoggedIn;
             Program.SwitchForm(this);
         }
