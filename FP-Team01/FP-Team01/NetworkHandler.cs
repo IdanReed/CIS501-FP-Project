@@ -11,7 +11,7 @@ namespace FP_Team01
 {
     class NetworkHandler
     {
-        public delegate void ErrorObserver(string GUI, string errorMessage);
+        public delegate void ErrorObserver(string errorMessage);
         public delegate void MessageObserver(Event messageData);
 
         private WebSocket ws;
@@ -19,17 +19,18 @@ namespace FP_Team01
 
         public static event ErrorObserver eObs;
         public static event MessageObserver mObs;
-        public NetworkHandler()
+        public NetworkHandler(string IP)
         {
             //eObs = Broadcast;
-            ws = new WebSocket("ws://127.0.0.1:8001/chatApp");
+            string toPass = "ws://" + IP + ":8001/chatApp";
+            ws = new WebSocket(toPass);
             ws.OnMessage += ReceiveFromServer;
             ws.Connect();
         }
 
-        private void BroadcastError(string GUI, string errorMessage)
+        private void BroadcastError(string errorMessage)
         {
-            eObs?.Invoke(GUI, errorMessage);
+            eObs?.Invoke(errorMessage);
             //others do eObs += Broadcast;
             //where Broadcast is their method to handle stuff
         }
@@ -56,23 +57,23 @@ namespace FP_Team01
                         switch (sentEventType)
                         {
                             case EventTypes.CreateAccountEvent:
-                                BroadcastError("login", errMessage);
+                                BroadcastError(errMessage);
                                 break;
 
                             case EventTypes.LoginEvent:
-                                BroadcastError("login", errMessage);
+                                BroadcastError(errMessage);
                                 break;
 
                             case EventTypes.AddContactEvent:
-                                BroadcastError("Main", errMessage);
+                                BroadcastError(errMessage);
                                 break;
 
                             case EventTypes.RemoveContactEvent:
-                                BroadcastError("Main", errMessage);
+                                BroadcastError(errMessage);
                                 break;
 
                             case EventTypes.CreateChatEvent:
-                                BroadcastError("Main", errMessage);
+                                BroadcastError(errMessage);
                                 break;
                         }
                     }
