@@ -44,10 +44,12 @@ namespace FP_Team01
                 //Open main menu GUI
 
                 //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
-                this.Hide();
+                /*this.Hide();
                 var mainMenu = new MainMenu();
                 mainMenu.FormClosed += (s, args) => this.Close();
-                mainMenu.Show();
+                mainMenu.Show();*/
+                Program.clientState = Program.ClientStates.Idle;
+                Program.SwitchForm(this, "Login");
             }
         }
 
@@ -70,6 +72,7 @@ namespace FP_Team01
                 mainMenu.FormClosed += (s, args) => this.Close();
                 mainMenu.Show();*/
                 Program.clientState = Program.ClientStates.Idle;
+                Program.SwitchForm(this, "Login");
             }
         }
 
@@ -81,6 +84,22 @@ namespace FP_Team01
         private void uxLabelWelcome1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            Button b = sender as Button;
+            if (b != null)
+            {
+                Program.clientState = Program.ClientStates.Idle;
+            }
+            // Do something proper to CloseButton.
+            else
+            {
+                Program.clientState = Program.ClientStates.exitProgram;
+            }
+            Program.SwitchForm(this, "Login");
+            // Then assume that X has been clicked and act accordingly.
         }
     }
 }

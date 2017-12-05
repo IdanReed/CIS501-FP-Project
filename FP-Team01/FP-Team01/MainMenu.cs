@@ -47,7 +47,7 @@ namespace FP_Team01
             /*this.Close();
             Environment.Exit(0);*/
             Program.clientState = Program.ClientStates.notLoggedIn;
-            this.Close();
+            Program.SwitchForm(this, "Main");
         }
 
         private void BtnStartChat_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace FP_Team01
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
             Program.clientState = Program.ClientStates.inChatroom;
-            this.Close();
+            
         }
 
         public void ReceiveFromServer(Event evt)
@@ -89,6 +89,12 @@ namespace FP_Team01
         private void uxTxtUsername_MouseUp(object sender, MouseEventArgs e)
         {
             uxTxtUsername.Text = "";
+        }
+
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            Program.clientState = Program.ClientStates.notLoggedIn;
+            Program.SwitchForm(this, "Main");
         }
     }
 }
