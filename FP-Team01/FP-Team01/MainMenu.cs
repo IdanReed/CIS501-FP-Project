@@ -47,6 +47,7 @@ namespace FP_Team01
             /*this.Close();
             Environment.Exit(0);*/
             Program.clientState = Program.ClientStates.notLoggedIn;
+            this.Close();
         }
 
         private void BtnStartChat_Click(object sender, EventArgs e)
@@ -60,11 +61,24 @@ namespace FP_Team01
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
             Program.clientState = Program.ClientStates.inChatroom;
+            this.Close();
         }
 
         public void ReceiveFromServer(Event evt)
         {
 
+        }
+
+        public bool ShowYesNoDialogBox()
+        {
+            //Use this for things like "PersonA wants to be a contact. Add them?"
+            //or "PersonA wants you to join a chatroom. Join?"
+            DialogResult dialogResult = MessageBox.Show("Do you want to do a thing", "501 Chat", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
