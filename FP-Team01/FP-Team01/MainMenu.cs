@@ -80,5 +80,15 @@ namespace FP_Team01
             }
             return false;
         }
+
+        private void uxTxtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uxTxtUsername_MouseUp(object sender, MouseEventArgs e)
+        {
+            uxTxtUsername.Text = "";
+        }
     }
 }

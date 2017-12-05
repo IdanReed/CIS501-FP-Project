@@ -31,7 +31,6 @@
             this.uxLabelUsername = new System.Windows.Forms.Label();
             this.uxTBUsername = new System.Windows.Forms.TextBox();
             this.uxLabelWelcome1 = new System.Windows.Forms.Label();
-            this.uxLabelWelcome2 = new System.Windows.Forms.Label();
             this.uxLabelPassword = new System.Windows.Forms.Label();
             this.uxTBPassword = new System.Windows.Forms.TextBox();
             this.uxBtnCreateAcct = new System.Windows.Forms.Button();
@@ -41,7 +40,7 @@
             // uxLabelUsername
             // 
             this.uxLabelUsername.AutoSize = true;
-            this.uxLabelUsername.Location = new System.Drawing.Point(120, 84);
+            this.uxLabelUsername.Location = new System.Drawing.Point(12, 37);
             this.uxLabelUsername.Name = "uxLabelUsername";
             this.uxLabelUsername.Size = new System.Drawing.Size(52, 18);
             this.uxLabelUsername.TabIndex = 0;
@@ -49,7 +48,7 @@
             // 
             // uxTBUsername
             // 
-            this.uxTBUsername.Location = new System.Drawing.Point(215, 81);
+            this.uxTBUsername.Location = new System.Drawing.Point(97, 37);
             this.uxTBUsername.Name = "uxTBUsername";
             this.uxTBUsername.Size = new System.Drawing.Size(157, 24);
             this.uxTBUsername.TabIndex = 1;
@@ -57,25 +56,17 @@
             // uxLabelWelcome1
             // 
             this.uxLabelWelcome1.AutoSize = true;
-            this.uxLabelWelcome1.Location = new System.Drawing.Point(190, 19);
+            this.uxLabelWelcome1.Location = new System.Drawing.Point(75, 9);
             this.uxLabelWelcome1.Name = "uxLabelWelcome1";
-            this.uxLabelWelcome1.Size = new System.Drawing.Size(198, 18);
+            this.uxLabelWelcome1.Size = new System.Drawing.Size(109, 18);
             this.uxLabelWelcome1.TabIndex = 2;
-            this.uxLabelWelcome1.Text = "Welcome to our final project.";
-            // 
-            // uxLabelWelcome2
-            // 
-            this.uxLabelWelcome2.AutoSize = true;
-            this.uxLabelWelcome2.Location = new System.Drawing.Point(84, 47);
-            this.uxLabelWelcome2.Name = "uxLabelWelcome2";
-            this.uxLabelWelcome2.Size = new System.Drawing.Size(412, 18);
-            this.uxLabelWelcome2.TabIndex = 3;
-            this.uxLabelWelcome2.Text = " Please enter your information and create an account or log in";
+            this.uxLabelWelcome1.Text = "501 Team 1 FP";
+            this.uxLabelWelcome1.Click += new System.EventHandler(this.uxLabelWelcome1_Click);
             // 
             // uxLabelPassword
             // 
             this.uxLabelPassword.AutoSize = true;
-            this.uxLabelPassword.Location = new System.Drawing.Point(120, 126);
+            this.uxLabelPassword.Location = new System.Drawing.Point(12, 84);
             this.uxLabelPassword.Name = "uxLabelPassword";
             this.uxLabelPassword.Size = new System.Drawing.Size(79, 18);
             this.uxLabelPassword.TabIndex = 4;
@@ -83,7 +74,7 @@
             // 
             // uxTBPassword
             // 
-            this.uxTBPassword.Location = new System.Drawing.Point(215, 123);
+            this.uxTBPassword.Location = new System.Drawing.Point(97, 84);
             this.uxTBPassword.Name = "uxTBPassword";
             this.uxTBPassword.Size = new System.Drawing.Size(157, 24);
             this.uxTBPassword.TabIndex = 5;
@@ -91,9 +82,9 @@
             // 
             // uxBtnCreateAcct
             // 
-            this.uxBtnCreateAcct.Location = new System.Drawing.Point(123, 193);
+            this.uxBtnCreateAcct.Location = new System.Drawing.Point(12, 127);
             this.uxBtnCreateAcct.Name = "uxBtnCreateAcct";
-            this.uxBtnCreateAcct.Size = new System.Drawing.Size(125, 30);
+            this.uxBtnCreateAcct.Size = new System.Drawing.Size(143, 30);
             this.uxBtnCreateAcct.TabIndex = 6;
             this.uxBtnCreateAcct.Text = "Create Account";
             this.uxBtnCreateAcct.UseVisualStyleBackColor = true;
@@ -101,7 +92,7 @@
             // 
             // uxBtnLogin
             // 
-            this.uxBtnLogin.Location = new System.Drawing.Point(279, 193);
+            this.uxBtnLogin.Location = new System.Drawing.Point(161, 127);
             this.uxBtnLogin.Name = "uxBtnLogin";
             this.uxBtnLogin.Size = new System.Drawing.Size(93, 30);
             this.uxBtnLogin.TabIndex = 7;
@@ -113,12 +104,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 300);
+            this.ClientSize = new System.Drawing.Size(272, 173);
             this.Controls.Add(this.uxBtnLogin);
             this.Controls.Add(this.uxBtnCreateAcct);
             this.Controls.Add(this.uxTBPassword);
             this.Controls.Add(this.uxLabelPassword);
-            this.Controls.Add(this.uxLabelWelcome2);
             this.Controls.Add(this.uxLabelWelcome1);
             this.Controls.Add(this.uxTBUsername);
             this.Controls.Add(this.uxLabelUsername);
@@ -136,7 +126,6 @@
         private System.Windows.Forms.Label uxLabelUsername;
         private System.Windows.Forms.TextBox uxTBUsername;
         private System.Windows.Forms.Label uxLabelWelcome1;
-        private System.Windows.Forms.Label uxLabelWelcome2;
         private System.Windows.Forms.Label uxLabelPassword;
         private System.Windows.Forms.TextBox uxTBPassword;
         private System.Windows.Forms.Button uxBtnCreateAcct;

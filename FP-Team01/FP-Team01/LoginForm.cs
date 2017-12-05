@@ -77,5 +77,10 @@ namespace FP_Team01
         {
 
         }
+
+        private void uxLabelWelcome1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
