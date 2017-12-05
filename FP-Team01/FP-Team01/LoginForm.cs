@@ -49,7 +49,7 @@ namespace FP_Team01
                 mainMenu.FormClosed += (s, args) => this.Close();
                 mainMenu.Show();*/
                 Program.clientState = Program.ClientStates.Idle;
-                Program.SwitchForm(this, "Login");
+                Program.SwitchForm(this);
             }
         }
 
@@ -72,7 +72,7 @@ namespace FP_Team01
                 mainMenu.FormClosed += (s, args) => this.Close();
                 mainMenu.Show();*/
                 Program.clientState = Program.ClientStates.Idle;
-                Program.SwitchForm(this, "Login");
+                Program.SwitchForm(this);
             }
         }
 
@@ -98,7 +98,7 @@ namespace FP_Team01
             {
                 Program.clientState = Program.ClientStates.exitProgram;
             }
-            Program.SwitchForm(this, "Login");
+            Program.SwitchForm(this);
             // Then assume that X has been clicked and act accordingly.
         }
     }

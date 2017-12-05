@@ -47,12 +47,12 @@ namespace FP_Team01
             /*this.Close();
             Environment.Exit(0);*/
             Program.clientState = Program.ClientStates.notLoggedIn;
-            Program.SwitchForm(this, "Main");
+            Program.SwitchForm(this);
         }
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
-            string contactName = uxLBContacts.SelectedItem.ToString();
+            //string contactName = uxLBContacts.SelectedItem.ToString();
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
@@ -61,6 +61,7 @@ namespace FP_Team01
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
             Program.clientState = Program.ClientStates.inChatroom;
+            Program.SwitchForm(this);
             
         }
 
@@ -94,7 +95,7 @@ namespace FP_Team01
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             Program.clientState = Program.ClientStates.notLoggedIn;
-            Program.SwitchForm(this, "Main");
+            Program.SwitchForm(this);
         }
     }
 }

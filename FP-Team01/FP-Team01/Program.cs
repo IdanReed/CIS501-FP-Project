@@ -35,7 +35,7 @@ namespace FP_Team01
         }//Wow this is a cool comment
         //man Jarod you right. This is a cool comment.
 
-        public static void SwitchForm(Form ToClose, string strToClose)
+        public static void SwitchForm(Form ToClose)
         {
             formToClose = ToClose;
 
