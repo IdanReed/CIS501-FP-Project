@@ -23,7 +23,7 @@ namespace FP_Server.Controller
         private List<Account> _accounts;
         private List<ChatRoom> _rooms;
 
-        public event Update _updater;
+        public event Update Updater;
         
         public ServerController(Logger logger)
         {
@@ -207,7 +207,7 @@ namespace FP_Server.Controller
                 #endregion
             }
 
-            _updater?.Invoke();
+            Updater?.Invoke(_accounts, _rooms);
         }
 
         public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)
