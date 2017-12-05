@@ -40,6 +40,7 @@ namespace FP_Server
             wss.Start();
             
             serverView.LogServerEvent("Server has started", LoggerMessageTypes.Success);
+            controller.Updater += serverView.Update;
 
             Application.Run(serverView);
 
