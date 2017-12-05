@@ -110,7 +110,7 @@ namespace FP_Team01
 
         public void ReceiveFromServer(Event evt)
         {
-
+            
         }
     }
 }

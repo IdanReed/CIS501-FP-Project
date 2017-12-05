@@ -82,7 +82,7 @@
             // 
             // uxBtnCreateAcct
             // 
-            this.uxBtnCreateAcct.Location = new System.Drawing.Point(12, 127);
+            this.uxBtnCreateAcct.Location = new System.Drawing.Point(12, 192);
             this.uxBtnCreateAcct.Name = "uxBtnCreateAcct";
             this.uxBtnCreateAcct.Size = new System.Drawing.Size(143, 30);
             this.uxBtnCreateAcct.TabIndex = 6;
@@ -92,7 +92,7 @@
             // 
             // uxBtnLogin
             // 
-            this.uxBtnLogin.Location = new System.Drawing.Point(161, 127);
+            this.uxBtnLogin.Location = new System.Drawing.Point(161, 192);
             this.uxBtnLogin.Name = "uxBtnLogin";
             this.uxBtnLogin.Size = new System.Drawing.Size(93, 30);
             this.uxBtnLogin.TabIndex = 7;
@@ -104,7 +104,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(272, 173);
+            this.ClientSize = new System.Drawing.Size(272, 234);
             this.Controls.Add(this.uxBtnLogin);
             this.Controls.Add(this.uxBtnCreateAcct);
             this.Controls.Add(this.uxTBPassword);
