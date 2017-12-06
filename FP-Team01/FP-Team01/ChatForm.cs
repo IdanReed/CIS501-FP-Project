@@ -112,7 +112,7 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
-            Program.clientState = Program.ClientStates.Idle;
+            Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
         }
     }

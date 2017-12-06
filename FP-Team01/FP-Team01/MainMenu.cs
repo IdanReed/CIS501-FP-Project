@@ -56,7 +56,7 @@ namespace FP_Team01
             var chat = new ChatForm();
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
-            Program.clientState = Program.ClientStates.inChatroom;
+            Program.clientState = Program.ClientStates.addChatroom;
             Program.SwitchForm(this);
             
         }
