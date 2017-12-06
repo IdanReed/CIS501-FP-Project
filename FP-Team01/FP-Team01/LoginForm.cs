@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*LoginForm 
+ *Handles the creation and logging in of accounts
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,11 +27,20 @@ namespace FP_Team01
             NetworkHandler.mObs += ReceiveFromServer;
         }
 
+        /// <summary>
+        /// Receives error message from server
+        /// </summary>
+        /// <param name="errMessage"></param>
         private void ReceiveErrorMessage(string errMessage)
         {
             MessageBox.Show(errMessage);
         }
 
+        /// <summary>
+        /// Creates a new account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCreateAcct_Click(object sender, EventArgs e)
         {
             Username = uxTBUsername.Text;
@@ -39,6 +52,11 @@ namespace FP_Team01
             Program.networkHandler.SendToServer(toSend);
         }
 
+        /// <summary>
+        /// Logs in to an existing account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             Username = uxTBUsername.Text;
@@ -50,6 +68,10 @@ namespace FP_Team01
             Program.networkHandler.SendToServer(toSend);
         }
 
+        /// <summary>
+        /// Receives an event from the server
+        /// </summary>
+        /// <param name="evt"></param>
         public void ReceiveFromServer(Event evt)
         {
             Program.USERNAME = Username;
@@ -70,6 +92,11 @@ namespace FP_Team01
 
         }
 
+        /// <summary>
+        /// Switches the state of the program when the login form closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             Button b = sender as Button;
@@ -86,6 +113,11 @@ namespace FP_Team01
             // Then assume that X has been clicked and act accordingly.
         }
 
+        /// <summary>
+        /// Disposes the form when the user presses the exit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Exit_Click(object sender, EventArgs e)
         {
             this.Dispose();
