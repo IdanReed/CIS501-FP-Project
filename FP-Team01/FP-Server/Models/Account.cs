@@ -28,6 +28,8 @@ namespace FP_Server.Models
             set { _socket = value; }
         }
 
+        [JsonConstructor]
+        private Account() {  }
         public Account(string username, string password)
         {
             _userName = username;

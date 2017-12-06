@@ -21,11 +21,21 @@ namespace FP_Server.Controller
     public delegate void Logger(string message, LoggerMessageTypes type);
     class ServerController 
     {
+        private enum ServerStates
+        {
+            NotReady,
+            Started,
+            DataLoaded,
+            Exiting
+        }
+        private ServerStates _state = ServerStates.NotReady;
+
         public const string FILE_PATH = "./data.txt";
         private Logger _logger;
 
         private List<Account> _accounts;
         private List<ChatRoom> _rooms;
+        private int _currentRoomID = 0;
 
         public event Update Updater;
         
@@ -37,6 +47,7 @@ namespace FP_Server.Controller
         }
         ~ServerController()
         {
+            _state = ServerStates.Exiting;
             _WriteData();
         }
 
@@ -46,8 +57,8 @@ namespace FP_Server.Controller
 
             JsonSerializerSettings sets = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.All,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.Auto,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 ContractResolver = new MyContractResolver()
                 //TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             };
@@ -68,8 +79,9 @@ namespace FP_Server.Controller
 
                 List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data, new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.All,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    
                     ContractResolver = new MyContractResolver()
                 });
                 if (accountData != null)
@@ -82,207 +94,238 @@ namespace FP_Server.Controller
             {
                 _logger("No data file found, creating a new one", LoggerMessageTypes.None);
             }
+            _state = ServerStates.DataLoaded;
         }
         public void OnOpen(ServerSocketBehavior sender)
         {
             _logger("A client has connected to the server", LoggerMessageTypes.None);
+
+            if (_state == ServerStates.DataLoaded) _state = ServerStates.Started;
         }
 
         public void OnMessage(ServerSocketBehavior sender, MessageEventArgs e)
         {
-            Event evt = JsonConvert.DeserializeObject<Event>(e.Data);
-
-            switch (evt.Type)
+            if (_state == ServerStates.Started)
             {
-                #region Account Handlers
+                Event evt = JsonConvert.DeserializeObject<Event>(e.Data);
 
-                case EventTypes.NewWSClient:
-                    {
-                        string uName = e.Data as string;
+                switch (evt.Type)
+                {
+                    #region Account Handlers
 
-                        Account loginAccount = _accounts.Find(a => a.Username == uName);
-                        loginAccount.Socket = sender;
-
-                        break;
-                    }
-                case EventTypes.CreateAccountEvent:
-                    {
-                        CreateAccountEventData data = evt.GetData<CreateAccountEventData>();
-
-                        ServerResponseEventData response;
-                        try
+                    case EventTypes.NewWSClient:
                         {
-                            _CreateAccount(data.Username, data.Password);
-                            _TryLogin(data.Username, data.Password, sender);
+                            string uName = e.Data as string;
 
-                            response = new ServerResponseEventData();                         
-                            _logger("Account with username '" + data.Username+"' was created", LoggerMessageTypes.Success);
+                            Account loginAccount = _accounts.Find(a => a.Username == uName);
+                            loginAccount.Socket = sender;
+
+                            break;
                         }
-                        catch(ArgumentException err)
+                    case EventTypes.CreateAccountEvent:
                         {
-                            response = new ServerResponseEventData(err.Message);
+                            CreateAccountEventData data = evt.GetData<CreateAccountEventData>();
 
-                            _logger("Client attempted to create an account and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
-                        }
-                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-                        break;
-                    }
-                case EventTypes.LoginEvent:
-                    {
-                        LoginEventData data = evt.GetData<LoginEventData>();
+                            ServerResponseEventData response;
+                            try
+                            {
+                                _CreateAccount(data.Username, data.Password);
+                                _TryLogin(data.Username, data.Password, sender);
 
-                        ServerResponseEventData response;
+                                response = new ServerResponseEventData();
+                                _logger("Account with username '" + data.Username + "' was created", LoggerMessageTypes.Success);
+                            }
+                            catch (ArgumentException err)
+                            {
+                                response = new ServerResponseEventData(err.Message);
 
-                        try
-                        {
-                            _TryLogin(data.Username, data.Password, sender);
-                            response = new ServerResponseEventData();
-
-                            _logger("Account with username '" + data.Username + "' has successfully logged in", LoggerMessageTypes.None);
-                        }
-                        catch(ArgumentException err)
-                        {
-                            response = new ServerResponseEventData(err.Message);
-
-                            _logger("Client attempted to login with username '"+ data.Username+"' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
-                        }
-                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-
-                        break;
-                    }
-                case EventTypes.AddContactEvent:
-                    {
-                        SendContactEventData data = evt.GetData<SendContactEventData>();
-
-                        ServerResponseEventData response;
-
-                        try
-                        {
-                            _AddContact(sender, data.Username);
-
-                            response = new ServerResponseEventData();
-                            _logger("Account has added a contact with username '" + data.Username + "' to their contact list", LoggerMessageTypes.None);
-                        }
-                        catch(ArgumentException err)
-                        {
-                            response = new ServerResponseEventData(err.Message);
-
-                            _logger("Account attempted to add account with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
-                        }
-                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-
-                        break;
-                    }
-                case EventTypes.RemoveContactEvent:
-                    {
-                        SendContactEventData data = evt.GetData<SendContactEventData>();
-
-                        ServerResponseEventData response;
-
-                        try
-                        {
-                            _RemoveContact(sender, data.Username);
-
-                            response = new ServerResponseEventData();
-                        }
-                        catch(ArgumentException err)
-                        {
-                            response = new ServerResponseEventData(err.Message);
-
-                            _logger("Client attempted to remove contact with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
-                        }
-                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-                        break;
-                    }
-                case EventTypes.LogoutEvent:
-                    {
-                        LogoutEventData data = evt.GetData<LogoutEventData>();
-
-                        ServerResponseEventData response;
-
-                        try
-                        {
-                            _TryLogout(data.Username, sender);
-
-                           // response = new ServerResponseEventData();
-                            _logger("Account with username '" + data.Username + "' has logged out", LoggerMessageTypes.None);
-                        }
-                        catch(ArgumentException err)
-                        {
-                           // response = new ServerResponseEventData(err.Message);
-
-                            _logger("Client attempted to logout with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
-                        }
-                       // sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-                        break;
-                    }
-                case EventTypes.SendAllContacts:
-                    {
-                        string username = (string)evt.Data;
-
-                        _SendAllContacts(_accounts.Find(a => a.Username == username));
-
-                        break;
-                    }
-
-                #endregion
-
-                #region Chatroom Handlers
-
-                case EventTypes.CreateChatEvent:
-                    {
-                        JoinChatroomEventData data = evt.GetData<JoinChatroomEventData>();
-
-                        try
-                        {                           
-                            int roomId = _CreateChatroom(data.Username, sender);
-
-                            string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
-                            Account recieverAccount = _accounts.Find(a => a.Username == data.Username);
-
-                            JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, roomId);
-                            string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
-                            sender.SendToSocket(eventData);
-                            recieverAccount.Socket.SendToSocket(eventData);
-                            _logger("Two users have created a chatroom with eachother", LoggerMessageTypes.None);
-                        }
-                        catch(ArgumentException err)
-                        {
-                            ServerResponseEventData response = new ServerResponseEventData(err.Message);
+                                _logger("Client attempted to create an account and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
                             sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
-                            _logger("Client attempted to create a chatroom with a contact whose username is '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            break;
                         }
-                        
-                        break;
-                    }
-
-                case EventTypes.LeaveChatEvent:
-                    {
-
-                        break;
-                    }
-                case EventTypes.SendMessageEvent:
-                    {
-                        SendMessageEventData data = evt.GetData<SendMessageEventData>();
-
-                        try
+                    case EventTypes.LoginEvent:
                         {
-                            _SendMessageToChatroom(data);
+                            LoginEventData data = evt.GetData<LoginEventData>();
 
-                            _logger("A message was sent to "+data.Username+" at time "+data.Time, LoggerMessageTypes.None);
+                            ServerResponseEventData response;
+
+                            try
+                            {
+                                _TryLogin(data.Username, data.Password, sender);
+                                response = new ServerResponseEventData();
+
+                                _logger("Account with username '" + data.Username + "' has successfully logged in", LoggerMessageTypes.None);
+                            }
+                            catch (ArgumentException err)
+                            {
+                                response = new ServerResponseEventData(err.Message);
+
+                                _logger("Client attempted to login with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
+                            sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+
+                            break;
                         }
-                        catch (ArgumentException err)
+                    case EventTypes.AddContactEvent:
                         {
-                            _logger("Client attempted to send a message to chat room '"+data.ChatRoomIndex+"' and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
+                            SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                            ServerResponseEventData response;
+
+                            try
+                            {
+                                _AddContact(sender, data.Username);
+
+                                response = new ServerResponseEventData();
+                                _logger("Account has added a contact with username '" + data.Username + "' to their contact list", LoggerMessageTypes.None);
+                            }
+                            catch (ArgumentException err)
+                            {
+                                response = new ServerResponseEventData(err.Message);
+
+                                _logger("Account attempted to add account with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
+                            sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+
+                            break;
+                        }
+                    case EventTypes.RemoveContactEvent:
+                        {
+                            SendContactEventData data = evt.GetData<SendContactEventData>();
+
+                            ServerResponseEventData response;
+
+                            try
+                            {
+                                _RemoveContact(sender, data.Username);
+
+                                response = new ServerResponseEventData();
+                            }
+                            catch (ArgumentException err)
+                            {
+                                response = new ServerResponseEventData(err.Message);
+
+                                _logger("Client attempted to remove contact with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
+                            sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                            break;
+                        }
+                    case EventTypes.LogoutEvent:
+                        {
+                            LogoutEventData data = evt.GetData<LogoutEventData>();
+
+
+                            try
+                            {
+                                _TryLogout(data.Username, sender);
+
+                                // response = new ServerResponseEventData();
+                                _logger("Account with username '" + data.Username + "' has logged out", LoggerMessageTypes.None);
+                            }
+                            catch (ArgumentException err)
+                            {
+                                // response = new ServerResponseEventData(err.Message);
+
+                                _logger("Client attempted to logout with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
+                            // sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                            break;
+                        }
+                    case EventTypes.SendAllContacts:
+                        {
+                            string username = (string)evt.Data;
+
+                            _SendAllContacts(_accounts.Find(a => a.Username == username));
+
+                            break;
                         }
 
-                        break;
-                    }
+                    #endregion
 
-                #endregion
+                    #region Chatroom Handlers
+
+                    case EventTypes.CreateChatEvent:
+                        {
+                            JoinChatroomEventData data = evt.GetData<JoinChatroomEventData>();
+
+                            if (data.id > -1)
+                            {
+                                try
+                                {
+                                    string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
+                                    _JoinExisitingChat(data.id, data.Username);
+
+                                    JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, data.id);
+                                    string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
+
+                                    ChatRoom room = _rooms.Find(r => r.RoomID == data.id);
+                                    foreach(Account participant in room.Participants)
+                                    {
+                                        participant.Socket.SendToSocket(eventData);
+                                    }
+                                }
+                                catch(ArgumentException err)
+                                {
+                                    ServerResponseEventData response = new ServerResponseEventData(err.Message);
+                                    sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                                    _logger("Client attempted to add a user, '" + data.Username + "', to chat room '" + data.id + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    int roomId = _CreateChatroom(data.Username, sender);
+
+                                    string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
+                                    Account recieverAccount = _accounts.Find(a => a.Username == data.Username);
+
+                                    JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, roomId);
+                                    string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
+                                    sender.SendToSocket(eventData);
+                                    recieverAccount.Socket.SendToSocket(eventData);
+                                    _logger("Two users have created a chatroom with eachother", LoggerMessageTypes.None);
+                                }
+                                catch (ArgumentException err)
+                                {
+                                    ServerResponseEventData response = new ServerResponseEventData(err.Message);
+                                    sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                                    _logger("Client attempted to create a chatroom with a contact whose username is '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                                }
+                            }
+
+                            break;
+                        }
+
+                    case EventTypes.LeaveChatEvent:
+                        {
+
+                            break;
+                        }
+                    case EventTypes.SendMessageEvent:
+                        {
+                            SendMessageEventData data = evt.GetData<SendMessageEventData>();
+
+                            try
+                            {
+                                _SendMessageToChatroom(data);
+
+                                _logger("A message was sent to " + data.Username + " at time " + data.Time, LoggerMessageTypes.None);
+                            }
+                            catch (ArgumentException err)
+                            {
+                                _logger("Client attempted to send a message to chat room '" + data.ChatRoomIndex + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
+
+                            break;
+                        }
+
+                        #endregion
+                }
+
+                Updater?.Invoke(_accounts, _rooms);
             }
-
-            Updater?.Invoke(_accounts, _rooms);
         }
 
         public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)
@@ -407,9 +450,28 @@ namespace FP_Server.Controller
 
         #region Chat Room Handling
 
+        private void _JoinExisitingChat(int roomId, string username)
+        {
+            Account newParticipant = _accounts.Find(a => a.Username == username);
+            if (newParticipant == null) throw new ArgumentException("Account with username '" + username + "' does not exist");
+            
+            ChatRoom room = _rooms.Find(r => r.RoomID == roomId);
+            if (room == null) throw new ArgumentException("Chat room with id '" + roomId + "' does not exist");
+
+            bool isValidParticipant = true;
+            foreach(Account a in room.Participants)
+            {
+                if (!a.Contacts.Contains(newParticipant)) isValidParticipant = false;
+            }
+
+            if (!isValidParticipant) throw new ArgumentException("The contact you are trying to add is not contacts with everyone in the chat room");
+
+            room.Participants.Add(newParticipant); 
+        }
         private int _CreateChatroom(string username, ServerSocketBehavior sender)
         {
-            int chatRoomId = _rooms.Count;
+            int chatRoomId = _currentRoomID;
+           
 
             Account acct = _accounts.Find(a => a.Socket == sender);
             if (acct == null) throw new ArgumentException("Cannot determine sender, please login and try again");
@@ -424,6 +486,8 @@ namespace FP_Server.Controller
 
             room.Participants.Add(acct);
             room.Participants.Add(contact);
+
+            _currentRoomID++;
 
             return chatRoomId;
         }
