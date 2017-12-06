@@ -121,7 +121,7 @@ namespace ServerTester
 
         private void button2_Click(object sender, EventArgs e)
         {
-            JoinChatroomEventData data = new JoinChatroomEventData(uxUsername.Text);
+            JoinChatroomEventData data = new JoinChatroomEventData(uxUsername.Text, -1);
 
             Event evt = new Event(data, EventTypes.CreateChatEvent);
 

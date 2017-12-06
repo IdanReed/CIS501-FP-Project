@@ -344,8 +344,8 @@ namespace FP_Server.Controller
             senderAcct.Contacts.Add(addContact);
             addContact.Contacts.Add(senderAcct);
 
-            _UpdateOnlineContacts(senderAcct);
-            _UpdateOnlineContacts(addContact);
+            _SendAllContacts(senderAcct);
+            _SendAllContacts(addContact);
         }
 
         private void _RemoveContact(ServerSocketBehavior sender, string username)
