@@ -59,12 +59,12 @@ namespace FP_Team01
         /// <param name="e"></param>
         private void BtnRemoveContact_Click(object sender, EventArgs e)
         {
-            string contactToAdd;
-            if(uxLBContacts.SelectedItem != null)
+            string contactToAdd = "";
+            if(uxLBContacts.SelectedIndex != -1)
             {
                 contactToAdd = uxLBContacts.SelectedItem.ToString();
             }
-            else
+            else if (uxLbOfflineContacts.SelectedIndex != -1)
             {
                 contactToAdd = uxLbOfflineContacts.SelectedItem.ToString();
             }
@@ -240,6 +240,8 @@ namespace FP_Team01
 
             uxLBContacts.DataSource = contactUsernames.ToList();
             uxLbOfflineContacts.DataSource = offlineUsernames.ToList();
+            uxLBContacts.ClearSelected();//clear selected item
+            uxLbOfflineContacts.ClearSelected();//clear selected item
             this.Invalidate();
             foreach(ChatForm form in Program.openChatForms)
             {
@@ -249,12 +251,12 @@ namespace FP_Team01
 
         private void uxLBContacts_MouseClick(object sender, MouseEventArgs e)
         {
-            uxLbOfflineContacts.SelectedItem = null;
+            uxLbOfflineContacts.ClearSelected();
         }
 
         private void uxLbOfflineContacts_MouseClick(object sender, MouseEventArgs e)
         {
-            uxLBContacts.SelectedItem = null;
+            uxLBContacts.ClearSelected();
         }
     }
 }
