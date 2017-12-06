@@ -110,7 +110,7 @@ namespace FP_Team01
                 case EventTypes.ContactWentOnline:
                     SendContactEventData evtData = evt.GetData<SendContactEventData>();
                     string onlineContactUsername = evtData.Username;
-                    MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
+                    //MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
                     ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
                     onlineContactAccount.IsOnline = true;
                     if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
@@ -120,7 +120,7 @@ namespace FP_Team01
                 case EventTypes.ContactWentOffline:
                     SendContactEventData offlineData = evt.GetData<SendContactEventData>();
                     string offlineContactUsername = offlineData.Username;
-                    MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
+                    //MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
                     offlineContactAccount.IsOnline = false;
                     if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
