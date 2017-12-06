@@ -34,6 +34,7 @@ namespace FP_Team01
             string contactToAdd = uxTxtUsername.Text;
             SendContactEventData evtData = new SendContactEventData(contactToAdd);
             Event evt = new Event(evtData, EventTypes.AddContactEvent);
+            SendToServer(evt);
         }
 
         private void BtnRemoveContact_Click(object sender, EventArgs e)
@@ -41,6 +42,7 @@ namespace FP_Team01
             string contactToAdd = uxTxtUsername.Text;
             SendContactEventData evtData = new SendContactEventData(contactToAdd);
             Event evt = new Event(evtData, EventTypes.RemoveContactEvent);
+            SendToServer(evt);
         }
 
         private void BtnSignOut_Click(object sender, EventArgs e)
@@ -53,7 +55,7 @@ namespace FP_Team01
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
-            //string contactName = uxLBContacts.SelectedItem.ToString();
+            string contactName = uxLBContacts.SelectedItem.ToString();
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
@@ -61,10 +63,9 @@ namespace FP_Team01
             var chat = new ChatForm();
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
-
-            Program.clientState = Program.ClientStates.addChatroom;
-            Program.SwitchForm(this);
-            
+            JoinChatroomEventData evtData = new JoinChatroomEventData(contactName, -1);
+            Event evt = new Event(evtData, EventTypes.CreateChatEvent);
+            SendToServer(evt);
         }
 
         public void ReceiveFromServer(Event evt)
@@ -78,6 +79,7 @@ namespace FP_Team01
                     ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
                     onlineContactAccount.IsOnline = true;
                     break;
+
                 case EventTypes.ContactWentOffline:
                     SendContactEventData offlineData = evt.Data as SendContactEventData;
                     string offlineContactUsername = offlineData.Username;
@@ -85,6 +87,7 @@ namespace FP_Team01
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
                     offlineContactAccount.IsOnline = true;
                     break;
+
                 case EventTypes.SendAllContacts:
                     SendAllContactsEventData sendContactEvtData = evt.Data as SendAllContactsEventData;
                     foreach (IAccount i in sendContactEvtData.AllContacts)
@@ -93,6 +96,7 @@ namespace FP_Team01
                         Program.allContacts.Add(tempCAcc);
                     }
                     break;
+
                 case EventTypes.JoinedChatEvent:
                     JoinChatroomEventData joinChatEvtData = evt.Data as JoinChatroomEventData;
                     Program.tempChatID = joinChatEvtData.id;
@@ -137,6 +141,16 @@ namespace FP_Team01
         private void MainMenu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void SendToServer(Event evt)
+        {
+            Program.networkHandler.SendToServer(evt);
+        }
+
+        public void UpdateContactLB()
+        {
+            uxLBContacts.DataSource = Program.allContacts;
         }
     }
 }
