@@ -21,6 +21,7 @@ namespace FP_Team01
         public static Form formToOpen;
         public static List<ChatForm> openChatForms;
         public static List<ClientAccount> allContacts;
+        public static int tempChatID;
         //public static string serverIP;
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace FP_Team01
                     formToOpen = new ChatForm();
                     openChatForms.Add(formToOpen as ChatForm);
                     ChatForm tempForm = formToOpen as ChatForm;
-                    tempForm.ChatroomIndex = 0;
+                    tempForm.ChatroomIndex = tempChatID;
                     formToOpen.Show();
                     clientState = ClientStates.Idle;
                     break;

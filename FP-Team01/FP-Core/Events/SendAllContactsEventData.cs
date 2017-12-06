@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FP_Core.Events
 {
-    class SendAllContactsEventData
+    public class SendAllContactsEventData
     {
         private List<IAccount> _allContacts;
         private string _username;

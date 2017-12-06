@@ -22,6 +22,7 @@ namespace FP_Core.Events
         ContactWentOffline,
         ContactWentOnline,
         SendAllContacts,
+        JoinedChatEvent,
     }
     public class Event
     {

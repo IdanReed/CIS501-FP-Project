@@ -61,6 +61,7 @@ namespace FP_Team01
             var chat = new ChatForm();
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
+
             Program.clientState = Program.ClientStates.addChatroom;
             Program.SwitchForm(this);
             
@@ -85,7 +86,18 @@ namespace FP_Team01
                     offlineContactAccount.IsOnline = true;
                     break;
                 case EventTypes.SendAllContacts:
-                    
+                    SendAllContactsEventData sendContactEvtData = evt.Data as SendAllContactsEventData;
+                    foreach (IAccount i in sendContactEvtData.AllContacts)
+                    {
+                        ClientAccount tempCAcc = i as ClientAccount;
+                        Program.allContacts.Add(tempCAcc);
+                    }
+                    break;
+                case EventTypes.JoinedChatEvent:
+                    JoinChatroomEventData joinChatEvtData = evt.Data as JoinChatroomEventData;
+                    Program.tempChatID = joinChatEvtData.id;
+                    Program.clientState = Program.ClientStates.addChatroom;
+                    Program.SwitchForm(this);
                     break;
             }
         }
