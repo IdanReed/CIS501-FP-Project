@@ -20,7 +20,7 @@ namespace FP_Team01
         public static Form formToClose;
         public static Form formToOpen;
         public static List<ChatForm> openChatForms;
-        public static ClientAccount cAccount;
+        public static List<ClientAccount> allContacts;
         //public static string serverIP;
 
         /// <summary>
@@ -30,6 +30,7 @@ namespace FP_Team01
         static void Main()
         {
             openChatForms = new List<ChatForm>();
+            allContacts = new List<ClientAccount>();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -62,7 +63,6 @@ namespace FP_Team01
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.openMainMenu:
-                    cAccount = new ClientAccount(USERNAME);
                     if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
                     else formToClose.Hide();
                     formToOpen = new MainMenu();
@@ -73,6 +73,8 @@ namespace FP_Team01
                 case ClientStates.addChatroom:
                     formToOpen = new ChatForm();
                     openChatForms.Add(formToOpen as ChatForm);
+                    ChatForm tempForm = formToOpen as ChatForm;
+                    tempForm.ChatroomIndex = 0;
                     formToOpen.Show();
                     clientState = ClientStates.Idle;
                     break;

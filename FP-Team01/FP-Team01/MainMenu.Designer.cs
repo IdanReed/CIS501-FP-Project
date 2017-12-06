@@ -143,6 +143,7 @@
             this.Name = "MainMenu";
             this.Text = "MainMenu";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Closing);
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.uxGbUsername.ResumeLayout(false);
             this.uxGbUsername.PerformLayout();
             this.ResumeLayout(false);

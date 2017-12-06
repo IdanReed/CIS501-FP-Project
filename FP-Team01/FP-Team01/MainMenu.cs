@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FP_Core;
 using FP_Core.Events;
 
 namespace FP_Team01
@@ -16,7 +17,7 @@ namespace FP_Team01
         string Username;
         public MainMenu()
         {
-            Username = Program.cAccount.Username;
+            Username = Program.USERNAME;
             InitializeComponent();
             uxLabelName.Text = "Welcome, " + Username + ".";
             NetworkHandler.eObs += ReceiveErrorMessage;
@@ -30,12 +31,16 @@ namespace FP_Team01
 
         private void BtnAddContact_Click(object sender, EventArgs e)
         {
-
+            string contactToAdd = uxTxtUsername.Text;
+            SendContactEventData evtData = new SendContactEventData(contactToAdd);
+            Event evt = new Event(evtData, EventTypes.AddContactEvent);
         }
 
         private void BtnRemoveContact_Click(object sender, EventArgs e)
         {
-
+            string contactToAdd = uxTxtUsername.Text;
+            SendContactEventData evtData = new SendContactEventData(contactToAdd);
+            Event evt = new Event(evtData, EventTypes.RemoveContactEvent);
         }
 
         private void BtnSignOut_Click(object sender, EventArgs e)
@@ -63,7 +68,26 @@ namespace FP_Team01
 
         public void ReceiveFromServer(Event evt)
         {
-
+            switch (evt.Type)
+            {
+                case EventTypes.ContactWentOnline:
+                    SendContactEventData evtData = evt.Data as SendContactEventData;
+                    string onlineContactUsername = evtData.Username;
+                    MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
+                    ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
+                    onlineContactAccount.IsOnline = true;
+                    break;
+                case EventTypes.ContactWentOffline:
+                    SendContactEventData offlineData = evt.Data as SendContactEventData;
+                    string offlineContactUsername = offlineData.Username;
+                    MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
+                    ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
+                    offlineContactAccount.IsOnline = true;
+                    break;
+                case EventTypes.SendAllContacts:
+                    
+                    break;
+            }
         }
 
         public bool ShowYesNoDialogBox()
@@ -90,12 +114,17 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
-            LogoutEventData data = new LogoutEventData(Program.cAccount.Username);
+            LogoutEventData data = new LogoutEventData(Program.USERNAME);
             Event evt = new Event(data, EventTypes.LogoutEvent);
             Program.networkHandler.SendToServer(evt);
             Program.clientState = Program.ClientStates.exitProgram;
             MessageBox.Show("Thank you. You are now signed out.");
             Program.SwitchForm(this);
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
