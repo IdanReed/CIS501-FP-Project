@@ -30,11 +30,20 @@ namespace FP_Team01
             SendToServer(getAllContacts);
         }
 
+        /// <summary>
+        /// Revieves error message from the server
+        /// </summary>
+        /// <param name="errMessage"></param>
         private void ReceiveErrorMessage(string errMessage)
         {
             MessageBox.Show(errMessage);
         }
 
+        /// <summary>
+        /// Requests the server to add a contact from the given username
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddContact_Click(object sender, EventArgs e)
         {
             string contactToAdd = uxTxtUsername.Text;
@@ -43,6 +52,11 @@ namespace FP_Team01
             SendToServer(evt);
         }
 
+        /// <summary>
+        /// Requests the server to remove a contact given the username
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRemoveContact_Click(object sender, EventArgs e)
         {
             string contactToAdd = uxTxtUsername.Text;
@@ -50,7 +64,12 @@ namespace FP_Team01
             Event evt = new Event(evtData, EventTypes.RemoveContactEvent);
             SendToServer(evt);
         }
-
+        
+        /// <summary>
+        /// Safely signs out the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSignOut_Click(object sender, EventArgs e)
         {
             //Send signout event to server and return to login window, where you can safely close program
@@ -59,6 +78,11 @@ namespace FP_Team01
             Form_Closing(sender, null);
         }
 
+        /// <summary>
+        /// Requests a chatroom from the server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
             //ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
@@ -75,6 +99,10 @@ namespace FP_Team01
             SendToServer(evt);
         }
 
+        /// <summary>
+        /// Receives an event from the server
+        /// </summary>
+        /// <param name="evt"></param>
         public void ReceiveFromServer(Event evt)
         {
             switch (evt.Type)
@@ -117,6 +145,10 @@ namespace FP_Team01
             }
         }
 
+        /// <summary>
+        /// Requests a yes no answer from the user
+        /// </summary>
+        /// <returns></returns>
         public bool ShowYesNoDialogBox()
         {
             //Use this for things like "PersonA wants to be a contact. Add them?"
@@ -129,16 +161,27 @@ namespace FP_Team01
             return false;
         }
 
+
         private void uxTxtUsername_TextChanged(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Clears the addcontact textbox on click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxTxtUsername_MouseUp(object sender, MouseEventArgs e)
         {
             uxTxtUsername.Text = "";
         }
 
+        /// <summary>
+        /// Safely logs out the user on any exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             LogoutEventData data = new LogoutEventData(Program.USERNAME);
@@ -154,11 +197,18 @@ namespace FP_Team01
 
         }
 
+        /// <summary>
+        /// Sends an event to the server
+        /// </summary>
+        /// <param name="evt"></param>
         public void SendToServer(Event evt)
         {
             Program.networkHandler.SendToServer(evt);
         }
 
+        /// <summary>
+        /// Updates the contact list boxes with the correct contacts
+        /// </summary>
         public void UpdateContactLB()
         {
             List<string> contactUsernames = new List<string>();
