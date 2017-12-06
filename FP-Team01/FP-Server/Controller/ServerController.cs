@@ -204,22 +204,25 @@ namespace FP_Server.Controller
                     {
                         JoinChatroomEventData data = evt.GetData<JoinChatroomEventData>();
 
-                        ServerResponseEventData response;
-
                         try
-                        {
-                            _CreateChatroom(data.Username, sender);
+                        {                           
+                            int roomId = _CreateChatroom(data.Username, sender);
 
-                            response = new ServerResponseEventData();
+                            string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
+                            Account recieverAccount = _accounts.Find(a => a.Username == data.Username);
+
+                            JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, roomId);
+                            string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
+                            sender.Send(eventData);
+                            recieverAccount.Socket.Send(eventData);
                             _logger("Two users have created a chatroom with eachother", LoggerMessageTypes.None);
                         }
                         catch(ArgumentException err)
                         {
-                            response = new ServerResponseEventData(err.Message);
-
+                            ServerResponseEventData response = new ServerResponseEventData(err.Message);
+                            sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                             _logger("Client attempted to create a chatroom with a contact whose username is '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         
                         break;
                     }
@@ -277,6 +280,7 @@ namespace FP_Server.Controller
 
             acct.IsOnline = true;
             acct.Socket = socket;
+            _SendAllContacts(acct);
             _UpdateOnlineContacts(acct);
         }
         private void _TryLogout(string username, ServerSocketBehavior socket)
@@ -300,6 +304,16 @@ namespace FP_Server.Controller
                 }
             }
             
+        }
+
+        private void _SendAllContacts(Account acct)
+        {
+            SendAllContactsEventData data = new SendAllContactsEventData(acct.Username);
+            data.AllContacts = acct.Contacts;
+            Event e = new Event(data, EventTypes.SendAllContacts);
+            string eventData = JsonConvert.SerializeObject(e);
+
+            acct.Socket.Send(eventData);
         }
 
         private void _UpdateOnlineContacts(Account acct)
@@ -358,7 +372,7 @@ namespace FP_Server.Controller
 
         #region Chat Room Handling
 
-        private void _CreateChatroom(string username, ServerSocketBehavior sender)
+        private int _CreateChatroom(string username, ServerSocketBehavior sender)
         {
             int chatRoomId = _rooms.Count;
 
@@ -375,6 +389,8 @@ namespace FP_Server.Controller
 
             room.Participants.Add(acct);
             room.Participants.Add(contact);
+
+            return chatRoomId;
         }
 
         private void _SendMessageToChatroom(SendMessageEventData data)
