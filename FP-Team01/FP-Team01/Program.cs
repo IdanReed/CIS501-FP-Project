@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*Program 
+ *The controller of the program
+ * Opens and closes all of the forms
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

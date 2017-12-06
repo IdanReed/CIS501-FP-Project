@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*NetworkHandler 
+ *NetworkHandler interfaces with the server
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

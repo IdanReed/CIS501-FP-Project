@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*Main Menu
+ *Main Menu handles the adding of contacts and creating of chatrooms
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
