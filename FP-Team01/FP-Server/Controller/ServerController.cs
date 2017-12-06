@@ -194,21 +194,23 @@ namespace FP_Server.Controller
                         {
                             SendContactEventData data = evt.GetData<SendContactEventData>();
 
-                            ServerResponseEventData response;
 
                             try
                             {
                                 _RemoveContact(sender, data.Username);
 
-                                response = new ServerResponseEventData();
+                                _logger("Client removed contact with username '" + data.Username + "'", LoggerMessageTypes.Error);
+                                _SendAllContacts(_accounts.Find(a => a.Username == data.Username));
+                                //response = new ServerResponseEventData();
                             }
                             catch (ArgumentException err)
                             {
+                                ServerResponseEventData response;
                                 response = new ServerResponseEventData(err.Message);
 
                                 _logger("Client attempted to remove contact with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                                sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                             }
-                            sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                             break;
                         }
                     case EventTypes.LogoutEvent:
