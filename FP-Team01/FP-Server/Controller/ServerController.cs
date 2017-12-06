@@ -203,6 +203,7 @@ namespace FP_Server.Controller
                                 _RemoveContact(sender, data.Username);
 
                                 _logger("Client removed contact with username '" + data.Username + "'", LoggerMessageTypes.None);
+                                _SendAllContacts(_accounts.Find(a => a.Username == data.Username));
                                 _SendAllContacts(_accounts.Find(a => a.Socket == sender));
                                 //response = new ServerResponseEventData();
                             }
