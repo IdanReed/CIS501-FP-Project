@@ -61,7 +61,7 @@ namespace FP_Team01
             var mainMenu = new MainMenu();
             mainMenu.FormClosed += (s, args) => this.Close();
             mainMenu.Show();*/
-            Program.clientState = Program.ClientStates.Idle;
+            Program.clientState = Program.ClientStates.openMainMenu;
             Program.SwitchForm(this);
         }
 
@@ -75,7 +75,7 @@ namespace FP_Team01
             Button b = sender as Button;
             if (b != null)
             {
-                Program.clientState = Program.ClientStates.Idle;
+                Program.clientState = Program.ClientStates.openMainMenu;
             }
             // Do something proper to CloseButton.
             else

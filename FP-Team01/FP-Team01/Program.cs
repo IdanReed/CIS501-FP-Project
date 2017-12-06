@@ -11,7 +11,7 @@ namespace FP_Team01
     {
         public enum ClientStates
         {
-            Idle, inChatroom, notLoggedIn, createAccount, exitProgram, addChatroom, removeChatroom
+            Idle, inChatroom, notLoggedIn, createAccount, exitProgram, addChatroom, removeChatroom, openMainMenu
         }
         public static string USERNAME = ""; //use these to pass between the GUIs 
         public static string PASSWORD = ""; //might not need this beyond the login screen, but we'll see what happens
@@ -58,23 +58,27 @@ namespace FP_Team01
                     formToOpen = new LoginForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
                     formToOpen.ShowDialog();
+                    clientState = ClientStates.Idle;
                     break;
-                case ClientStates.Idle:
+                case ClientStates.openMainMenu:
                     if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
                     else formToClose.Hide();
                     formToOpen = new MainMenu();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
                     formToOpen.ShowDialog();
+                    clientState = ClientStates.Idle;
                     break;
                 case ClientStates.addChatroom:
                     formToOpen = new ChatForm();
                     openChatForms.Add(formToOpen as ChatForm);
                     formToOpen.Show();
+                    clientState = ClientStates.Idle;
                     break;
                 case ClientStates.removeChatroom:
                     formToClose.Hide();
                     openChatForms.Remove(formToClose as ChatForm);
                     formToClose.Dispose();
+                    clientState = ClientStates.Idle;
                     break;
                 case ClientStates.exitProgram:
                     Environment.Exit(0);
