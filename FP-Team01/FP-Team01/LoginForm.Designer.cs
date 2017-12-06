@@ -37,7 +37,6 @@
             this.uxBtnLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.uxTxtIp = new System.Windows.Forms.TextBox();
-            this.uxBtnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxLabelUsername
@@ -80,7 +79,7 @@
             this.uxTBPassword.Location = new System.Drawing.Point(97, 85);
             this.uxTBPassword.Name = "uxTBPassword";
             this.uxTBPassword.Size = new System.Drawing.Size(157, 24);
-            this.uxTBPassword.TabIndex = 5;
+            this.uxTBPassword.TabIndex = 2;
             this.uxTBPassword.UseSystemPasswordChar = true;
             // 
             // uxBtnCreateAcct
@@ -117,24 +116,13 @@
             this.uxTxtIp.Location = new System.Drawing.Point(97, 133);
             this.uxTxtIp.Name = "uxTxtIp";
             this.uxTxtIp.Size = new System.Drawing.Size(157, 24);
-            this.uxTxtIp.TabIndex = 9;
-            // 
-            // uxBtnExit
-            // 
-            this.uxBtnExit.Location = new System.Drawing.Point(260, 177);
-            this.uxBtnExit.Name = "uxBtnExit";
-            this.uxBtnExit.Size = new System.Drawing.Size(75, 30);
-            this.uxBtnExit.TabIndex = 10;
-            this.uxBtnExit.Text = "Exit";
-            this.uxBtnExit.UseVisualStyleBackColor = true;
-            this.uxBtnExit.Click += new System.EventHandler(this.Exit_Click);
+            this.uxTxtIp.TabIndex = 3;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 216);
-            this.Controls.Add(this.uxBtnExit);
+            this.ClientSize = new System.Drawing.Size(270, 216);
             this.Controls.Add(this.uxTxtIp);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxBtnLogin);
@@ -165,7 +153,6 @@
         private System.Windows.Forms.Button uxBtnLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox uxTxtIp;
-        private System.Windows.Forms.Button uxBtnExit;
     }
 }
 

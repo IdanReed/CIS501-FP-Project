@@ -73,6 +73,8 @@ namespace FP_Team01
                 case ClientStates.addChatroom:
                     formToOpen = new ChatForm();
                     openChatForms.Add(formToOpen as ChatForm);
+                    ChatForm tempForm = formToOpen as ChatForm;
+                    tempForm.ChatroomIndex = 0;
                     formToOpen.Show();
                     clientState = ClientStates.Idle;
                     break;

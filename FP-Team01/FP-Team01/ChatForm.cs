@@ -107,7 +107,11 @@ namespace FP_Team01
 
         public void ReceiveFromServer(Event evt)
         {
-            
+            if (evt.Type.Equals(EventTypes.SendMessageEvent))
+            {
+                SendMessageEventData rcdMsg = evt.Data as SendMessageEventData;
+                ReceiveMessage(rcdMsg);
+            }
         }
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
