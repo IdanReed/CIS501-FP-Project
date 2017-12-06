@@ -32,8 +32,6 @@ namespace FP_Server.Controller
             _accounts = new List<Account>();
             _rooms = new List<ChatRoom>();
             _logger = logger;
-
-            _LoadData();
         }
         ~ServerController()
         {
@@ -51,7 +49,7 @@ namespace FP_Server.Controller
             sw.Close();
         }
 
-        private void _LoadData()
+        public void LoadData()
         {
             try
             {
@@ -103,7 +101,7 @@ namespace FP_Server.Controller
 
                             _logger("Client attempted to create an account and an error was thrown: "+err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
                 case EventTypes.LoginEvent:
@@ -125,7 +123,7 @@ namespace FP_Server.Controller
 
                             _logger("Client attempted to login with username '"+ data.Username+"' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
 
                         break;
                     }
@@ -148,7 +146,7 @@ namespace FP_Server.Controller
 
                             _logger("Account attempted to add account with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
 
                         break;
                     }
@@ -170,7 +168,7 @@ namespace FP_Server.Controller
 
                             _logger("Client attempted to remove contact with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
                 case EventTypes.LogoutEvent:
@@ -192,7 +190,7 @@ namespace FP_Server.Controller
 
                             _logger("Client attempted to logout with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
 
@@ -213,14 +211,14 @@ namespace FP_Server.Controller
 
                             JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, roomId);
                             string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
-                            sender.Send(eventData);
-                            recieverAccount.Socket.Send(eventData);
+                            sender.SendToSocket(eventData);
+                            recieverAccount.Socket.SendToSocket(eventData);
                             _logger("Two users have created a chatroom with eachother", LoggerMessageTypes.None);
                         }
                         catch(ArgumentException err)
                         {
                             ServerResponseEventData response = new ServerResponseEventData(err.Message);
-                            sender.Send(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                            sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                             _logger("Client attempted to create a chatroom with a contact whose username is '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
                         
@@ -300,7 +298,7 @@ namespace FP_Server.Controller
             foreach(Account contact in acct.Contacts)
             {
                 if (contact.IsOnline) {
-                    contact.Socket.Send(eventString);
+                    contact.Socket.SendToSocket(eventString);
                 }
             }
             
@@ -313,7 +311,7 @@ namespace FP_Server.Controller
             Event e = new Event(data, EventTypes.SendAllContacts);
             string eventData = JsonConvert.SerializeObject(e);
 
-            acct.Socket.Send(eventData);
+            acct.Socket.SendToSocket(eventData);
         }
 
         private void _UpdateOnlineContacts(Account acct)
@@ -325,7 +323,7 @@ namespace FP_Server.Controller
             string eventString = JsonConvert.SerializeObject(e);
             foreach(Account onAcct in onlineContacts)
             {
-                onAcct.Socket.Send(eventString);
+                onAcct.Socket.SendToSocket(eventString);
             }
         }
 
@@ -405,7 +403,7 @@ namespace FP_Server.Controller
 
             foreach(Account participant in room.Participants)
             {
-                participant.Socket.Send(eventString);
+                participant.Socket.SendToSocket(eventString);
             }
         }
 
