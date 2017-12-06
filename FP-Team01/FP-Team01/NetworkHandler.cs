@@ -96,7 +96,7 @@ namespace FP_Team01
         /// </summary>
         private void TempConnectTest()
         {
-            Event evt = new Event(Program.USERNAME, EventTypes.SendAllContacts);
+            Event evt = new Event(Program.USERNAME, EventTypes.NewWSClient);
             SendToServer(evt);
         }
     }
