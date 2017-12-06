@@ -47,6 +47,7 @@ namespace FP_Team01
 
                     if (!response.WasSuccessful)
                     {
+                        sentError = true;
                         eObs?.Invoke(response.ErrorMessage);
                     }
                 break;

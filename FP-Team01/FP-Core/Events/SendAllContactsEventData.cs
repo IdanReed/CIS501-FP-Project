@@ -8,7 +8,7 @@ namespace FP_Core.Events
 {
     public class SendAllContactsEventData
     {
-        private List<IAccount> _allContacts;
+        private List<string> _allContacts;
         private string _username;
 
         public SendAllContactsEventData(string u)
@@ -16,7 +16,7 @@ namespace FP_Core.Events
             _username = u;
         }
 
-        public List<IAccount> AllContacts
+        public List<string> AllContacts
         {
             get
             {
