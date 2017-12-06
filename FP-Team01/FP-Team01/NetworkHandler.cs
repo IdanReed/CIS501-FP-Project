@@ -26,6 +26,12 @@ namespace FP_Team01
             string toPass = "ws://" + IP + ":8001/chatApp";
             ws = new WebSocket(toPass);
             ws.OnMessage += ReceiveFromServer;
+            ws.OnClose += (sender, e) =>
+            {
+                Thread.Sleep(1000);
+                ws.Connect();
+                TempConnectTest();
+            };
             ws.Connect();
         }
 
@@ -65,6 +71,12 @@ namespace FP_Team01
             sentEventType = e.Type;
             ws.Send(JsonConvert.SerializeObject(e));
             return true;
+        }
+
+        private void TempConnectTest()
+        {
+            Event evt = new Event(Program.USERNAME, EventTypes.SendAllContacts);
+            SendToServer(evt);
         }
     }
 }
