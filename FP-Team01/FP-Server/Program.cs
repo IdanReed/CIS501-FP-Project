@@ -27,6 +27,7 @@ namespace FP_Server
             ServerView serverView = new ServerView();
             ServerController controller = new ServerController(serverView.LogServerEvent);
 
+
             wss.AddWebSocketService("/chatApp", () =>
             {
                 ServerSocketBehavior behavior = new ServerSocketBehavior();
@@ -41,6 +42,7 @@ namespace FP_Server
             
             serverView.LogServerEvent("Server has started", LoggerMessageTypes.Success);
             controller.Updater += serverView.Update;
+            controller.LoadData();
 
             Application.Run(serverView);
 
