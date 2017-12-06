@@ -42,8 +42,13 @@ namespace FP_Server.Controller
         {
             StreamWriter sw = new StreamWriter(FILE_PATH);
 
-            
-            string data = JsonConvert.SerializeObject(_accounts);
+            JsonSerializerSettings sets = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+
+            string data = JsonConvert.SerializeObject(_accounts, sets);
 
             sw.WriteLine(data);
             sw.Close();
@@ -57,7 +62,11 @@ namespace FP_Server.Controller
 
                 string data = sr.ReadToEnd();
 
-                List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data);
+                List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects,
+                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                });
                 if (accountData != null)
                 {
                     _accounts = accountData;
@@ -286,7 +295,7 @@ namespace FP_Server.Controller
 
             acct.IsOnline = true;
             acct.Socket = socket;
-            _SendAllContacts(acct);
+            //_SendAllContacts(acct);
             _UpdateOnlineContacts(acct);
         }
         private void _TryLogout(string username, ServerSocketBehavior socket)
@@ -305,7 +314,7 @@ namespace FP_Server.Controller
 
             foreach(Account contact in acct.Contacts)
             {
-                if (contact.IsOnline) {
+                if (contact.IsOnline && contact.Socket != null) {
                     contact.Socket.SendToSocket(eventString);
                 }
             }
@@ -334,7 +343,10 @@ namespace FP_Server.Controller
             string eventString = JsonConvert.SerializeObject(e);
             foreach(Account onAcct in onlineContacts)
             {
-                onAcct.Socket.SendToSocket(eventString);
+                if (onAcct.Socket != null)
+                {
+                    onAcct.Socket.SendToSocket(eventString);
+                }
             }
         }
 
