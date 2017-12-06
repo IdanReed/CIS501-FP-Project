@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*NetworkHandler 
+ *NetworkHandler interfaces with the server
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +30,19 @@ namespace FP_Team01
             string toPass = "ws://" + IP + ":8001/chatApp";
             ws = new WebSocket(toPass);
             ws.OnMessage += ReceiveFromServer;
+            ws.OnClose += (sender, e) =>
+            {
+                Thread.Sleep(1000);
+                ws.Connect();
+                TempConnectTest();
+            };
             ws.Connect();
         }
 
+        /// <summary>
+        /// Broadcast error to the observer
+        /// </summary>
+        /// <param name="errorMessage"></param>
         private void BroadcastError(string errorMessage)
         {
             eObs?.Invoke(errorMessage);
@@ -36,6 +50,11 @@ namespace FP_Team01
             //where Broadcast is their method to handle stuff
         }
 
+        /// <summary>
+        /// Receives an event from the server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReceiveFromServer(object sender, MessageEventArgs e)
         {
             bool sentError = false;
@@ -60,11 +79,25 @@ namespace FP_Team01
             }
         }
 
+        /// <summary>
+        /// Send and event to the server
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public bool SendToServer(Event e)
         {
             sentEventType = e.Type;
             ws.Send(JsonConvert.SerializeObject(e));
             return true;
+        }
+
+        /// <summary>
+        /// Test Connection
+        /// </summary>
+        private void TempConnectTest()
+        {
+            Event evt = new Event(Program.USERNAME, EventTypes.SendAllContacts);
+            SendToServer(evt);
         }
     }
 }
