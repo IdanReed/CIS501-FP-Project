@@ -313,7 +313,7 @@ namespace FP_Server.Controller
 
             if (acct.Socket != null)
             {
-                acct.Socket.Send(eventData);
+                acct.Socket.SendToSocket(eventData);
             }
         }
 
