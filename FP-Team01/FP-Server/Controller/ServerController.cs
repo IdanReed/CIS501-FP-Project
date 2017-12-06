@@ -47,7 +47,7 @@ namespace FP_Server.Controller
             JsonSerializerSettings sets = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 ContractResolver = new MyContractResolver()
                 //TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             };
@@ -69,7 +69,7 @@ namespace FP_Server.Controller
                 List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data, new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All,
-                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     ContractResolver = new MyContractResolver()
                 });
                 if (accountData != null)
