@@ -193,6 +193,14 @@ namespace FP_Server.Controller
                         sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
+                case EventTypes.SendAllContacts:
+                    {
+                        string username = (string)evt.Data;
+
+                        _SendAllContacts(_accounts.Find(a => a.Username == username));
+
+                        break;
+                    }
 
                 #endregion
 
