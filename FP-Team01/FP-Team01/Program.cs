@@ -94,6 +94,8 @@ namespace FP_Team01
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.exitProgram:
+                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                    else formToClose.Hide();
                     Environment.Exit(0);
                     break;
             }

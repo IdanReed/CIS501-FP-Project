@@ -55,7 +55,8 @@ namespace FP_Team01
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
-            string contactName = uxLBContacts.SelectedItem.ToString();
+            ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
+            string contactName = contactToChat.Username;
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
