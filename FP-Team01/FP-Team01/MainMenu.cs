@@ -22,6 +22,8 @@ namespace FP_Team01
             uxLabelName.Text = "Welcome, " + Username + ".";
             NetworkHandler.eObs += ReceiveErrorMessage;
             NetworkHandler.mObs += ReceiveFromServer;
+            Event getAllContacts = new Event(Username, EventTypes.SendAllContacts);
+            SendToServer(getAllContacts);
         }
 
         private void ReceiveErrorMessage(string errMessage)
