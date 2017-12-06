@@ -94,6 +94,11 @@ namespace FP_Team01
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
             //ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
+            if(uxLBContacts.SelectedIndex == -1)
+            {
+                MessageBox.Show("No contact selected. Please select an online contact!");
+                return;
+            }
             string contactName = uxLBContacts.SelectedItem.ToString();
             //Send friend name to server and start chat form
 
