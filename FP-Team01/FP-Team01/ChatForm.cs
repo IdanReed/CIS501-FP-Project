@@ -62,7 +62,7 @@ namespace FP_Team01
 
         private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
         {
-            if (e.KeyChar.Equals(Keys.Enter))
+            if (e.KeyChar.Equals('\r'))//Captures the enter key
             {
                 //enter key is down
                 //Activate send event
@@ -73,6 +73,7 @@ namespace FP_Team01
 
         private void SendMessage(string msg)
         {
+            uxTBMessage.Text = "";
             DateTime localDate = DateTime.Now;
             string name = Program.USERNAME;
 

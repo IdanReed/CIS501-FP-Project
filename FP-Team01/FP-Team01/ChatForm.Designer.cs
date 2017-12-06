@@ -82,7 +82,7 @@
             this.uxBtnSignOut.Name = "uxBtnSignOut";
             this.uxBtnSignOut.Size = new System.Drawing.Size(159, 30);
             this.uxBtnSignOut.TabIndex = 6;
-            this.uxBtnSignOut.Text = "Sign Out";
+            this.uxBtnSignOut.Text = "Leave Chatroom";
             this.uxBtnSignOut.UseVisualStyleBackColor = true;
             this.uxBtnSignOut.Click += new System.EventHandler(this.BtnSignOut_Click);
             // 
