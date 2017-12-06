@@ -12,6 +12,8 @@ namespace FP_Server.Models
     public class Account : IAccount
     {
         private List<IAccount> _contacts;
+
+        [JsonIgnore]
         private bool _isOnline;
         private string _userName;
         private string _password;
@@ -37,6 +39,7 @@ namespace FP_Server.Models
             get { return _contacts; }
         }
 
+        [JsonIgnore]
         public bool IsOnline
         {
             get { return _isOnline; }

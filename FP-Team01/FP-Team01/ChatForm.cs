@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*ChatForm 
+ *Chat form sends/recieves messages to the server and allows mutual
+ *contacts to chat with eachother
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,11 +26,20 @@ namespace FP_Team01
             NetworkHandler.mObs += ReceiveFromServer;
         }
 
+        /// <summary>
+        /// Receives error from the server
+        /// </summary>
+        /// <param name="errMessage"></param>
         private void ReceiveErrorMessage(string errMessage)
         {
             MessageBox.Show(errMessage);
         }
 
+        /// <summary>
+        /// Sends a message to the SendMessage function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSend_Click(object sender, EventArgs e)
         {
             //Send message to group
@@ -38,18 +51,28 @@ namespace FP_Team01
             //Show message box with current members in the chatroom
         }
 
+        /// <summary>
+        /// Invites a contact to the chatroom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddContact_Click(object sender, EventArgs e)
         {
             //Show message box with place to put name of contact to add and make sure it is a mutual friend
             string contactName = uxLbContacts.SelectedItem.ToString();
 
-
+            
             //invite contact to current server
             JoinChatroomEventData evtData = new JoinChatroomEventData(contactName, ChatroomIndex);
             Event evt = new Event(evtData, EventTypes.CreateChatEvent);
             SendToServer(evt);
         }
 
+        /// <summary>
+        /// Signs the user out from the chatroom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSignOut_Click(object sender, EventArgs e)
         {
             //Send event to server saying logged off and close ChatForm and open MainMenu form
@@ -62,11 +85,21 @@ namespace FP_Team01
             Form_Closing(sender, null);
         }
 
+        /// <summary>
+        /// Form load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChatForm_Load(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Captures the enter key and sends a message to the send message function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
         {
             if (e.KeyChar.Equals('\r'))//Captures the enter key
@@ -77,7 +110,10 @@ namespace FP_Team01
             }
         }
 
-
+        /// <summary>
+        /// sends a message to the server
+        /// </summary>
+        /// <param name="msg"></param>
         private void SendMessage(string msg)
         {
             uxTBMessage.Text = "";
@@ -89,6 +125,10 @@ namespace FP_Team01
             Program.networkHandler.SendToServer(newEvent);
         }
 
+        /// <summary>
+        /// Recieves a message from the server
+        /// </summary>
+        /// <param name="messageData"></param>
         public void ReceiveMessage(SendMessageEventData messageData)
         {
             uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, GetNameColor(messageData.Username))
@@ -99,6 +139,11 @@ namespace FP_Team01
                      .EndLine();
         }
 
+        /// <summary>
+        /// Generates a color for the user based off of their name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Color GetNameColor(string name)
         {
             int red = (name.Length * 123 + 43 / 3) % 200;
@@ -113,6 +158,10 @@ namespace FP_Team01
             return newColor;
         }
 
+        /// <summary>
+        /// Receive an event from the server
+        /// </summary>
+        /// <param name="evt"></param>
         public void ReceiveFromServer(Event evt)
         {
             if (evt.Type.Equals(EventTypes.SendMessageEvent))
@@ -122,12 +171,20 @@ namespace FP_Team01
             }
         }
 
+        /// <summary>
+        /// captures the closing of the form and logs out safely
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
         }
 
+        /// <summary>
+        /// Updates the contact list box
+        /// </summary>
         public void UpdateContactLB()
         {
             List<string> contactUsernames = new List<string>();
@@ -142,6 +199,10 @@ namespace FP_Team01
             this.Invalidate();
         }
 
+        /// <summary>
+        /// Sends an event to the server
+        /// </summary>
+        /// <param name="evt"></param>
         public void SendToServer(Event evt)
         {
             Program.networkHandler.SendToServer(evt);

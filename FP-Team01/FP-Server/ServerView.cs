@@ -94,7 +94,6 @@ namespace FP_Server
             }
         }
 
-        ServerController controller = null;
         #region viewUpdate
         public void userListUpdate()
         {         
