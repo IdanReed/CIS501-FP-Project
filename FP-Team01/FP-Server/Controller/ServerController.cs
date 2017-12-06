@@ -96,7 +96,15 @@ namespace FP_Server.Controller
             {
                 #region Account Handlers
 
-                
+                case EventTypes.NewWSClient:
+                    {
+                        string uName = e.Data as string;
+
+                        Account loginAccount = _accounts.Find(a => a.Username == uName);
+                        loginAccount.Socket = sender;
+
+                        break;
+                    }
                 case EventTypes.CreateAccountEvent:
                     {
                         CreateAccountEventData data = evt.GetData<CreateAccountEventData>();
