@@ -59,7 +59,7 @@ namespace FP_Team01
                     }
                 break;
             }
-            if (!sentError && evt.Type != EventTypes.ServerResponse)
+            if (!sentError)// && evt.Type != EventTypes.ServerResponse)
             {
                 mObs?.Invoke(evt);
                 //new Thread(() => mObs?.Invoke(evt)).Start();
