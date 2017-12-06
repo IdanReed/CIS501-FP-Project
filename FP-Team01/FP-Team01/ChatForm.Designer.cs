@@ -35,6 +35,7 @@
             this.uxBtnSignOut = new System.Windows.Forms.Button();
             this.uxtxtChat = new System.Windows.Forms.RichTextBox();
             this.uxLbContacts = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // uxTBMessage
@@ -81,7 +82,7 @@
             this.uxBtnSignOut.Name = "uxBtnSignOut";
             this.uxBtnSignOut.Size = new System.Drawing.Size(159, 30);
             this.uxBtnSignOut.TabIndex = 6;
-            this.uxBtnSignOut.Text = "Sign Out";
+            this.uxBtnSignOut.Text = "Leave Chatroom";
             this.uxBtnSignOut.UseVisualStyleBackColor = true;
             this.uxBtnSignOut.Click += new System.EventHandler(this.BtnSignOut_Click);
             // 
@@ -102,11 +103,21 @@
             this.uxLbContacts.Size = new System.Drawing.Size(233, 112);
             this.uxLbContacts.TabIndex = 8;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(329, 248);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 18);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Online Contacts:";
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 376);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.uxLbContacts);
             this.Controls.Add(this.uxtxtChat);
             this.Controls.Add(this.uxBtnSignOut);
@@ -133,5 +144,6 @@
         private System.Windows.Forms.Button uxBtnSignOut;
         private System.Windows.Forms.RichTextBox uxtxtChat;
         private System.Windows.Forms.ListBox uxLbContacts;
+        private System.Windows.Forms.Label label1;
     }
 }

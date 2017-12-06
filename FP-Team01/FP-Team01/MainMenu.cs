@@ -57,8 +57,8 @@ namespace FP_Team01
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
-            ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
-            string contactName = contactToChat.Username;
+            //ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
+            string contactName = uxLBContacts.SelectedItem.ToString();
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
@@ -76,7 +76,7 @@ namespace FP_Team01
             switch (evt.Type)
             {
                 case EventTypes.ContactWentOnline:
-                    SendContactEventData evtData = evt.Data as SendContactEventData;
+                    SendContactEventData evtData = evt.GetData<SendContactEventData>();
                     string onlineContactUsername = evtData.Username;
                     MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
                     ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
@@ -85,7 +85,7 @@ namespace FP_Team01
                     break;
 
                 case EventTypes.ContactWentOffline:
-                    SendContactEventData offlineData = evt.Data as SendContactEventData;
+                    SendContactEventData offlineData = evt.GetData<SendContactEventData>();
                     string offlineContactUsername = offlineData.Username;
                     MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
@@ -105,7 +105,7 @@ namespace FP_Team01
                     break;
 
                 case EventTypes.JoinedChatEvent:
-                    JoinChatroomEventData joinChatEvtData = evt.Data as JoinChatroomEventData;
+                    JoinChatroomEventData joinChatEvtData = evt.GetData<JoinChatroomEventData>();
                     Program.tempChatID = joinChatEvtData.id;
                     Program.clientState = Program.ClientStates.addChatroom;
                     Program.SwitchForm(this);
@@ -176,6 +176,10 @@ namespace FP_Team01
             uxLBContacts.DataSource = contactUsernames.ToList();
             uxLbOfflineContacts.DataSource = offlineUsernames.ToList();
             this.Invalidate();
+            foreach(ChatForm form in Program.openChatForms)
+            {
+                form.UpdateContactLB();//Update all chatform Contact listboxes
+            }
         }
     }
 }

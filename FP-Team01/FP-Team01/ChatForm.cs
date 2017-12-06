@@ -62,7 +62,7 @@ namespace FP_Team01
 
         private void uxTBMessage_KeyPress(object sender, KeyPressEventArgs e)//Enter Key on the Send Message box
         {
-            if (e.KeyChar.Equals(Keys.Enter))
+            if (e.KeyChar.Equals('\r'))//Captures the enter key
             {
                 //enter key is down
                 //Activate send event
@@ -73,6 +73,7 @@ namespace FP_Team01
 
         private void SendMessage(string msg)
         {
+            uxTBMessage.Text = "";
             DateTime localDate = DateTime.Now;
             string name = Program.USERNAME;
 
@@ -118,6 +119,20 @@ namespace FP_Team01
         {
             Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
+        }
+
+        public void UpdateContactLB()
+        {
+            List<string> contactUsernames = new List<string>();
+            foreach (ClientAccount contact in Program.allContacts)
+            {
+                if (contact.IsOnline)
+                {
+                    contactUsernames.Add(contact.Username);
+                }
+            }
+            uxLbContacts.DataSource = contactUsernames.ToList();
+            this.Invalidate();
         }
     }
 }
