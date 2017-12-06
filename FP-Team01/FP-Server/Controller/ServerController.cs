@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace FP_Server.Controller
     public delegate void Logger(string message, LoggerMessageTypes type);
     class ServerController 
     {
+        public const string FILE_PATH = "./data.txt";
         private Logger _logger;
 
         private List<Account> _accounts;
@@ -30,8 +32,42 @@ namespace FP_Server.Controller
             _accounts = new List<Account>();
             _rooms = new List<ChatRoom>();
             _logger = logger;
+
+            _LoadData();
+        }
+        ~ServerController()
+        {
+            _WriteData();
         }
 
+        private void _WriteData()
+        {
+            StreamWriter sw = new StreamWriter(FILE_PATH);
+
+            string data = JsonConvert.SerializeObject(_accounts);
+
+            sw.WriteLine(data);
+        }
+
+        private void _LoadData()
+        {
+            try
+            {
+                StreamReader sr = new StreamReader(FILE_PATH);
+
+                string data = sr.ReadToEnd();
+
+                List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data);
+                if (accountData != null)
+                {
+                    _accounts = accountData;
+                }
+            }
+            catch(FileNotFoundException e)
+            {
+                _logger("No data file found, creating a new one", LoggerMessageTypes.None);
+            }
+        }
         public void OnOpen(ServerSocketBehavior sender)
         {
             _logger("A client has connected to the server", LoggerMessageTypes.None);
@@ -212,8 +248,6 @@ namespace FP_Server.Controller
             }
 
             Updater?.Invoke(_accounts, _rooms);
-
-
         }
 
         public void OnClose(ServerSocketBehavior sender, CloseEventArgs e)
