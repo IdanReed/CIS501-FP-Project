@@ -396,7 +396,7 @@ namespace FP_Server.Controller
             List<IAccount> onlineContacts = acct.Contacts.FindAll(a => a.IsOnline);
 
             SendContactEventData data = new FP_Core.Events.SendContactEventData(acct.Username);
-            Event e = new Event(data, EventTypes.SendContact);
+            Event e = new Event(data, EventTypes.ContactWentOnline);
             string eventString = JsonConvert.SerializeObject(e);
             foreach(Account onAcct in onlineContacts)
             {

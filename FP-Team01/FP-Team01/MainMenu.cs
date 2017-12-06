@@ -113,7 +113,8 @@ namespace FP_Team01
                     MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
                     ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
                     onlineContactAccount.IsOnline = true;
-                    UpdateContactLB();
+                    if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
+                    else this.UpdateContactLB();
                     break;
 
                 case EventTypes.ContactWentOffline:
@@ -122,10 +123,12 @@ namespace FP_Team01
                     MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
                     offlineContactAccount.IsOnline = false;
-                    UpdateContactLB();
+                    if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
+                    else this.UpdateContactLB();
                     break;
 
                 case EventTypes.SendAllContacts:
+                    Program.allContacts.Clear();
                     SendAllContactsEventData sendContactEvtData = evt.GetData<SendAllContactsEventData>();
                     foreach (Tuple<bool, string> i in sendContactEvtData.AllContacts)
                     {
