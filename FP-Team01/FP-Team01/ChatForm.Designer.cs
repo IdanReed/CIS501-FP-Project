@@ -72,7 +72,7 @@
             this.uxBtnAddContact.Name = "uxBtnAddContact";
             this.uxBtnAddContact.Size = new System.Drawing.Size(159, 30);
             this.uxBtnAddContact.TabIndex = 5;
-            this.uxBtnAddContact.Text = "Add New Contact";
+            this.uxBtnAddContact.Text = "Invite Contact";
             this.uxBtnAddContact.UseVisualStyleBackColor = true;
             this.uxBtnAddContact.Click += new System.EventHandler(this.BtnAddContact_Click);
             // 

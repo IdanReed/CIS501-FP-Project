@@ -41,6 +41,13 @@ namespace FP_Team01
         private void BtnAddContact_Click(object sender, EventArgs e)
         {
             //Show message box with place to put name of contact to add and make sure it is a mutual friend
+            string contactName = uxLbContacts.SelectedItem.ToString();
+
+
+            //invite contact to current server
+            JoinChatroomEventData evtData = new JoinChatroomEventData(contactName, ChatroomIndex);
+            Event evt = new Event(evtData, EventTypes.CreateChatEvent);
+            SendToServer(evt);
         }
 
         private void BtnSignOut_Click(object sender, EventArgs e)
@@ -133,6 +140,11 @@ namespace FP_Team01
             }
             uxLbContacts.DataSource = contactUsernames.ToList();
             this.Invalidate();
+        }
+
+        public void SendToServer(Event evt)
+        {
+            Program.networkHandler.SendToServer(evt);
         }
     }
 }
