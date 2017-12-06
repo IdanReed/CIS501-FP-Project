@@ -34,6 +34,7 @@ namespace FP_Server.Models
             _password = password;
             _contacts = new List<IAccount>();
         }
+        [JsonIgnore]
         public List<IAccount> Contacts
         {
             get { return _contacts; }
@@ -45,17 +46,16 @@ namespace FP_Server.Models
             get { return _isOnline; }
             set { _isOnline = value;}
         }
-
+        [JsonIgnore]
         public string Username
         {
             get { return _userName; }
         }
-
+        [JsonIgnore]
         public string Password
         {
             get { return _password; }
         }
-
         public override string ToString()
         {
             return _userName ;
