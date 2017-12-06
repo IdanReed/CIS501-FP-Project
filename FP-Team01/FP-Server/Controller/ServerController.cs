@@ -381,7 +381,7 @@ namespace FP_Server.Controller
         private void _SendAllContacts(Account acct)
         {
             SendAllContactsEventData data = new SendAllContactsEventData(acct.Username);
-            data.AllContacts = acct.Contacts.Select(a => a.Username).ToList();
+            data.AllContacts = acct.Contacts.Select(a => Tuple.Create(a.IsOnline, a.Username)).ToList();
             Event e = new Event(data, EventTypes.SendAllContacts);
             string eventData = JsonConvert.SerializeObject(e);
 

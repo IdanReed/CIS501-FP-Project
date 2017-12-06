@@ -127,9 +127,9 @@ namespace FP_Team01
 
                 case EventTypes.SendAllContacts:
                     SendAllContactsEventData sendContactEvtData = evt.GetData<SendAllContactsEventData>();
-                    foreach (string i in sendContactEvtData.AllContacts)
+                    foreach (Tuple<bool, string> i in sendContactEvtData.AllContacts)
                     {
-                        ClientAccount tempCAcc = new ClientAccount(i);
+                        ClientAccount tempCAcc = new ClientAccount(i.Item2, i.Item1);
                         Program.allContacts.Add(tempCAcc);
                     }
                     if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));

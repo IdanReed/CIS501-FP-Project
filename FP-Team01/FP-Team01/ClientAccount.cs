@@ -11,11 +11,12 @@ namespace FP_Team01
     {
         private List<IAccount> _contacts;
         private string _username;
-        private bool _isOnline = true;
+        private bool _isOnline;
 
-        public ClientAccount(string u)
+        public ClientAccount(string u, bool isOnline)
         {
             _username = u;
+            _isOnline = isOnline;
             _contacts = new List<IAccount>();
         }
 
