@@ -47,6 +47,10 @@ namespace FP_Team01
         }//Wow this is a cool comment
         //man Jarod you right. This is a cool comment.
 
+            /// <summary>
+            /// Opens and closes forms based on the current state of the program
+            /// </summary>
+            /// <param name="ToClose"></param>
         public static void SwitchForm(Form ToClose)
         {
             formToClose = null;
@@ -109,6 +113,10 @@ namespace FP_Team01
             //mainMenu.Show();
         }
 
+        /// <summary>
+        /// Creates a new Network handler
+        /// </summary>
+        /// <param name="IP"></param>
         public static void CreateNetwork(string IP)
         {
             networkHandler = new NetworkHandler(IP);
