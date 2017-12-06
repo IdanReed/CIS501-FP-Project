@@ -118,5 +118,10 @@ namespace FP_Team01
             MessageBox.Show("Thank you. You are now signed out.");
             Program.SwitchForm(this);
         }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

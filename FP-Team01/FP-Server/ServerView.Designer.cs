@@ -109,6 +109,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uxChatroomBox.Location = new System.Drawing.Point(3, 47);
             this.uxChatroomBox.Name = "uxChatroomBox";
+            this.uxChatroomBox.ReadOnly = true;
             this.uxChatroomBox.Size = new System.Drawing.Size(262, 369);
             this.uxChatroomBox.TabIndex = 1;
             this.uxChatroomBox.Text = "";
@@ -148,6 +149,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uxUserInfoBox.Location = new System.Drawing.Point(3, 47);
             this.uxUserInfoBox.Name = "uxUserInfoBox";
+            this.uxUserInfoBox.ReadOnly = true;
             this.uxUserInfoBox.Size = new System.Drawing.Size(281, 369);
             this.uxUserInfoBox.TabIndex = 1;
             this.uxUserInfoBox.Text = "";

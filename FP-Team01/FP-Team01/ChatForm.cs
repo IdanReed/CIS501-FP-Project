@@ -74,7 +74,7 @@ namespace FP_Team01
         private void SendMessage(string msg)
         {
             DateTime localDate = DateTime.Now;
-            string name = Program.cAccount.Username;
+            string name = Program.USERNAME;
 
             SendMessageEventData newMessage = new SendMessageEventData(name, msg, localDate, ChatroomIndex);
             Event newEvent = new Event(newMessage, EventTypes.SendMessageEvent);
@@ -107,7 +107,11 @@ namespace FP_Team01
 
         public void ReceiveFromServer(Event evt)
         {
-            
+            if (evt.Type.Equals(EventTypes.SendMessageEvent))
+            {
+                SendMessageEventData rcdMsg = evt.Data as SendMessageEventData;
+                ReceiveMessage(rcdMsg);
+            }
         }
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
