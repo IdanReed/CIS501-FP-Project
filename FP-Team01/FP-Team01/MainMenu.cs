@@ -16,7 +16,7 @@ namespace FP_Team01
         string Username;
         public MainMenu()
         {
-            Username = Program.USERNAME;
+            Username = Program.cAccount.Username;
             InitializeComponent();
             uxLabelName.Text = "Welcome, " + Username + ".";
             NetworkHandler.eObs += ReceiveErrorMessage;
@@ -90,7 +90,7 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
-            LogoutEventData data = new LogoutEventData(Program.USERNAME);
+            LogoutEventData data = new LogoutEventData(Program.cAccount.Username);
             Event evt = new Event(data, EventTypes.LogoutEvent);
             Program.networkHandler.SendToServer(evt);
             Program.clientState = Program.ClientStates.exitProgram;

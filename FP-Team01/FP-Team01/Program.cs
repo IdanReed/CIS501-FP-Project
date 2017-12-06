@@ -20,6 +20,7 @@ namespace FP_Team01
         public static Form formToClose;
         public static Form formToOpen;
         public static List<ChatForm> openChatForms;
+        public static ClientAccount cAccount;
         //public static string serverIP;
 
         /// <summary>
@@ -61,6 +62,7 @@ namespace FP_Team01
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.openMainMenu:
+                    cAccount = new ClientAccount(USERNAME);
                     if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
                     else formToClose.Hide();
                     formToOpen = new MainMenu();
