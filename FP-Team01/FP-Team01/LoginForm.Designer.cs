@@ -37,6 +37,7 @@
             this.uxBtnLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.uxTxtIp = new System.Windows.Forms.TextBox();
+            this.uxBtnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxLabelUsername
@@ -118,11 +119,22 @@
             this.uxTxtIp.Size = new System.Drawing.Size(157, 24);
             this.uxTxtIp.TabIndex = 9;
             // 
+            // uxBtnExit
+            // 
+            this.uxBtnExit.Location = new System.Drawing.Point(260, 177);
+            this.uxBtnExit.Name = "uxBtnExit";
+            this.uxBtnExit.Size = new System.Drawing.Size(75, 30);
+            this.uxBtnExit.TabIndex = 10;
+            this.uxBtnExit.Text = "Exit";
+            this.uxBtnExit.UseVisualStyleBackColor = true;
+            this.uxBtnExit.Click += new System.EventHandler(this.Exit_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(272, 216);
+            this.ClientSize = new System.Drawing.Size(337, 216);
+            this.Controls.Add(this.uxBtnExit);
             this.Controls.Add(this.uxTxtIp);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxBtnLogin);
@@ -153,6 +165,7 @@
         private System.Windows.Forms.Button uxBtnLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox uxTxtIp;
+        private System.Windows.Forms.Button uxBtnExit;
     }
 }
 

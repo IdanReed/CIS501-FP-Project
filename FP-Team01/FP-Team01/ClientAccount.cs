@@ -7,18 +7,27 @@ using FP_Core;
 
 namespace FP_Team01
 {
-    class ClientAccount : FP_Core.IAccount
+    class ClientAccount : IAccount
     {
         private List<IAccount> _contacts;
-        private List<IAccount> _onlineContacts;
         private string _username;
         private bool _isOnline = true;
+
+        public ClientAccount(string u)
+        {
+            _username = u;
+            _contacts = new List<IAccount>();
+        }
 
         public List<IAccount> Contacts
         {
             get
             {
                 return _contacts;
+            }
+            set
+            {
+                _contacts = value;
             }
         }
 
@@ -30,19 +39,15 @@ namespace FP_Team01
             }
         }
 
-        public List<IAccount> OnlineContacts
-        {
-            get
-            {
-                return _onlineContacts;
-            }
-        }
-
         public string Username
         {
             get
             {
                 return _username;
+            }
+            set
+            {
+                _username = value;
             }
         }
     }

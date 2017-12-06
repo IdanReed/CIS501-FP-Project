@@ -16,7 +16,7 @@ namespace FP_Team01
         string Username;
         public MainMenu()
         {
-            Username = Program.USERNAME;
+            Username = Program.cAccount.Username;
             InitializeComponent();
             uxLabelName.Text = "Welcome, " + Username + ".";
             NetworkHandler.eObs += ReceiveErrorMessage;
@@ -43,11 +43,7 @@ namespace FP_Team01
             //Send signout event to server and return to login window, where you can safely close program
             /*this.Close();
             Environment.Exit(0);*/
-            LogoutEventData data = new LogoutEventData(Program.USERNAME);
-            Event evt = new Event(data, EventTypes.LogoutEvent);
-            Program.networkHandler.SendToServer(evt);
-            Program.clientState = Program.ClientStates.notLoggedIn;
-            Program.SwitchForm(this);
+            Form_Closing(sender, null);
         }
 
         private void BtnStartChat_Click(object sender, EventArgs e)
@@ -60,7 +56,7 @@ namespace FP_Team01
             var chat = new ChatForm();
             chat.FormClosed += (s, args) => this.Close();
             chat.Show();*/
-            Program.clientState = Program.ClientStates.inChatroom;
+            Program.clientState = Program.ClientStates.addChatroom;
             Program.SwitchForm(this);
             
         }
@@ -94,7 +90,11 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
-            Program.clientState = Program.ClientStates.notLoggedIn;
+            LogoutEventData data = new LogoutEventData(Program.cAccount.Username);
+            Event evt = new Event(data, EventTypes.LogoutEvent);
+            Program.networkHandler.SendToServer(evt);
+            Program.clientState = Program.ClientStates.exitProgram;
+            MessageBox.Show("Thank you. You are now signed out.");
             Program.SwitchForm(this);
         }
     }

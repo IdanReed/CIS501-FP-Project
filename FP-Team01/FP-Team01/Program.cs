@@ -11,7 +11,7 @@ namespace FP_Team01
     {
         public enum ClientStates
         {
-            Idle, inChatroom, notLoggedIn, createAccount, exitProgram,
+            Idle, inChatroom, notLoggedIn, createAccount, exitProgram, addChatroom, removeChatroom, openMainMenu
         }
         public static string USERNAME = ""; //use these to pass between the GUIs 
         public static string PASSWORD = ""; //might not need this beyond the login screen, but we'll see what happens
@@ -19,6 +19,8 @@ namespace FP_Team01
         public static ClientStates clientState;
         public static Form formToClose;
         public static Form formToOpen;
+        public static List<ChatForm> openChatForms;
+        public static ClientAccount cAccount;
         //public static string serverIP;
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace FP_Team01
         [STAThread]
         static void Main()
         {
+            openChatForms = new List<ChatForm>();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -37,16 +40,18 @@ namespace FP_Team01
 
         public static void SwitchForm(Form ToClose)
         {
+            formToClose = null;
+            formToOpen = null;
             formToClose = ToClose;
 
             switch (clientState)
             {
                 case ClientStates.inChatroom:
-                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                    /*if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
                     else formToClose.Hide();
                     formToOpen = new ChatForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.ShowDialog();
+                    formToOpen.ShowDialog();*/
                     break;
                 case ClientStates.notLoggedIn:
                     if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
@@ -54,13 +59,28 @@ namespace FP_Team01
                     formToOpen = new LoginForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
                     formToOpen.ShowDialog();
+                    clientState = ClientStates.Idle;
                     break;
-                case ClientStates.Idle:
+                case ClientStates.openMainMenu:
+                    cAccount = new ClientAccount(USERNAME);
                     if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
                     else formToClose.Hide();
                     formToOpen = new MainMenu();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
                     formToOpen.ShowDialog();
+                    clientState = ClientStates.Idle;
+                    break;
+                case ClientStates.addChatroom:
+                    formToOpen = new ChatForm();
+                    openChatForms.Add(formToOpen as ChatForm);
+                    formToOpen.Show();
+                    clientState = ClientStates.Idle;
+                    break;
+                case ClientStates.removeChatroom:
+                    formToClose.Hide();
+                    openChatForms.Remove(formToClose as ChatForm);
+                    formToClose.Dispose();
+                    clientState = ClientStates.Idle;
                     break;
                 case ClientStates.exitProgram:
                     Environment.Exit(0);

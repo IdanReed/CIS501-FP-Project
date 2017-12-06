@@ -14,7 +14,7 @@ namespace FP_Team01
 {
     public partial class ChatForm : Form
     {
-        int ChatroomIndex;
+        public int ChatroomIndex;
         public ChatForm()
         {
             InitializeComponent();
@@ -74,7 +74,7 @@ namespace FP_Team01
         private void SendMessage(string msg)
         {
             DateTime localDate = DateTime.Now;
-            string name = Program.USERNAME;
+            string name = Program.cAccount.Username;
 
             SendMessageEventData newMessage = new SendMessageEventData(name, msg, localDate, ChatroomIndex);
             Event newEvent = new Event(newMessage, EventTypes.SendMessageEvent);
@@ -112,7 +112,7 @@ namespace FP_Team01
 
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
-            Program.clientState = Program.ClientStates.Idle;
+            Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
         }
     }
