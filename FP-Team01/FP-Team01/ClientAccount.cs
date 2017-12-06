@@ -19,6 +19,15 @@ namespace FP_Team01
             _contacts = new List<IAccount>();
         }
 
+        public override string ToString()
+        {
+            if (_isOnline)
+            {
+                return _username + " is online.";
+            }
+            return _username + " is offline.";
+        }
+
         public List<IAccount> Contacts
         {
             get

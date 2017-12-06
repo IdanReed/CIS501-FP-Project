@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp;
@@ -22,6 +23,7 @@ namespace FP_Team01
         public static List<ChatForm> openChatForms;
         public static List<ClientAccount> allContacts;
         public static int tempChatID;
+        public static bool mainFormOpen;
         //public static string serverIP;
 
         /// <summary>
@@ -34,6 +36,7 @@ namespace FP_Team01
             allContacts = new List<ClientAccount>();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            mainFormOpen = false;
 
             clientState = ClientStates.notLoggedIn;
             Application.Run(new LoginForm());
@@ -60,23 +63,28 @@ namespace FP_Team01
                     else formToClose.Hide();
                     formToOpen = new LoginForm();
                     formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.ShowDialog();
+                    formToOpen.Show();
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.openMainMenu:
-                    if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
-                    else formToClose.Hide();
-                    formToOpen = new MainMenu();
-                    formToOpen.FormClosed += (s, args) => formToClose.Dispose();
-                    formToOpen.ShowDialog();
-                    clientState = ClientStates.Idle;
+                    if (!mainFormOpen)
+                    {
+                        if (formToClose.InvokeRequired) formToClose.Invoke(new Action(formToClose.Hide));
+                        else formToClose.Hide();
+                        formToOpen = new MainMenu();
+                        formToOpen.FormClosed += (s, args) => formToClose.Dispose();
+                        formToClose.Invoke(new Action(formToOpen.Show));
+                        //formToOpen.Show();//.ShowDialog();
+                        clientState = ClientStates.Idle;
+                        mainFormOpen = true;
+                    }
                     break;
                 case ClientStates.addChatroom:
                     formToOpen = new ChatForm();
                     openChatForms.Add(formToOpen as ChatForm);
                     ChatForm tempForm = formToOpen as ChatForm;
                     tempForm.ChatroomIndex = tempChatID;
-                    formToOpen.Show();
+                    //f
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.removeChatroom:
