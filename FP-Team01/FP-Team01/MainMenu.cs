@@ -59,7 +59,15 @@ namespace FP_Team01
         /// <param name="e"></param>
         private void BtnRemoveContact_Click(object sender, EventArgs e)
         {
-            string contactToAdd = uxTxtUsername.Text;
+            string contactToAdd;
+            if(uxLBContacts.SelectedItem != null)
+            {
+                contactToAdd = uxLBContacts.SelectedItem.ToString();
+            }
+            else
+            {
+                contactToAdd = uxLbOfflineContacts.SelectedItem.ToString();
+            }
             SendContactEventData evtData = new SendContactEventData(contactToAdd);
             Event evt = new Event(evtData, EventTypes.RemoveContactEvent);
             SendToServer(evt);
@@ -237,6 +245,16 @@ namespace FP_Team01
             {
                 form.UpdateContactLB();//Update all chatform Contact listboxes
             }
+        }
+
+        private void uxLBContacts_MouseClick(object sender, MouseEventArgs e)
+        {
+            uxLbOfflineContacts.SelectedItem = null;
+        }
+
+        private void uxLbOfflineContacts_MouseClick(object sender, MouseEventArgs e)
+        {
+            uxLBContacts.SelectedItem = null;
         }
     }
 }
