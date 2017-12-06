@@ -44,9 +44,11 @@ namespace FP_Server.Controller
         {
             StreamWriter sw = new StreamWriter(FILE_PATH);
 
+            
             string data = JsonConvert.SerializeObject(_accounts);
 
             sw.WriteLine(data);
+            sw.Close();
         }
 
         private void _LoadData()
@@ -61,6 +63,7 @@ namespace FP_Server.Controller
                 if (accountData != null)
                 {
                     _accounts = accountData;
+                    Updater?.Invoke(_accounts, _rooms);
                 }
             }
             catch(FileNotFoundException e)

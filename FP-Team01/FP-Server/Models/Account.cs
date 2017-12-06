@@ -1,5 +1,6 @@
 ﻿using FP_Core;
 using FP_Server.Controller;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace FP_Server.Models
         private bool _isOnline;
         private string _userName;
         private string _password;
+
+        [JsonIgnore]
         private ServerSocketBehavior _socket;
 
+        [JsonIgnore]
         public ServerSocketBehavior Socket
         {
             get { return _socket; }
