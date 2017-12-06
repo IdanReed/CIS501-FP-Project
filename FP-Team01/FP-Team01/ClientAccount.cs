@@ -37,6 +37,10 @@ namespace FP_Team01
             {
                 return _isOnline;
             }
+            set
+            {
+                _isOnline = value;
+            }
         }
 
         public string Username

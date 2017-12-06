@@ -49,6 +49,7 @@
     <Compile Include="Events\LeaveChatroomEventData.cs" />
     <Compile Include="Events\LoginEventData.cs" />
     <Compile Include="Events\LogoutEventData.cs" />
+    <Compile Include="Events\SendAllContactsEventData.cs" />
     <Compile Include="Events\SendContactEventData.cs" />
     <Compile Include="Events\SendMessageEventData.cs" />
     <Compile Include="Events\ServerResponseEventData.cs" />
