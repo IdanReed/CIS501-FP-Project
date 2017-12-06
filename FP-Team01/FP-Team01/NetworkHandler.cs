@@ -72,7 +72,7 @@ namespace FP_Team01
                     }
                 break;
             }
-            if (!sentError && evt.Type != EventTypes.ServerResponse)
+            if (!sentError)// && evt.Type != EventTypes.ServerResponse)
             {
                 mObs?.Invoke(evt);
                 //new Thread(() => mObs?.Invoke(evt)).Start();
@@ -96,7 +96,7 @@ namespace FP_Team01
         /// </summary>
         private void TempConnectTest()
         {
-            Event evt = new Event(Program.USERNAME, EventTypes.SendAllContacts);
+            Event evt = new Event(Program.USERNAME, EventTypes.NewWSClient);
             SendToServer(evt);
         }
     }

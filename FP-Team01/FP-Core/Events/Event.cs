@@ -23,6 +23,7 @@ namespace FP_Core.Events
         ContactWentOnline,
         SendAllContacts,
         JoinedChatEvent,
+        NewWSClient,
     }
     public class Event
     {
