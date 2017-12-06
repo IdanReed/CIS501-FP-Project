@@ -155,7 +155,14 @@ namespace FP_Team01
 
         public void UpdateContactLB()
         {
-            uxLBContacts.DataSource = Program.allContacts.ToList();
+            List<string> contactUsernames = new List<string>();
+            foreach (ClientAccount contact in Program.allContacts)
+            {
+                contactUsernames.Add(contact.Username);
+            }
+
+
+            uxLBContacts.DataSource = contactUsernames.ToList();
             this.Invalidate();
         }
     }
