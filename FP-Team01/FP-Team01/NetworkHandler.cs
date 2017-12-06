@@ -39,6 +39,10 @@ namespace FP_Team01
             ws.Connect();
         }
 
+        /// <summary>
+        /// Broadcast error to the observer
+        /// </summary>
+        /// <param name="errorMessage"></param>
         private void BroadcastError(string errorMessage)
         {
             eObs?.Invoke(errorMessage);
@@ -46,6 +50,11 @@ namespace FP_Team01
             //where Broadcast is their method to handle stuff
         }
 
+        /// <summary>
+        /// Receives an event from the server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReceiveFromServer(object sender, MessageEventArgs e)
         {
             bool sentError = false;
@@ -70,6 +79,11 @@ namespace FP_Team01
             }
         }
 
+        /// <summary>
+        /// Send and event to the server
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public bool SendToServer(Event e)
         {
             sentEventType = e.Type;
@@ -77,6 +91,9 @@ namespace FP_Team01
             return true;
         }
 
+        /// <summary>
+        /// Test Connection
+        /// </summary>
         private void TempConnectTest()
         {
             Event evt = new Event(Program.USERNAME, EventTypes.SendAllContacts);
