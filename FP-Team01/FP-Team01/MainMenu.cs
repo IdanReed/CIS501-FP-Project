@@ -55,7 +55,8 @@ namespace FP_Team01
 
         private void BtnStartChat_Click(object sender, EventArgs e)
         {
-            string contactName = uxLBContacts.SelectedItem.ToString();
+            ClientAccount contactToChat = uxLBContacts.SelectedItem as ClientAccount;
+            string contactName = contactToChat.Username;
             //Send friend name to server and start chat form
 
             //From https://stackoverflow.com/questions/5548746/c-sharp-open-a-new-form-then-close-the-current-form
@@ -78,6 +79,7 @@ namespace FP_Team01
                     MessageBox.Show("Contact " + onlineContactUsername + " is now online.");
                     ClientAccount onlineContactAccount = Program.allContacts.Find(x => x.Username == onlineContactUsername);
                     onlineContactAccount.IsOnline = true;
+                    UpdateContactLB();
                     break;
 
                 case EventTypes.ContactWentOffline:
@@ -85,16 +87,19 @@ namespace FP_Team01
                     string offlineContactUsername = offlineData.Username;
                     MessageBox.Show("Contact " + offlineContactUsername + " is now offline");
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
-                    offlineContactAccount.IsOnline = true;
+                    offlineContactAccount.IsOnline = false;
+                    UpdateContactLB();
                     break;
 
                 case EventTypes.SendAllContacts:
-                    SendAllContactsEventData sendContactEvtData = evt.Data as SendAllContactsEventData;
-                    foreach (IAccount i in sendContactEvtData.AllContacts)
+                    SendAllContactsEventData sendContactEvtData = evt.GetData<SendAllContactsEventData>();
+                    foreach (string i in sendContactEvtData.AllContacts)
                     {
-                        ClientAccount tempCAcc = i as ClientAccount;
+                        ClientAccount tempCAcc = new ClientAccount(i);
                         Program.allContacts.Add(tempCAcc);
                     }
+                    if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
+                    else this.UpdateContactLB();
                     break;
 
                 case EventTypes.JoinedChatEvent:
@@ -150,7 +155,15 @@ namespace FP_Team01
 
         public void UpdateContactLB()
         {
-            uxLBContacts.DataSource = Program.allContacts;
+            List<string> contactUsernames = new List<string>();
+            foreach (ClientAccount contact in Program.allContacts)
+            {
+                contactUsernames.Add(contact.Username);
+            }
+
+
+            uxLBContacts.DataSource = contactUsernames.ToList();
+            this.Invalidate();
         }
     }
 }

@@ -51,6 +51,7 @@
             // 
             // uxLBContacts
             // 
+            this.uxLBContacts.ForeColor = System.Drawing.SystemColors.WindowText;
             this.uxLBContacts.FormattingEnabled = true;
             this.uxLBContacts.ItemHeight = 18;
             this.uxLBContacts.Location = new System.Drawing.Point(222, 34);

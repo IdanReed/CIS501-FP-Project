@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FP_Core.Events;
 using Newtonsoft.Json;
 using WebSocketSharp;
+using System.Threading;
 
 namespace FP_Team01
 {
@@ -52,9 +53,10 @@ namespace FP_Team01
                     }
                 break;
             }
-            if (!sentError)
+            if (!sentError && evt.Type != EventTypes.ServerResponse)
             {
                 mObs?.Invoke(evt);
+                //new Thread(() => mObs?.Invoke(evt)).Start();
             }
         }
 
