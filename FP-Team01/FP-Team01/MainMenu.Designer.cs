@@ -37,6 +37,8 @@
             this.uxBtnSignOut = new System.Windows.Forms.Button();
             this.uxTxtUsername = new System.Windows.Forms.TextBox();
             this.uxGbUsername = new System.Windows.Forms.GroupBox();
+            this.lblOfflineContacts = new System.Windows.Forms.Label();
+            this.uxLbOfflineContacts = new System.Windows.Forms.ListBox();
             this.uxGbUsername.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +58,7 @@
             this.uxLBContacts.ItemHeight = 18;
             this.uxLBContacts.Location = new System.Drawing.Point(222, 34);
             this.uxLBContacts.Name = "uxLBContacts";
-            this.uxLBContacts.Size = new System.Drawing.Size(156, 310);
+            this.uxLBContacts.Size = new System.Drawing.Size(156, 130);
             this.uxLBContacts.TabIndex = 1;
             // 
             // uxBtnStartChat
@@ -74,9 +76,9 @@
             this.uxLabelContacts.AutoSize = true;
             this.uxLabelContacts.Location = new System.Drawing.Point(219, 9);
             this.uxLabelContacts.Name = "uxLabelContacts";
-            this.uxLabelContacts.Size = new System.Drawing.Size(103, 18);
+            this.uxLabelContacts.Size = new System.Drawing.Size(114, 18);
             this.uxLabelContacts.TabIndex = 3;
-            this.uxLabelContacts.Text = "Your Contacts";
+            this.uxLabelContacts.Text = "Online Contacts";
             // 
             // uxBtnAddContact
             // 
@@ -127,11 +129,32 @@
             this.uxGbUsername.TabIndex = 8;
             this.uxGbUsername.TabStop = false;
             // 
+            // lblOfflineContacts
+            // 
+            this.lblOfflineContacts.AutoSize = true;
+            this.lblOfflineContacts.Location = new System.Drawing.Point(219, 188);
+            this.lblOfflineContacts.Name = "lblOfflineContacts";
+            this.lblOfflineContacts.Size = new System.Drawing.Size(114, 18);
+            this.lblOfflineContacts.TabIndex = 10;
+            this.lblOfflineContacts.Text = "Offline Contacts";
+            // 
+            // uxLbOfflineContacts
+            // 
+            this.uxLbOfflineContacts.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.uxLbOfflineContacts.FormattingEnabled = true;
+            this.uxLbOfflineContacts.ItemHeight = 18;
+            this.uxLbOfflineContacts.Location = new System.Drawing.Point(222, 213);
+            this.uxLbOfflineContacts.Name = "uxLbOfflineContacts";
+            this.uxLbOfflineContacts.Size = new System.Drawing.Size(156, 130);
+            this.uxLbOfflineContacts.TabIndex = 9;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 361);
+            this.Controls.Add(this.lblOfflineContacts);
+            this.Controls.Add(this.uxLbOfflineContacts);
             this.Controls.Add(this.uxGbUsername);
             this.Controls.Add(this.uxBtnSignOut);
             this.Controls.Add(this.uxBtnRemoveContact);
@@ -163,5 +186,7 @@
         private System.Windows.Forms.Button uxBtnSignOut;
         private System.Windows.Forms.TextBox uxTxtUsername;
         private System.Windows.Forms.GroupBox uxGbUsername;
+        private System.Windows.Forms.Label lblOfflineContacts;
+        private System.Windows.Forms.ListBox uxLbOfflineContacts;
     }
 }
