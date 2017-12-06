@@ -176,6 +176,10 @@ namespace FP_Team01
             uxLBContacts.DataSource = contactUsernames.ToList();
             uxLbOfflineContacts.DataSource = offlineUsernames.ToList();
             this.Invalidate();
+            foreach(ChatForm form in Program.openChatForms)
+            {
+                form.UpdateContactLB();//Update all chatform Contact listboxes
+            }
         }
     }
 }

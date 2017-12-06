@@ -120,5 +120,19 @@ namespace FP_Team01
             Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
         }
+
+        public void UpdateContactLB()
+        {
+            List<string> contactUsernames = new List<string>();
+            foreach (ClientAccount contact in Program.allContacts)
+            {
+                if (contact.IsOnline)
+                {
+                    contactUsernames.Add(contact.Username);
+                }
+            }
+            uxLbContacts.DataSource = contactUsernames.ToList();
+            this.Invalidate();
+        }
     }
 }
