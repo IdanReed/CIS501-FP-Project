@@ -89,12 +89,14 @@ namespace FP_Team01
                     break;
 
                 case EventTypes.SendAllContacts:
-                    SendAllContactsEventData sendContactEvtData = evt.Data as SendAllContactsEventData;
-                    foreach (IAccount i in sendContactEvtData.AllContacts)
+                    SendAllContactsEventData sendContactEvtData = evt.GetData<SendAllContactsEventData>();
+                    foreach (string i in sendContactEvtData.AllContacts)
                     {
-                        ClientAccount tempCAcc = i as ClientAccount;
+                        ClientAccount tempCAcc = new ClientAccount(i);
                         Program.allContacts.Add(tempCAcc);
                     }
+                    if (this.InvokeRequired) this.Invoke(new Action(this.UpdateContactLB));
+                    else this.UpdateContactLB();
                     break;
 
                 case EventTypes.JoinedChatEvent:
@@ -150,7 +152,8 @@ namespace FP_Team01
 
         public void UpdateContactLB()
         {
-            uxLBContacts.DataSource = Program.allContacts;
+            uxLBContacts.DataSource = Program.allContacts.ToList();
+            this.Invalidate();
         }
     }
 }
