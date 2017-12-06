@@ -44,8 +44,9 @@ namespace FP_Server.Controller
 
             JsonSerializerSettings sets = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.Objects,
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                TypeNameHandling = TypeNameHandling.All,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                //TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             };
 
             string data = JsonConvert.SerializeObject(_accounts, sets);
@@ -64,8 +65,9 @@ namespace FP_Server.Controller
 
                 List<Account> accountData = JsonConvert.DeserializeObject<List<Account>>(data, new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.Objects,
-                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                    TypeNameHandling = TypeNameHandling.All,
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+
                 });
                 if (accountData != null)
                 {
@@ -190,16 +192,16 @@ namespace FP_Server.Controller
                         {
                             _TryLogout(data.Username, sender);
 
-                            response = new ServerResponseEventData();
+                           // response = new ServerResponseEventData();
                             _logger("Account with username '" + data.Username + "' has logged out", LoggerMessageTypes.None);
                         }
                         catch(ArgumentException err)
                         {
-                            response = new ServerResponseEventData(err.Message);
+                           // response = new ServerResponseEventData(err.Message);
 
                             _logger("Client attempted to logout with username '" + data.Username + "' and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
                         }
-                        sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                       // sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
                         break;
                     }
                 case EventTypes.SendAllContacts:
