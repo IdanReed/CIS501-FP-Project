@@ -84,6 +84,9 @@ namespace FP_Team01
                     ClientAccount offlineContactAccount = Program.allContacts.Find(x => x.Username == offlineContactUsername);
                     offlineContactAccount.IsOnline = true;
                     break;
+                case EventTypes.SendAllContacts:
+                    
+                    break;
             }
         }
 
