@@ -118,7 +118,10 @@ namespace FP_Server.Controller
                             string uName = e.Data as string;
 
                             Account loginAccount = _accounts.Find(a => a.Username == uName);
-                            loginAccount.Socket = sender;
+                            if (loginAccount != null && sender != null)
+                            {
+                                loginAccount.Socket = sender;
+                            }
 
                             break;
                         }
@@ -199,8 +202,8 @@ namespace FP_Server.Controller
                             {
                                 _RemoveContact(sender, data.Username);
 
-                                _logger("Client removed contact with username '" + data.Username + "'", LoggerMessageTypes.Error);
-                                _SendAllContacts(_accounts.Find(a => a.Username == data.Username));
+                                _logger("Client removed contact with username '" + data.Username + "'", LoggerMessageTypes.None);
+                                _SendAllContacts(_accounts.Find(a => a.Socket == sender));
                                 //response = new ServerResponseEventData();
                             }
                             catch (ArgumentException err)
