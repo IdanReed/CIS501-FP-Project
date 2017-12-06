@@ -61,6 +61,7 @@
             this.uxLBContacts.Size = new System.Drawing.Size(156, 130);
             this.uxLBContacts.TabIndex = 1;
             this.uxLBContacts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.uxLBContacts_MouseClick);
+            this.uxLBContacts.SelectedIndexChanged += new System.EventHandler(this.uxLBContacts_SelectedIndexChanged);
             // 
             // uxBtnStartChat
             // 
@@ -149,6 +150,7 @@
             this.uxLbOfflineContacts.Size = new System.Drawing.Size(156, 130);
             this.uxLbOfflineContacts.TabIndex = 9;
             this.uxLbOfflineContacts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.uxLbOfflineContacts_MouseClick);
+            this.uxLbOfflineContacts.SelectedIndexChanged += new System.EventHandler(this.uxLbOfflineContacts_SelectedIndexChanged);
             // 
             // MainMenu
             // 

@@ -258,5 +258,22 @@ namespace FP_Team01
         {
             uxLBContacts.ClearSelected();
         }
+
+        private void uxLBContacts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(uxLBContacts.SelectedIndex != -1)
+            {
+                uxLbOfflineContacts.ClearSelected();
+            }
+               
+        }
+
+        private void uxLbOfflineContacts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(uxLbOfflineContacts.SelectedIndex != -1)
+            {
+                uxLBContacts.ClearSelected();
+            }
+        }
     }
 }
