@@ -156,13 +156,23 @@ namespace FP_Team01
         public void UpdateContactLB()
         {
             List<string> contactUsernames = new List<string>();
+            List<string> offlineUsernames = new List<string>();
             foreach (ClientAccount contact in Program.allContacts)
             {
-                contactUsernames.Add(contact.Username);
+                if(contact.IsOnline)
+                {
+                    contactUsernames.Add(contact.Username);
+                }
+                else
+                {
+                    offlineUsernames.Add(contact.Username);
+                }
+                
             }
 
 
             uxLBContacts.DataSource = contactUsernames.ToList();
+            uxLbOfflineContacts.DataSource = offlineUsernames.ToList();
             this.Invalidate();
         }
     }

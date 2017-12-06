@@ -30,7 +30,7 @@ namespace FP_Server.Controller
             OnOpenEvent?.Invoke(this);
         }
 
-        public void Send(string data)
+        public void SendToSocket(string data)
         {
             Sessions.SendTo(ID, data);
         }
