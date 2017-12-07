@@ -20,7 +20,7 @@ namespace FP_Team01
     {
         public int ChatroomIndex;
         private List<SendMessageEventData> messageLog = new List<SendMessageEventData>();
-        private List<ClientAccount> mutualContacts;
+        private List<string> mutualContacts;
 
         public ChatForm()
         {
@@ -184,6 +184,7 @@ namespace FP_Team01
             else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
             {
                 JoinChatroomEventData rcdMsg = evt.GetData<JoinChatroomEventData>();
+                mutualContacts = rcdMsg.mutualContacts;
                 if (rcdMsg.messageLog == null) return;
                 foreach(SendMessageEventData msgData in rcdMsg.messageLog)
                 {
@@ -214,15 +215,7 @@ namespace FP_Team01
         /// </summary>
         public void UpdateContactLB()
         {
-            List<string> contactUsernames = new List<string>();
-            foreach (ClientAccount contact in Program.allContacts)
-            {
-                if (contact.IsOnline)
-                {
-                    contactUsernames.Add(contact.Username);
-                }
-            }
-            uxLbContacts.DataSource = contactUsernames.ToList();
+            uxLbContacts.DataSource = mutualContacts.ToList();
             this.Invalidate();
         }
 
