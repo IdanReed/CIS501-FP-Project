@@ -267,8 +267,8 @@ namespace FP_Server.Controller
                                     foreach(Account participant in room.Participants)
                                     {
                                         JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, data.id);
-                                        string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
                                         if (data.messageLog != null && data.messageLog.Count > 0 && participant.Username == data.Username) response.messageLog = data.messageLog;
+                                        string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
                                         participant.Socket.SendToSocket(eventData);
                                     }
                                 }
