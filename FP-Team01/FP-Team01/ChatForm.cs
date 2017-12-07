@@ -19,6 +19,8 @@ namespace FP_Team01
     public partial class ChatForm : Form
     {
         public int ChatroomIndex;
+        private List<SendMessageEventData> messageLog = new List<SendMessageEventData>();
+
         public ChatForm()
         {
             InitializeComponent();
