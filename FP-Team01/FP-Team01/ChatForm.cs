@@ -94,7 +94,7 @@ namespace FP_Team01
         /// <param name="e"></param>
         private void ChatForm_Load(object sender, EventArgs e)
         {
-
+            UpdateContactLB(); 
         }
 
         /// <summary>
