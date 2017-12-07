@@ -264,11 +264,11 @@ namespace FP_Server.Controller
 
 
                                     ChatRoom room = _rooms.Find(r => r.RoomID == data.id);
-                                    List<string> mutualContacts = new List<string>(room.Participants[0].Contacts.Select(a=> a.Username));
+                                    List<Tuple<bool,string>> mutualContacts = new List<Tuple<bool,string>>(room.Participants[0].Contacts.Select(a=> Tuple.Create(a.IsOnline,a.Username)));
 
                                     for(int i =1; i<room.Participants.Count; i++)
                                     {
-                                        mutualContacts = mutualContacts.Intersect(room.Participants[i].Contacts.Select(a => a.Username)).ToList();
+                                        mutualContacts = mutualContacts.Intersect(room.Participants[i].Contacts.Select(a => Tuple.Create(a.IsOnline,a.Username))).ToList();
                                     }
 
                                     foreach(Account participant in room.Participants)
@@ -293,10 +293,14 @@ namespace FP_Server.Controller
                                 {
                                     int roomId = _CreateChatroom(data.Username, sender);
 
-                                    string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
                                     Account recieverAccount = _accounts.Find(a => a.Username == data.Username);
+                                    Account senderAccount = _accounts.Find(a => a.Socket == sender);
+                                    string senderUsername = senderAccount.Username;
 
                                     JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, roomId);
+                                    List<Tuple<bool, string>> mutualContacts = new List<Tuple<bool,string>>(senderAccount.Contacts.Select(a=> Tuple.Create(a.IsOnline,a.Username)));
+                                    mutualContacts = mutualContacts.Intersect(recieverAccount.Contacts.Select(a => Tuple.Create(a.IsOnline, a.Username))).ToList();
+                                    response.mutualContacts = mutualContacts;
                                     string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
                                     sender.SendToSocket(eventData);
                                     recieverAccount.Socket.SendToSocket(eventData);
@@ -408,7 +412,7 @@ namespace FP_Server.Controller
             {
                 if (r.Participants.Contains(acct))
                 {
-                    r.Participants.Remove(acct);
+                    _LeaveChatroom(acct.Username, r.RoomID);
                 }
             }
             

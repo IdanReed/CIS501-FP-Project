@@ -20,9 +20,11 @@ namespace FP_Team01
     {
         public int ChatroomIndex;
         private List<SendMessageEventData> messageLog = new List<SendMessageEventData>();
+        private List<ClientAccount> mutualContacts;
 
         public ChatForm()
         {
+            mutualContacts = new List<ClientAccount>();
             InitializeComponent();
             NetworkHandler.eObs += ReceiveErrorMessage;
             NetworkHandler.mObs += ReceiveFromServer;
@@ -61,6 +63,7 @@ namespace FP_Team01
         private void BtnAddContact_Click(object sender, EventArgs e)
         {
             //Show message box with place to put name of contact to add and make sure it is a mutual friend
+            if (uxLbContacts.SelectedItem == null) return;
             string contactName = uxLbContacts.SelectedItem.ToString();
 
             
@@ -182,7 +185,13 @@ namespace FP_Team01
             }
             else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
             {
+                mutualContacts.Clear();
                 JoinChatroomEventData rcdMsg = evt.GetData<JoinChatroomEventData>();
+                foreach(Tuple<bool, string> c in rcdMsg.mutualContacts)
+                {
+                    ClientAccount addingAccount = Program.allContacts.Find(a => a.Username == c.Item2);
+                    mutualContacts.Add(addingAccount);
+                }
                 if (rcdMsg.messageLog == null) return;
                 foreach(SendMessageEventData msgData in rcdMsg.messageLog)
                 {
@@ -213,16 +222,11 @@ namespace FP_Team01
         /// </summary>
         public void UpdateContactLB()
         {
-            List<string> contactUsernames = new List<string>();
-            foreach (ClientAccount contact in Program.allContacts)
+            if (mutualContacts != null)
             {
-                if (contact.IsOnline)
-                {
-                    contactUsernames.Add(contact.Username);
-                }
+                uxLbContacts.DataSource = mutualContacts.Where(a=>a.IsOnline).Select(a=>a.Username).ToList();
+                this.Invalidate();
             }
-            uxLbContacts.DataSource = contactUsernames.ToList();
-            this.Invalidate();
         }
 
         /// <summary>

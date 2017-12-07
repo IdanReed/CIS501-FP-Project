@@ -242,8 +242,9 @@ namespace FP_Team01
                 {
                     offlineUsernames.Add(contact.Username);
                 }
-                
             }
+
+            
 
 
             uxLBContacts.DataSource = contactUsernames.ToList();
