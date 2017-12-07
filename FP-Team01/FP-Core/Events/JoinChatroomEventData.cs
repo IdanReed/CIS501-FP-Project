@@ -12,6 +12,7 @@ namespace FP_Core.Events
         public string Username;
         public int id;
         public List<SendMessageEventData> messageLog;
+        public List<string> mutualContacts;
 
         [JsonConstructor]
         private JoinChatroomEventData() { }
@@ -19,12 +20,14 @@ namespace FP_Core.Events
         {
             Username = name;
             id = chatroomID;
+            mutualContacts = new List<string>();
         }
         public JoinChatroomEventData(string name, int chatroomID, List<SendMessageEventData> msgLog)
         {
             Username = name;
             id = chatroomID;
             messageLog = msgLog;
+            mutualContacts = new List<string>();
         }
     }
 }
