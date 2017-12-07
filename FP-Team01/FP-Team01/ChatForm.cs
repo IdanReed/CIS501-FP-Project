@@ -177,6 +177,7 @@ namespace FP_Team01
             {
                 SendMessageEventData rcdMsg = evt.GetData<SendMessageEventData>();
                 ReceiveMessage(rcdMsg);
+                messageLog.Add(rcdMsg);
             }
             else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
             {
@@ -185,6 +186,7 @@ namespace FP_Team01
                 foreach(SendMessageEventData msgData in rcdMsg.messageLog)
                 {
                     ReceiveMessage(msgData);
+                    messageLog.Add(msgData);
                 }
             }
         }
