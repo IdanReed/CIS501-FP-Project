@@ -156,7 +156,7 @@ namespace FP_Team01
                     JoinChatroomEventData joinChatEvtData = evt.GetData<JoinChatroomEventData>();
                     Program.tempChatID = joinChatEvtData.id;
                     Program.clientState = Program.ClientStates.addChatroom;
-                    Program.SwitchForm(this);
+                    if(!Program.openChatForms.Exists(r => r.ChatroomIndex == joinChatEvtData.id)) Program.SwitchForm(this);
                     break;
             }
         }
