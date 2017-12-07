@@ -21,27 +21,18 @@
                   <elementDefinition Id="14e36665-45eb-4306-8b29-dc4bc4231b3a" />
                   <body>All the events in the SentFromClient and SentFromServer packages implement IEvent. This just made it cleaner
 </body>
-                  <annotatedElements>
-                    <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
-                  </annotatedElements>
+                </comment>
+                <comment Id="eb72b436-5666-4788-bd98-eedf4425f1a3">
+                  <elementDefinition Id="6cda52b2-3077-436d-9706-4f4c1257ac3f" />
+                  <body>Server and Client depend on Json library
+</body>
                 </comment>
               </ownedCommentsInternal>
               <elementDefinition Id="25943c1f-9cd9-48cf-a1e9-83b518cf4f9f" />
               <packagedElements>
                 <packageHasNamedElement>
-                  <Interface Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" name="IEvent" isAbstract="false" isLeaf="false">
-                    <elementDefinition Id="676e1a63-9a3a-4c59-8c78-7b541e93319c" />
-                  </Interface>
-                </packageHasNamedElement>
-                <packageHasNamedElement>
                   <package Id="a3c6915e-448d-441e-93a7-9918799665bf" name="SentFromClient">
                     <elementDefinition Id="7abd0da5-6470-459f-87df-52dd7f8465bb" />
-                    <suppliersInternal>
-                      <dependency Id="bdec4498-e4e1-469d-8fa5-d0d10ba4fdf7">
-                        <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
-                        <elementDefinition Id="3a9c6802-f50c-42d5-a172-bb3c7d69fc55" />
-                      </dependency>
-                    </suppliersInternal>
                     <packagedElements>
                       <packageHasNamedElement>
                         <class Id="8c34ae30-082a-452e-8683-c948549bb38c" name="CreateAccountEvent" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -168,12 +159,6 @@
                 <packageHasNamedElement>
                   <package Id="7e4d61ec-31aa-46d0-aa2a-3041642109d1" name="SentFromServer">
                     <elementDefinition Id="d72e3d2a-fd56-494f-8879-4f64e12a0428" />
-                    <suppliersInternal>
-                      <dependency Id="ad1ef365-6e9c-48f1-aaad-877db68363bc">
-                        <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
-                        <elementDefinition Id="e1c5ac09-0153-4607-b5ef-1fd41fe345f5" />
-                      </dependency>
-                    </suppliersInternal>
                     <packagedElements>
                       <packageHasNamedElement>
                         <class Id="9773ee76-8718-45c9-9a77-325706a8aaed" name="AccountCreationEvent" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -302,6 +287,32 @@
                         <type_NamedElement>
                           <referencedTypeMoniker Id="7d28ac79-380d-4cd9-8ff8-34f894b93dd0" LastKnownName="string" />
                         </type_NamedElement>
+                      </property>
+                    </ownedAttributesInternal>
+                  </class>
+                </packageHasNamedElement>
+                <packageHasNamedElement>
+                  <class Id="92081ed1-cd10-44e9-83e8-f14e59da5ef3" name="Event" isAbstract="false" isLeaf="false" isActiveClass="false">
+                    <elementDefinition Id="a7da910c-774c-45bd-96bc-728977003a0b" />
+                    <suppliersInternal>
+                      <dependency Id="6cd80b1c-7aa0-41f8-b2f8-6ec58072b395">
+                        <packageMoniker Id="a3c6915e-448d-441e-93a7-9918799665bf" LastKnownName="SentFromClient" />
+                        <elementDefinition Id="ad7f4168-a7b7-4a5f-8cb9-e405dd1f2599" />
+                      </dependency>
+                      <dependency Id="830d91db-65c2-43b1-82c0-280d5a08293f">
+                        <packageMoniker Id="7e4d61ec-31aa-46d0-aa2a-3041642109d1" LastKnownName="SentFromServer" />
+                        <elementDefinition Id="3ebed707-648d-4905-a85e-0032c3020d10" />
+                      </dependency>
+                    </suppliersInternal>
+                    <ownedAttributesInternal>
+                      <property Id="fb3f82aa-67a8-4273-a40c-10189cdd1e09" name="data" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="63649d4c-b7b4-4fff-8773-445778fb5b52" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="0139a2e4-7dc3-4ec6-acb3-28fde6646019" LastKnownName="Object" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="90b48f4b-5dc4-47ac-9772-b9d17e123291" name="EventType" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="4a41c4b5-a72f-4c58-a8c9-92235363b295" />
                       </property>
                     </ownedAttributesInternal>
                   </class>
@@ -1075,9 +1086,9 @@
                   <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ErrorObserver" />
                   <elementDefinition Id="29a2dd63-335c-48f6-9dae-82a9a95cae2e" />
                 </dependency>
-                <dependency Id="bdda3fbf-0ac8-4d76-9ed4-fabf3617c526">
-                  <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
-                  <elementDefinition Id="abb6a291-2fe2-4cfc-a66d-abd11b830518" />
+                <dependency Id="11e397d4-3bab-400e-92a3-b68d2a774458">
+                  <classMoniker Id="92081ed1-cd10-44e9-83e8-f14e59da5ef3" LastKnownName="Event" />
+                  <elementDefinition Id="462887b5-bdbc-4a53-b6f6-89d4b1973cc8" />
                 </dependency>
               </suppliersInternal>
               <ownedAttributesInternal>
@@ -1189,6 +1200,11 @@
     <packageHasNamedElement>
       <referencedType Id="fb3690cc-8f85-4210-b6e7-b6b7f10e06d4" name="void" isAbstract="false" isLeaf="false" cachedFullName="void">
         <elementDefinition Id="e6a02e2c-602c-4865-b58e-7dcb44428826" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="0139a2e4-7dc3-4ec6-acb3-28fde6646019" name="Object" isAbstract="false" isLeaf="false" cachedFullName="Object">
+        <elementDefinition Id="726a0fba-8124-4844-bdf7-eb498bcb4932" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

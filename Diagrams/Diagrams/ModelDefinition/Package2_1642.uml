@@ -735,6 +735,13 @@
               LastKnownName="IEvent"
               LastKnownLocation="Package_1659.uml" />
           </dependency>
+          <dependency
+            Id="462887b5-bdbc-4a53-b6f6-89d4b1973cc8">
+            <classMoniker
+              Id="a7da910c-774c-45bd-96bc-728977003a0b"
+              LastKnownName="Event"
+              LastKnownLocation="Package_1659.uml" />
+          </dependency>
         </suppliersInternal>
         <ownedAttributesInternal>
           <property

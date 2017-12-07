@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
   dslVersion="1.0.0.0"
   Id="25943c1f-9cd9-48cf-a1e9-83b518cf4f9f"
   name="Events" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -14,6 +14,11 @@
           LastKnownName="IEvent"
           LastKnownLocation="Package_1659.uml" />
       </annotatedElements>
+    </comment>
+    <comment
+      Id="6cda52b2-3077-436d-9706-4f4c1257ac3f">
+      <body>Server and Client depend on Json library
+</body>
     </comment>
   </ownedCommentsInternal>
   <packagedElements>
@@ -118,6 +123,67 @@
           </property>
         </ownedAttributesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a7da910c-774c-45bd-96bc-728977003a0b"
+        name="Event"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="ad7f4168-a7b7-4a5f-8cb9-e405dd1f2599">
+            <packageMoniker
+              Id="7abd0da5-6470-459f-87df-52dd7f8465bb"
+              LastKnownName="SentFromClient"
+              LastKnownLocation="Package_1738.uml" />
+          </dependency>
+          <dependency
+            Id="3ebed707-648d-4905-a85e-0032c3020d10">
+            <packageMoniker
+              Id="d72e3d2a-fd56-494f-8879-4f64e12a0428"
+              LastKnownName="SentFromServer"
+              LastKnownLocation="Package_1741.uml" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="63649d4c-b7b4-4fff-8773-445778fb5b52"
+            name="data"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="726a0fba-8124-4844-bdf7-eb498bcb4932"
+                LastKnownName="Object"
+                LastKnownLocation="Package_1659.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="4a41c4b5-a72f-4c58-a8c9-92235363b295"
+            name="EventType"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="726a0fba-8124-4844-bdf7-eb498bcb4932"
+        name="Object" />
     </packageHasNamedElement>
   </packagedElements>
 </package>
