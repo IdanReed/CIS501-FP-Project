@@ -68,6 +68,7 @@ namespace FP_Team01
             {
                 contactToAdd = uxLbOfflineContacts.SelectedItem.ToString();
             }
+            if (!ShowYesNoDialogBox(contactToAdd)) return;
             SendContactEventData evtData = new SendContactEventData(contactToAdd);
             Event evt = new Event(evtData, EventTypes.RemoveContactEvent);
             SendToServer(evt);
@@ -167,11 +168,11 @@ namespace FP_Team01
         /// Requests a yes no answer from the user
         /// </summary>
         /// <returns></returns>
-        public bool ShowYesNoDialogBox()
+        public bool ShowYesNoDialogBox(string name)
         {
             //Use this for things like "PersonA wants to be a contact. Add them?"
             //or "PersonA wants you to join a chatroom. Join?"
-            DialogResult dialogResult = MessageBox.Show("Do you want to do a thing", "501 Chat", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Do you want to remove '" +name+"' as a contact?" , "501 Chat", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 return true;
@@ -212,7 +213,7 @@ namespace FP_Team01
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         /// <summary>
