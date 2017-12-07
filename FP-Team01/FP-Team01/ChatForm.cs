@@ -65,7 +65,7 @@ namespace FP_Team01
 
             
             //invite contact to current server
-            JoinChatroomEventData evtData = new JoinChatroomEventData(contactName, ChatroomIndex);
+            JoinChatroomEventData evtData = new JoinChatroomEventData(contactName, ChatroomIndex, messageLog);
             Event evt = new Event(evtData, EventTypes.CreateChatEvent);
             SendToServer(evt);
         }
@@ -198,6 +198,10 @@ namespace FP_Team01
         /// <param name="e"></param>
         private void Form_Closing(object sender, FormClosingEventArgs e)
         {
+            LeaveChatroomEventData newMessage = new LeaveChatroomEventData(Program.USERNAME, ChatroomIndex ); 
+            Event newEvent = new Event(newMessage, EventTypes.LeaveChatEvent);
+            Program.networkHandler.SendToServer(newEvent);
+
             Program.clientState = Program.ClientStates.removeChatroom;
             Program.SwitchForm(this);
         }

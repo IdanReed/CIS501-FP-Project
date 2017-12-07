@@ -12,17 +12,23 @@ namespace FP_Core.Extensions
     {
         public static RichTextBox AppendTextFormatted(this RichTextBox box, string message, FontStyle style, Color color)
         {
-            box.SelectionColor = color;
-            box.SelectionFont = new Font(box.Font, style);
-            box.AppendText(message);
+            if (!box.IsDisposed)
+            {
+                box.SelectionColor = color;
+                box.SelectionFont = new Font(box.Font, style);
+                box.AppendText(message);
+            }
 
             return box;
         }
         public static void EndLine(this RichTextBox box)
         {
-            box.AppendText("\n");
-            box.SelectionStart = box.Text.Length;
-            box.ScrollToCaret();
+            if (!box.IsDisposed)
+            {
+                box.AppendText("\n");
+                box.SelectionStart = box.Text.Length;
+                box.ScrollToCaret();
+            }
         }
     }
 }

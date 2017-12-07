@@ -9,9 +9,11 @@ namespace FP_Core.Events
     public class LeaveChatroomEventData
     {
         public string Username;
-        public LeaveChatroomEventData(string name)
+        public int ChatroomID;
+        public LeaveChatroomEventData(string name, int id)
         {
             Username = name;
+            ChatroomID = id;
         }
     }
 }

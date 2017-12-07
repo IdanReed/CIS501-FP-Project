@@ -262,12 +262,13 @@ namespace FP_Server.Controller
                                     string senderUsername = _accounts.Find(a => a.Socket == sender)?.Username;
                                     _JoinExisitingChat(data.id, data.Username);
 
-                                    JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, data.id);
-                                    string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
 
                                     ChatRoom room = _rooms.Find(r => r.RoomID == data.id);
                                     foreach(Account participant in room.Participants)
                                     {
+                                        JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, data.id);
+                                        string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
+                                        if (data.messageLog != null && data.messageLog.Count > 0 && participant.Username == data.Username) response.messageLog = data.messageLog;
                                         participant.Socket.SendToSocket(eventData);
                                     }
                                 }
@@ -304,8 +305,22 @@ namespace FP_Server.Controller
                             break;
                         }
 
+
                     case EventTypes.LeaveChatEvent:
                         {
+                            try
+                            {
+                                LeaveChatroomEventData data = evt.GetData<LeaveChatroomEventData>();
+                                _LeaveChatroom(data.Username, data.ChatroomID);
+
+                                _logger("Client with username '" + data.Username + "' successfully left chatroom '" + data.ChatroomID + "'", LoggerMessageTypes.None);
+                            }
+                            catch(ArgumentException err)
+                            {
+                                ServerResponseEventData response = new ServerResponseEventData(err.Message);
+                                sender.SendToSocket(JsonConvert.SerializeObject(new Event(response, EventTypes.ServerResponse)));
+                                _logger("Client attempted to leave a chatroom and an error was thrown: " + err.Message, LoggerMessageTypes.Error);
+                            }
 
                             break;
                         }
@@ -496,6 +511,23 @@ namespace FP_Server.Controller
             _currentRoomID++;
 
             return chatRoomId;
+        }
+
+        private void _LeaveChatroom(string username, int chatroomID)
+        {
+            Account leavingAccount = _accounts.Find(a => a.Username == username);
+            if (leavingAccount == null) throw new ArgumentException("Cannot find account with username '" + username + "'");
+
+            ChatRoom room = _rooms.Find(r => r.RoomID == chatroomID);
+            if(room == null) throw new ArgumentException("Cannot find a chat room with id '" + chatroomID + "'");
+
+            room.Participants.Remove(leavingAccount);
+
+            if (room.Participants.Count == 0)
+            {
+                _rooms.Remove(room);
+                _logger("A room was removed because all users had left", LoggerMessageTypes.None);
+            }
         }
 
         private void _SendMessageToChatroom(SendMessageEventData data)

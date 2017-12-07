@@ -2,6 +2,7 @@
  *The controller of the program
  * Opens and closes all of the forms
  */
+using FP_Core.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace FP_Team01
         public static List<ChatForm> openChatForms;
         public static List<ClientAccount> allContacts;
         public static int tempChatID;
+        public static Event tempJoinedChatEvent;
         public static bool mainFormOpen;
         //public static string serverIP;
 
@@ -89,11 +91,15 @@ namespace FP_Team01
                     break;
                 case ClientStates.addChatroom:
                     formToOpen = new ChatForm();
-                    openChatForms.Add(formToOpen as ChatForm);
                     ChatForm tempForm = formToOpen as ChatForm;
+                    openChatForms.Add(tempForm);
                     tempForm.ChatroomIndex = tempChatID;
                     
-                    formToClose.Invoke(new Action(tempForm.Show));//NAH BOI DONT DO DIS
+                    formToClose.Invoke(new Action(() => 
+                    {
+                        tempForm.Show();
+                        tempForm.ReceiveFromServer(tempJoinedChatEvent);
+                    }));
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.removeChatroom:

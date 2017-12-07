@@ -34,7 +34,11 @@ namespace FP_Team01
             ws.OnClose += (sender, e) =>
             {
                 failCounter--;
-                if (failCounter <= 0) throw new Exception("Exceeded max number of retries");
+                if (failCounter <= 0)
+                {
+                    BroadcastError("Couldn't connect to server");
+                    return;
+                }
                 Thread.Sleep(1000);
                 ws.Connect();
                 TempConnectTest();
