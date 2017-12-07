@@ -131,12 +131,19 @@ namespace FP_Team01
         /// <param name="messageData"></param>
         public void ReceiveMessage(SendMessageEventData messageData)
         {
-            uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, GetNameColor(messageData.Username))
+            Action a = new Action(() =>
+            {
+                uxtxtChat.AppendTextFormatted(messageData.Username, FontStyle.Bold, GetNameColor(messageData.Username))
                      .AppendTextFormatted(" ", FontStyle.Regular, Color.Black)
                      .AppendTextFormatted(messageData.Time.ToString(), FontStyle.Italic, Color.Black)
                      .AppendTextFormatted(" : ", FontStyle.Regular, Color.Black)
                      .AppendTextFormatted(messageData.Message, FontStyle.Regular, Color.Black)
                      .EndLine();
+            });
+
+            if (InvokeRequired) Invoke(a);
+            else a();
+
         }
 
         /// <summary>
@@ -164,9 +171,9 @@ namespace FP_Team01
         /// <param name="evt"></param>
         public void ReceiveFromServer(Event evt)
         {
-            if (evt.Type.Equals(EventTypes.SendMessageEvent))
+            if (evt.Type == EventTypes.SendMessageEvent)
             {
-                SendMessageEventData rcdMsg = evt.Data as SendMessageEventData;
+                SendMessageEventData rcdMsg = evt.GetData<SendMessageEventData>();
                 ReceiveMessage(rcdMsg);
             }
             else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
