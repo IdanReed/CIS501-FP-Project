@@ -20,6 +20,7 @@ namespace FP_Team01
     {
         public int ChatroomIndex;
         private List<SendMessageEventData> messageLog = new List<SendMessageEventData>();
+        private List<ClientAccount> mutualContacts;
 
         public ChatForm()
         {
