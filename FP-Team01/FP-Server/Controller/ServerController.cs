@@ -478,6 +478,7 @@ namespace FP_Server.Controller
             
             ChatRoom room = _rooms.Find(r => r.RoomID == roomId);
             if (room == null) throw new ArgumentException("Chat room with id '" + roomId + "' does not exist");
+            if (room.Participants.Contains(newParticipant)) throw new ArgumentException("User is already in the chatroom");
 
             bool isValidParticipant = true;
             foreach(Account a in room.Participants)

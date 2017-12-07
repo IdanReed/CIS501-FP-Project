@@ -36,7 +36,7 @@ namespace FP_Team01
         /// <param name="errMessage"></param>
         private void ReceiveErrorMessage(string errMessage)
         {
-            MessageBox.Show(errMessage);
+            //MessageBox.Show(Program.USERNAME + ": " + errMessage);
         }
 
         /// <summary>

@@ -30,7 +30,6 @@
         {
             this.uxTBMessage = new System.Windows.Forms.TextBox();
             this.uxBtnSend = new System.Windows.Forms.Button();
-            this.uxBtnSeeMembers = new System.Windows.Forms.Button();
             this.uxBtnAddContact = new System.Windows.Forms.Button();
             this.uxBtnSignOut = new System.Windows.Forms.Button();
             this.uxtxtChat = new System.Windows.Forms.RichTextBox();
@@ -56,19 +55,9 @@
             this.uxBtnSend.UseVisualStyleBackColor = true;
             this.uxBtnSend.Click += new System.EventHandler(this.BtnSend_Click);
             // 
-            // uxBtnSeeMembers
-            // 
-            this.uxBtnSeeMembers.Location = new System.Drawing.Point(13, 248);
-            this.uxBtnSeeMembers.Name = "uxBtnSeeMembers";
-            this.uxBtnSeeMembers.Size = new System.Drawing.Size(159, 30);
-            this.uxBtnSeeMembers.TabIndex = 4;
-            this.uxBtnSeeMembers.Text = "See Chat Members";
-            this.uxBtnSeeMembers.UseVisualStyleBackColor = true;
-            this.uxBtnSeeMembers.Click += new System.EventHandler(this.BtnSeeMembers_Click);
-            // 
             // uxBtnAddContact
             // 
-            this.uxBtnAddContact.Location = new System.Drawing.Point(13, 284);
+            this.uxBtnAddContact.Location = new System.Drawing.Point(13, 263);
             this.uxBtnAddContact.Name = "uxBtnAddContact";
             this.uxBtnAddContact.Size = new System.Drawing.Size(159, 30);
             this.uxBtnAddContact.TabIndex = 5;
@@ -122,7 +111,6 @@
             this.Controls.Add(this.uxtxtChat);
             this.Controls.Add(this.uxBtnSignOut);
             this.Controls.Add(this.uxBtnAddContact);
-            this.Controls.Add(this.uxBtnSeeMembers);
             this.Controls.Add(this.uxBtnSend);
             this.Controls.Add(this.uxTBMessage);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,7 +127,6 @@
         #endregion
         private System.Windows.Forms.TextBox uxTBMessage;
         private System.Windows.Forms.Button uxBtnSend;
-        private System.Windows.Forms.Button uxBtnSeeMembers;
         private System.Windows.Forms.Button uxBtnAddContact;
         private System.Windows.Forms.Button uxBtnSignOut;
         private System.Windows.Forms.RichTextBox uxtxtChat;
