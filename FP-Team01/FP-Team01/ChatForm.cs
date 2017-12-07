@@ -178,7 +178,11 @@ namespace FP_Team01
             }
             else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
             {
-
+                JoinChatroomEventData rcdMsg = evt.GetData<JoinChatroomEventData>();
+                foreach(SendMessageEventData msgData in rcdMsg.messageLog)
+                {
+                    ReceiveMessage(msgData);
+                }
             }
         }
 
