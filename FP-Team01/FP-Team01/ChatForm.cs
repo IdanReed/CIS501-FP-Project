@@ -169,6 +169,10 @@ namespace FP_Team01
                 SendMessageEventData rcdMsg = evt.Data as SendMessageEventData;
                 ReceiveMessage(rcdMsg);
             }
+            else if(evt.Type.Equals(EventTypes.JoinedChatEvent))
+            {
+
+            }
         }
 
         /// <summary>
