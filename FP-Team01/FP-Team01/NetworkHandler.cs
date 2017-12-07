@@ -27,11 +27,14 @@ namespace FP_Team01
         public NetworkHandler(string IP)
         {
             //eObs = Broadcast;
+            int failCounter = 5;
             string toPass = "ws://" + IP + ":8001/chatApp";
             ws = new WebSocket(toPass);
             ws.OnMessage += ReceiveFromServer;
             ws.OnClose += (sender, e) =>
             {
+                failCounter--;
+                if (failCounter <= 0) throw new Exception("Exceeded max number of retries");
                 Thread.Sleep(1000);
                 ws.Connect();
                 TempConnectTest();

@@ -46,7 +46,16 @@ namespace FP_Team01
             Username = uxTBUsername.Text;
             Password = uxTBPassword.Text;
             IP = uxTxtIp.Text;
-            Program.CreateNetwork(IP);
+
+            try
+            {
+                Program.CreateNetwork(IP);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             CreateAccountEventData createEvent = new FP_Core.Events.CreateAccountEventData(Username, Password);
             Event toSend = new Event(createEvent, EventTypes.CreateAccountEvent);
             Program.networkHandler.SendToServer(toSend);
@@ -62,7 +71,16 @@ namespace FP_Team01
             Username = uxTBUsername.Text;
             Password = uxTBPassword.Text;
             IP = uxTxtIp.Text;
-            Program.CreateNetwork(IP);
+            try
+            {
+                Program.CreateNetwork(IP);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+           
             FP_Core.Events.LoginEventData loginEvent = new FP_Core.Events.LoginEventData(Username, Password);
             Event toSend = new Event(loginEvent, EventTypes.LoginEvent);
             Program.networkHandler.SendToServer(toSend);
