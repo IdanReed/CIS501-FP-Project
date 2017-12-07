@@ -10,11 +10,18 @@ namespace FP_Core.Events
     {
         public string Username;
         public int id;
+        public List<SendMessageEventData> messageLog;
 
         public JoinChatroomEventData(string name, int chatroomID)
         {
             Username = name;
             id = chatroomID;
+        }
+        public JoinChatroomEventData(string name, int chatroomID, List<SendMessageEventData> msgLog)
+        {
+            Username = name;
+            id = chatroomID;
+            messageLog = msgLog;
         }
     }
 }
