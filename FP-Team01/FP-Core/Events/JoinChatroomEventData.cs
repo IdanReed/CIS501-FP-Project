@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace FP_Core.Events
         public int id;
         public List<SendMessageEventData> messageLog;
 
+        [JsonConstructor]
+        private JoinChatroomEventData() { }
         public JoinChatroomEventData(string name, int chatroomID)
         {
             Username = name;
