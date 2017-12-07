@@ -57,9 +57,9 @@
             // 
             // uxBtnAddContact
             // 
-            this.uxBtnAddContact.Location = new System.Drawing.Point(13, 263);
+            this.uxBtnAddContact.Location = new System.Drawing.Point(13, 248);
             this.uxBtnAddContact.Name = "uxBtnAddContact";
-            this.uxBtnAddContact.Size = new System.Drawing.Size(159, 30);
+            this.uxBtnAddContact.Size = new System.Drawing.Size(159, 56);
             this.uxBtnAddContact.TabIndex = 5;
             this.uxBtnAddContact.Text = "Invite Contact";
             this.uxBtnAddContact.UseVisualStyleBackColor = true;
@@ -67,9 +67,9 @@
             // 
             // uxBtnSignOut
             // 
-            this.uxBtnSignOut.Location = new System.Drawing.Point(13, 320);
+            this.uxBtnSignOut.Location = new System.Drawing.Point(13, 310);
             this.uxBtnSignOut.Name = "uxBtnSignOut";
-            this.uxBtnSignOut.Size = new System.Drawing.Size(159, 30);
+            this.uxBtnSignOut.Size = new System.Drawing.Size(159, 56);
             this.uxBtnSignOut.TabIndex = 6;
             this.uxBtnSignOut.Text = "Leave Chatroom";
             this.uxBtnSignOut.UseVisualStyleBackColor = true;
