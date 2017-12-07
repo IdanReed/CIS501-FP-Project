@@ -264,9 +264,17 @@ namespace FP_Server.Controller
 
 
                                     ChatRoom room = _rooms.Find(r => r.RoomID == data.id);
+                                    List<string> mutualContacts = new List<string>(room.Participants[0].Contacts.Select(a=> a.Username));
+
+                                    for(int i =1; i<room.Participants.Count; i++)
+                                    {
+                                        mutualContacts = mutualContacts.Intersect(room.Participants[i].Contacts.Select(a => a.Username)).ToList();
+                                    }
+
                                     foreach(Account participant in room.Participants)
                                     {
                                         JoinChatroomEventData response = new JoinChatroomEventData(senderUsername, data.id);
+                                        response.mutualContacts = mutualContacts;
                                         if (data.messageLog != null && data.messageLog.Count > 0 && participant.Username == data.Username) response.messageLog = data.messageLog;
                                         string eventData = JsonConvert.SerializeObject(new Event(response, EventTypes.JoinedChatEvent));
                                         participant.Socket.SendToSocket(eventData);
@@ -394,6 +402,13 @@ namespace FP_Server.Controller
             {
                 if (contact.IsOnline && contact.Socket != null) {
                     contact.Socket.SendToSocket(eventString);
+                }
+            }
+            foreach (ChatRoom r in _rooms)
+            {
+                if (r.Participants.Contains(acct))
+                {
+                    r.Participants.Remove(acct);
                 }
             }
             
