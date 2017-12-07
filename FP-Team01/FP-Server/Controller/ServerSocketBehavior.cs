@@ -32,7 +32,8 @@ namespace FP_Server.Controller
 
         public void SendToSocket(string data)
         {
-            Sessions.SendTo(ID, data);
+            Send(data);
+            //Sessions.SendTo(ID, data);
         }
     }
 }

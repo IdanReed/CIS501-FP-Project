@@ -92,7 +92,8 @@ namespace FP_Team01
                     openChatForms.Add(formToOpen as ChatForm);
                     ChatForm tempForm = formToOpen as ChatForm;
                     tempForm.ChatroomIndex = tempChatID;
-                    tempForm.ShowDialog();
+                    
+                    formToClose.Invoke(new Action(tempForm.Show));//NAH BOI DONT DO DIS
                     clientState = ClientStates.Idle;
                     break;
                 case ClientStates.removeChatroom:
