@@ -176,6 +176,7 @@ namespace FP_Team01
             if (evt.Type == EventTypes.SendMessageEvent)
             {
                 SendMessageEventData rcdMsg = evt.GetData<SendMessageEventData>();
+                if (rcdMsg.ChatRoomIndex != ChatroomIndex) return;
                 ReceiveMessage(rcdMsg);
                 messageLog.Add(rcdMsg);
             }
@@ -185,6 +186,7 @@ namespace FP_Team01
                 if (rcdMsg.messageLog == null) return;
                 foreach(SendMessageEventData msgData in rcdMsg.messageLog)
                 {
+                    if (msgData.ChatRoomIndex != ChatroomIndex) return;
                     ReceiveMessage(msgData);
                     messageLog.Add(msgData);
                 }
