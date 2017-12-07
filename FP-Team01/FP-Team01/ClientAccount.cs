@@ -7,7 +7,7 @@ using FP_Core;
 
 namespace FP_Team01
 {
-    class ClientAccount : IAccount
+    public class ClientAccount : IAccount
     {
         private List<IAccount> _contacts;
         private string _username;
