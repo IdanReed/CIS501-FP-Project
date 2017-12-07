@@ -408,11 +408,11 @@ namespace FP_Server.Controller
                     contact.Socket.SendToSocket(eventString);
                 }
             }
-            foreach (ChatRoom r in _rooms)
+            for(int i = 0; i<_rooms.Count; i++)
             {
-                if (r.Participants.Contains(acct))
+                if (_rooms[i].Participants.Contains(acct))
                 {
-                    _LeaveChatroom(acct.Username, r.RoomID);
+                    _LeaveChatroom(acct.Username, _rooms[i].RoomID);
                 }
             }
             

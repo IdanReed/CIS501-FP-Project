@@ -192,6 +192,8 @@ namespace FP_Team01
                     ClientAccount addingAccount = Program.allContacts.Find(a => a.Username == c.Item2);
                     mutualContacts.Add(addingAccount);
                 }
+                if (InvokeRequired) Invoke(new Action(UpdateContactLB));
+                else UpdateContactLB();
                 if (rcdMsg.messageLog == null) return;
                 foreach(SendMessageEventData msgData in rcdMsg.messageLog)
                 {
