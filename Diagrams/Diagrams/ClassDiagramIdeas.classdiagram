@@ -807,7 +807,7 @@
                   <elementDefinition Id="6e1f9507-ae3f-4be0-a850-cde2a39f19cf" />
                 </association>
                 <association Id="574d8361-31bf-4a0f-bed8-3800a593d539" isDerived="false" sourceEndRoleName="ClientController" targetEndRoleName="Observer" isLeaf="false" isAbstract="false">
-                  <interfaceMoniker Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" LastKnownName="Observer" />
+                  <interfaceMoniker Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" LastKnownName="MessageObserver" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
                       <memberEnd Id="8bc68ba2-6984-4244-8f22-48953ed41364" name="ClientController" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
@@ -823,7 +823,7 @@
                   <elementDefinition Id="8d80ee87-c9ba-4e5a-93c6-3ebfde7c08b4" />
                 </association>
                 <association Id="f14a9234-9fe9-4ecf-a252-4790d43c0620" isDerived="false" sourceEndRoleName="ClientController" targetEndRoleName="ChatObserver" isLeaf="false" isAbstract="false">
-                  <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ChatObserver" />
+                  <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ErrorObserver" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
                       <memberEnd Id="8cb59f83-c069-4fc7-bf84-b343144af1df" name="ClientController" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
@@ -863,6 +863,22 @@
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="2b24cd6b-02b3-4548-b691-39bc37496517" />
+                </association>
+                <association Id="e3c7123b-d2ee-4e52-b6b6-60523f3e7fab" isDerived="false" sourceEndRoleName="ClientController" targetEndRoleName="NetworkHandler" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="afc46c0e-ad34-4c93-b107-ac47e953e86a" LastKnownName="NetworkHandler" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="0a6259d9-b7fc-4966-8d85-86cb01252815" name="ClientController" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="94a9cd7d-3d01-4767-9568-a610eab62dcb" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="1fb7f7df-29d0-47a7-b665-75aaa37971b1" name="NetworkHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="1c82062e-cd4c-4a87-a6d1-cf88a30d8bbf" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="c5d5ffcc-47d8-404a-b2b4-01184330559f" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -929,15 +945,15 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <Interface Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" name="Observer" isAbstract="false" isLeaf="false">
+            <Interface Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" name="MessageObserver" isAbstract="false" isLeaf="false">
               <elementDefinition Id="1d9ce407-cfdd-475b-bb82-9e8c22acb636" />
               <ownedOperations>
-                <operation Id="5b0b8853-afb6-4b2b-980a-9a1ef729222c" name="Update" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                <operation Id="5b0b8853-afb6-4b2b-980a-9a1ef729222c" name="SendMessage" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="929c15cb-155c-4136-b6c5-ac03808816dc" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="9bc388f1-3574-4aa8-970e-496c24d8409c" name="IEvent" direction="In" isUnique="false">
-                        <elementDefinition Id="bd2019b5-a047-4ac3-a570-aee3f592c0a3" />
+                      <parameter Id="6e924f0b-a559-4904-8d57-5ab68b6cdc02" name="Event" direction="In" isUnique="false">
+                        <elementDefinition Id="e3acff98-96e2-4a22-9c9e-23457dc0d654" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -950,7 +966,7 @@
               <elementDefinition Id="e23f89f0-a3bd-44ea-ad60-846e2b7f12cb" />
               <suppliersInternal>
                 <interfaceRealization Id="4c471cf0-ee18-4029-b0eb-21e5a66e316e">
-                  <interfaceMoniker Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" LastKnownName="Observer" />
+                  <interfaceMoniker Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" LastKnownName="MessageObserver" />
                   <elementDefinition Id="3166c912-a076-4856-8171-25fbca898021" />
                 </interfaceRealization>
               </suppliersInternal>
@@ -963,7 +979,7 @@
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
-                <operation Id="b6d5dcbf-b68e-42b7-aa2e-93802e6319f6" name="Update" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="b6d5dcbf-b68e-42b7-aa2e-93802e6319f6" name="SendMessage" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="9c38f5ef-f374-4d19-acf2-2a4333716d05" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
@@ -977,15 +993,15 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <Interface Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" name="ChatObserver" isAbstract="false" isLeaf="false">
+            <Interface Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" name="ErrorObserver" isAbstract="false" isLeaf="false">
               <elementDefinition Id="cf83b9f2-cfdd-446f-8ea0-532551c6e66d" />
               <ownedOperations>
-                <operation Id="5c1b7580-6160-4c42-a4c0-f1b2adad61a9" name="UpdateChat" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                <operation Id="5c1b7580-6160-4c42-a4c0-f1b2adad61a9" name="SendError" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="565b6760-dbdb-4040-855c-c47f50ab8bd7" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="38718ef1-75c7-48a1-9241-beacb2b4d09b" name="IEvent" direction="In" isUnique="false">
-                        <elementDefinition Id="74469975-ae97-42a2-a5e4-ddb7c0cf95af" />
+                      <parameter Id="ffa3d32e-2e8a-4a31-b258-757fb74eca18" name="string" direction="In" isUnique="false">
+                        <elementDefinition Id="07955e9e-6b2e-4b04-b469-9f382b4a1cbd" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -998,12 +1014,12 @@
               <elementDefinition Id="9982e9b0-0876-4c0f-bf10-83f0c8d69381" />
               <suppliersInternal>
                 <interfaceRealization Id="a298cbfa-f753-4509-86bb-4b21e03a40ce">
-                  <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ChatObserver" />
+                  <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ErrorObserver" />
                   <elementDefinition Id="d497445f-3bb7-4b0e-8fca-fedd38626715" />
                 </interfaceRealization>
               </suppliersInternal>
               <ownedOperationsInternal>
-                <operation Id="8d8a309c-d31a-49db-a48b-958bb3f4f94e" name="UpdateChat" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="8d8a309c-d31a-49db-a48b-958bb3f4f94e" name="SendError" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="eb2f98cf-b945-49fc-9844-c766abf3151b" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
@@ -1032,8 +1048,80 @@
                 <enumerationLiteral Id="2527baa4-9e96-4d6c-acbf-3c459e3542ff" name="CreateAccount">
                   <elementDefinition Id="1187e68a-1f7d-4b94-b5c8-5f9d9cdce41f" />
                 </enumerationLiteral>
+                <enumerationLiteral Id="e715aea1-0474-4903-9401-118604aaeeb2" name="exitProgram">
+                  <elementDefinition Id="5e072ce8-377f-472b-ab94-21729c16ede8" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="692267b0-d958-4b0d-8a7e-9e6a8f73773e" name="addChatroom">
+                  <elementDefinition Id="18e32afe-155f-449f-9140-d7f127fb3e1e" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="8cf9d79a-45d2-4b00-b718-103dda6a368d" name="removeChatroom">
+                  <elementDefinition Id="ddaa937c-2ec1-4900-a2ba-9ad2d93f3ecb" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="34c5656c-068d-4370-8319-561c00411b6b" name="openMainMenu">
+                  <elementDefinition Id="f8b8026c-71d0-4bda-9c5f-8375cab46e0f" />
+                </enumerationLiteral>
               </ownedLiterals>
             </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="afc46c0e-ad34-4c93-b107-ac47e953e86a" name="NetworkHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="166494f0-120b-47ce-bd9d-f8ca94930542" />
+              <suppliersInternal>
+                <dependency Id="cd7abb49-1697-497d-a298-6567276c4464">
+                  <interfaceMoniker Id="584ba49e-97c7-4a1b-a7c4-ad69d16a1386" LastKnownName="MessageObserver" />
+                  <elementDefinition Id="2bf4f989-7795-4c3b-83e8-75e6b1b41a3a" />
+                </dependency>
+                <dependency Id="3bb5bf48-f96c-42fb-8216-92aec6b9438e">
+                  <interfaceMoniker Id="97b80b94-4b3b-4a99-a9a2-de41d3f865ad" LastKnownName="ErrorObserver" />
+                  <elementDefinition Id="29a2dd63-335c-48f6-9dae-82a9a95cae2e" />
+                </dependency>
+                <dependency Id="bdda3fbf-0ac8-4d76-9ed4-fabf3617c526">
+                  <interfaceMoniker Id="ee996fb2-511b-4a5b-a3ac-bf45ef5b3f52" LastKnownName="IEvent" />
+                  <elementDefinition Id="abb6a291-2fe2-4cfc-a66d-abd11b830518" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributesInternal>
+                <property Id="14260c90-110c-466e-af46-2ae7396dc80b" name="ws" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dd85e5fd-b179-4c4f-912f-69fadc650023" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b3c5f4f3-0b5e-438b-8256-8d3047bbcf6a" LastKnownName="WebSocket" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
+              <ownedOperationsInternal>
+                <operation Id="283d849c-5136-4da5-8731-83b07f324863" name="SendToServer" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="c6ae41f0-0333-40a2-8234-a873c7cd6e40" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="b49c9e5b-8474-4d6c-bd23-a37c31231d32" name="Event" direction="In" isUnique="false">
+                        <elementDefinition Id="e3a5e1aa-4881-44ce-9c21-dfa6dd2f1e93" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="820a7492-4e3d-4920-bdaf-93dc55849abc" direction="Return" isUnique="false">
+                        <elementDefinition Id="bdcc4946-45cd-4de0-a0f5-1633155cf40c" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="8b8348ee-4f64-4ac6-a909-6b8161c868ba" LastKnownName="bool" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="ecae9a42-43fb-4051-be39-770e8d1e3050" name="ReceiveFromServer" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="1e772839-a08f-4618-ae78-23c2aa3ed944" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="2377c1ae-f285-4551-87cd-ffd4ef7fe9d1" direction="Return" isUnique="false">
+                        <elementDefinition Id="02638191-b269-402e-a4c9-e192ac6ee1c2" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="fb3690cc-8f85-4210-b6e7-b6b7f10e06d4" LastKnownName="void" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
           </packageHasNamedElement>
         </packagedElements>
       </package>
@@ -1091,6 +1179,16 @@
     <packageHasNamedElement>
       <referencedType Id="76f15f64-d4a6-4ea7-9e0f-5f131d6bd6c6" name="ClientController" isAbstract="false" isLeaf="false" cachedFullName="Diagrams::Client::ClientController">
         <elementDefinition Id="a889399b-aa25-4a24-96c1-987095aa2d7d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b3c5f4f3-0b5e-438b-8256-8d3047bbcf6a" name="WebSocket" isAbstract="false" isLeaf="false" cachedFullName="WebSocket">
+        <elementDefinition Id="e19e45ac-9db0-49b5-95da-3636b963afd3" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fb3690cc-8f85-4210-b6e7-b6b7f10e06d4" name="void" isAbstract="false" isLeaf="false" cachedFullName="void">
+        <elementDefinition Id="e6a02e2c-602c-4865-b58e-7dcb44428826" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
